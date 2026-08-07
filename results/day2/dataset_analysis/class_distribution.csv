@@ -1,0 +1,11 @@
+split,class_id,class_name,count,percentage
+train,0,pedestrian,79337,29.607777
+train,1,car,144866,54.062547
+train,2,van,24956,9.31333
+train,3,truck,12875,4.804822
+train,4,bus,5926,2.211524
+val,0,pedestrian,8844,34.167826
+val,1,car,14064,54.334724
+val,2,van,1975,7.630196
+val,3,truck,750,2.897543
+val,4,bus,251,0.969711

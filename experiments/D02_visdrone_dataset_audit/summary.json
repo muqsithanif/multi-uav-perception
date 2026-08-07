@@ -1,0 +1,68 @@
+{
+  "experiment_id": "D02_visdrone_dataset_audit",
+  "recorded_at_utc": "2026-08-07T09:32:43.1458909Z",
+  "source_revision": "1ee45f14c62267927aeb6a13be16ad14665024f7",
+  "status": "passed_with_sanitization",
+  "test_attempts": [
+    {
+      "status": "failed",
+      "passed": 16,
+      "failed": 1,
+      "duration_seconds": 7.04,
+      "cause": "incorrect expected SHA-256 constant in the new synthetic test fixture"
+    },
+    {
+      "status": "passed",
+      "passed": 17,
+      "failed": 0,
+      "duration_seconds": 3.79
+    }
+  ],
+  "distribution": {
+    "train_total_objects": 267960,
+    "val_total_objects": 25884,
+    "train_counts": {
+      "pedestrian": 79337,
+      "car": 144866,
+      "van": 24956,
+      "truck": 12875,
+      "bus": 5926
+    },
+    "val_counts": {
+      "pedestrian": 8844,
+      "car": 14064,
+      "van": 1975,
+      "truck": 750,
+      "bus": 251
+    },
+    "dominant_class": "car",
+    "minority_class": "bus",
+    "train_max_to_min_count_ratio": 24.445832,
+    "val_max_to_min_count_ratio": 56.031873,
+    "largest_absolute_share_shift": {
+      "class_name": "pedestrian",
+      "val_minus_train_percentage_points": 4.560049
+    }
+  },
+  "visual_audit": {
+    "status": "passed",
+    "rendered_sample_count": 6,
+    "all_project_classes_covered": true,
+    "manifest_sha256": "f9158e720ec6a2073d09cb6a9d3d36fcfa53179e9dc8464751a43dca62ba33b3"
+  },
+  "artifacts": {
+    "distribution_summary": {
+      "path": "results/day2/dataset_analysis/class_distribution.json",
+      "sha256": "559e124b0efeea594fa74634b51e5fcf6c71c90c6df474c4f5e5b0d3f06001c8"
+    },
+    "distribution_csv": {
+      "path": "results/day2/dataset_analysis/class_distribution.csv",
+      "sha256": "e129f63b80cedd15b6cdb5663597850d0049cbc880e23dfa57d77dc3e7a2572e"
+    },
+    "distribution_plot": {
+      "path": "results/day2/dataset_analysis/class_distribution.png",
+      "sha256": "d14f0b8632ae3f598e4d84c724317f10d26b8843128fe0cb67b77397482411e1"
+    },
+    "visual_audit_summary": "results/day2/visual_audit/summary.json"
+  }
+}

@@ -2,8 +2,9 @@
 
 A portfolio-grade ROS 2 software and 2D simulation prototype that detects and tracks people/vehicles in aerial imagery, prioritizes targets, assigns them to three virtual UAVs, and produces high-level mission states.
 
-> Status: Gate 1 foundation and Gate 2A VisDrone data validation verified on
-> 2026-08-07. Gate 2 training and later project gates have not been completed.
+> Status: Gate 1 foundation and the Day 2 VisDrone data-validation checkpoint
+> were verified on 2026-08-07. Gate 2A and later project gates have not been
+> completed.
 
 ## Verified Day 1 foundation
 
@@ -45,6 +46,7 @@ visual inspection. This proves the data conversion path, not detector accuracy.
 - [VisDrone source, mapping, and conversion policy](docs/VISDRONE_DATA.md)
 - [Validation summary](experiments/D01_visdrone_validation/summary.json)
 - [Visual audit summary](results/day2/visual_audit/summary.json)
+- [Class-distribution analysis](results/day2/dataset_analysis/class_distribution.json)
 
 ## Project goals
 

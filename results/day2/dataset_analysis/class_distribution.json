@@ -1,0 +1,149 @@
+{
+  "artifacts": {
+    "csv": {
+      "path": "results/day2/dataset_analysis/class_distribution.csv",
+      "sha256": "e129f63b80cedd15b6cdb5663597850d0049cbc880e23dfa57d77dc3e7a2572e"
+    },
+    "plot": {
+      "path": "results/day2/dataset_analysis/class_distribution.png",
+      "sha256": "d14f0b8632ae3f598e4d84c724317f10d26b8843128fe0cb67b77397482411e1"
+    }
+  },
+  "created_at_utc": "2026-08-07T09:32:15.649670+00:00",
+  "cross_split_share_shift": [
+    {
+      "class_id": 0,
+      "class_name": "pedestrian",
+      "val_minus_train_percentage_points": 4.560049
+    },
+    {
+      "class_id": 1,
+      "class_name": "car",
+      "val_minus_train_percentage_points": 0.272177
+    },
+    {
+      "class_id": 2,
+      "class_name": "van",
+      "val_minus_train_percentage_points": -1.683134
+    },
+    {
+      "class_id": 3,
+      "class_name": "truck",
+      "val_minus_train_percentage_points": -1.907279
+    },
+    {
+      "class_id": 4,
+      "class_name": "bus",
+      "val_minus_train_percentage_points": -1.241813
+    }
+  ],
+  "dataset": "VisDrone2019-DET",
+  "largest_absolute_share_shift": {
+    "class_id": 0,
+    "class_name": "pedestrian",
+    "val_minus_train_percentage_points": 4.560049
+  },
+  "project_class_names": [
+    "pedestrian",
+    "car",
+    "van",
+    "truck",
+    "bus"
+  ],
+  "schema_version": 1,
+  "source_report": "experiments/D01_visdrone_validation/summary.json",
+  "source_revision": "0725378e538a1609d2ad873d9d52e5033ea99fc0",
+  "splits": {
+    "train": {
+      "classes": [
+        {
+          "class_id": 0,
+          "class_name": "pedestrian",
+          "count": 79337,
+          "percentage": 29.607777,
+          "split": "train"
+        },
+        {
+          "class_id": 1,
+          "class_name": "car",
+          "count": 144866,
+          "percentage": 54.062547,
+          "split": "train"
+        },
+        {
+          "class_id": 2,
+          "class_name": "van",
+          "count": 24956,
+          "percentage": 9.31333,
+          "split": "train"
+        },
+        {
+          "class_id": 3,
+          "class_name": "truck",
+          "count": 12875,
+          "percentage": 4.804822,
+          "split": "train"
+        },
+        {
+          "class_id": 4,
+          "class_name": "bus",
+          "count": 5926,
+          "percentage": 2.211524,
+          "split": "train"
+        }
+      ],
+      "dominant_class": "car",
+      "dominant_class_id": 1,
+      "max_to_min_count_ratio": 24.445832,
+      "minority_class": "bus",
+      "minority_class_id": 4,
+      "total_objects": 267960
+    },
+    "val": {
+      "classes": [
+        {
+          "class_id": 0,
+          "class_name": "pedestrian",
+          "count": 8844,
+          "percentage": 34.167826,
+          "split": "val"
+        },
+        {
+          "class_id": 1,
+          "class_name": "car",
+          "count": 14064,
+          "percentage": 54.334724,
+          "split": "val"
+        },
+        {
+          "class_id": 2,
+          "class_name": "van",
+          "count": 1975,
+          "percentage": 7.630196,
+          "split": "val"
+        },
+        {
+          "class_id": 3,
+          "class_name": "truck",
+          "count": 750,
+          "percentage": 2.897543,
+          "split": "val"
+        },
+        {
+          "class_id": 4,
+          "class_name": "bus",
+          "count": 251,
+          "percentage": 0.969711,
+          "split": "val"
+        }
+      ],
+      "dominant_class": "car",
+      "dominant_class_id": 1,
+      "max_to_min_count_ratio": 56.031873,
+      "minority_class": "bus",
+      "minority_class_id": 4,
+      "total_objects": 25884
+    }
+  },
+  "status": "passed"
+}

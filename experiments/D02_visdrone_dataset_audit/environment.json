@@ -1,0 +1,8 @@
+{
+  "recorded_at_utc": "2026-08-07T09:32:43.1458909Z",
+  "source_revision": "1ee45f14c62267927aeb6a13be16ad14665024f7",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "matplotlib": "3.11.1",
+  "pytest": "9.1.1"
+}

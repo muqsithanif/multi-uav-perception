@@ -62,9 +62,10 @@ tes fixture D00, lalu konversi aktual dengan urutan berikut:
 
 ```bash
 .venv/bin/python scripts/prepare_visdrone.py --check-config
-.venv/bin/python -m pytest -q tests/test_visdrone_dataset.py tests/test_visdrone_audit.py
+.venv/bin/python -m pytest -q tests/test_visdrone_dataset.py tests/test_visdrone_audit.py tests/test_visdrone_distribution.py
 .venv/bin/python scripts/prepare_visdrone.py
 .venv/bin/python scripts/render_visdrone_audit.py --split val --samples 6
+.venv/bin/python scripts/analyze_visdrone_distribution.py
 ```
 
 Hasil lokal yang diabaikan Git menggunakan layout berikut:
@@ -102,6 +103,10 @@ seluruh kelas proyek, lalu pemerataan berdasarkan nama file. Overlay dan
 manifest checksum ditulis ke `results/day2/visual_audit/`. Status awal manifest
 adalah `rendered_pending_manual_visual_review`; status gate hanya boleh diubah
 setelah artefak benar-benar diperiksa secara visual.
+
+Analisis distribusi membaca laporan validasi yang sama dan menulis JSON, CSV,
+plot, serta checksum artefak ke `results/day2/dataset_analysis/`. Angka pada
+laporan Day 2 berasal dari output ini, bukan estimasi.
 
 ## Format anotasi resmi
 

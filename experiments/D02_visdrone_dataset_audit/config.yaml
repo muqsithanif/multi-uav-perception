@@ -1,0 +1,9 @@
+experiment_id: D02_visdrone_dataset_audit
+dataset: VisDrone2019-DET
+validation_source: experiments/D01_visdrone_validation/summary.json
+distribution_output: results/day2/dataset_analysis
+visual_audit:
+  split: val
+  requested_samples: 6
+  selection_policy: greedy_class_coverage_then_even_filename_sampling
+  output: results/day2/visual_audit

@@ -6,16 +6,17 @@ Tanggal pembaruan: 7 Agustus 2026 (Asia/Jakarta)
 
 Membangun jalur data VisDrone2019-DET yang resmi, dapat direproduksi, dan aman
 untuk training YOLO lima kelas. Milestone ini mencakup unduhan, checksum,
-konversi, validasi programatik, sanitasi cacat sumber yang terukur, dan visual
-audit.
+konversi, validasi programatik, sanitasi cacat sumber yang terukur, analisis
+distribusi kelas, dan audit visual.
 
 ## Status
 
-**Gate 2A data: LULUS DENGAN SANITASI (`passed_with_sanitization`).**
+**Checkpoint data Day 2: LULUS DENGAN SANITASI
+(`passed_with_sanitization`).**
 
-**Gate 2 keseluruhan: BELUM LOLOS.** Baseline E00 dan fine-tuning nano belum
-dijalankan, sehingga belum ada metrik deteksi, log training, atau checkpoint
-fine-tuned yang diklaim.
+**Gate 2A keseluruhan: BELUM LOLOS.** Baseline E00, smoke training, penyimpanan
+checkpoint persisten, dan resume training belum dibuktikan. Full fine-tuning
+tidak dijalankan.
 
 ## 2. Files dan konfigurasi
 
@@ -28,8 +29,10 @@ fine-tuned yang diklaim.
 - `scripts/prepare_visdrone.py` menghasilkan manifest dan laporan validasi.
 - `scripts/render_visdrone_audit.py` memilih dan merender sampel validation
   secara deterministik.
-- `tests/test_visdrone_dataset.py` dan `tests/test_visdrone_audit.py` mencakup
-  parser, konversi, sanitasi, validator, pemilihan sampel, dan rendering.
+- `scripts/analyze_visdrone_distribution.py` menghasilkan ringkasan JSON/CSV
+  dan plot distribusi kelas.
+- Tiga modul test mencakup parser, konversi, sanitasi, validator, pemilihan
+  sampel, rendering, perhitungan distribusi, dan checksum artefak.
 
 Kebijakan sanitasi bbox dan trailing comma dikomit pada `0725378`
 (`fix: sanitize measured VisDrone annotation defects`).
@@ -55,12 +58,16 @@ Perintah yang lulus:
 
 ```text
 .venv/bin/python scripts/prepare_visdrone.py --check-config
-.venv/bin/python -m pytest -q tests/test_visdrone_dataset.py tests/test_visdrone_audit.py
+.venv/bin/python -m pytest -q tests/test_visdrone_dataset.py tests/test_visdrone_audit.py tests/test_visdrone_distribution.py
 .venv/bin/python scripts/prepare_visdrone.py
 .venv/bin/python scripts/render_visdrone_audit.py --split val --samples 6
+.venv/bin/python scripts/analyze_visdrone_distribution.py
 ```
 
-Hasil unit test: **15 passed, 0 failed** dalam 4,15 detik.
+Hasil akhir unit test: **17 passed, 0 failed** dalam 3,79 detik. Percobaan
+sebelumnya menghasilkan 16 passed dan 1 failed karena konstanta SHA-256 pada
+fixture test baru salah; konstanta dikoreksi ke digest fixture yang aktual dan
+seluruh suite kemudian lulus.
 
 | Split | Input image/label | Anotasi sumber | Output object | Output image/label |
 |---|---:|---:|---:|---:|
@@ -73,6 +80,12 @@ Distribusi object lima kelas setelah konversi:
 |---|---:|---:|---:|---:|---:|
 | train | 79.337 | 144.866 | 24.956 | 12.875 | 5.926 |
 | val | 8.844 | 14.064 | 1.975 | 750 | 251 |
+
+Kelas dominan pada kedua split adalah `car` (54,062547% train dan 54,334724%
+val), sedangkan kelas minoritas adalah `bus` (2,211524% train dan 0,969711%
+val). Rasio jumlah kelas terbesar terhadap terkecil adalah 24,445832 pada
+train dan 56,031873 pada val. Pergeseran proporsi terbesar terjadi pada
+`pedestrian`: +4,560049 poin persentase pada val terhadap train.
 
 Validator output menemukan **0 bbox invalid**, **0 overlap nama file antar
 split**, dan jumlah object hasil parsing ulang sama dengan jumlah hasil
@@ -107,6 +120,10 @@ Status visual audit: **passed**.
 - `data/metadata/visdrone2019_det_download_manifest.json`
 - `data/metadata/visdrone5_manifest.json`
 - `experiments/D01_visdrone_validation/summary.json`
+- `experiments/D02_visdrone_dataset_audit/summary.json`
+- `results/day2/dataset_analysis/class_distribution.json`
+- `results/day2/dataset_analysis/class_distribution.csv`
+- `results/day2/dataset_analysis/class_distribution.png`
 - `results/day2/visual_audit/summary.json`
 - enam overlay di `results/day2/visual_audit/`
 
@@ -120,13 +137,7 @@ dan sampel visual audit berukuran terbatas dapat disimpan sebagai bukti.
 - Visual audit enam image adalah pemeriksaan sampel, bukan audit manual seluruh
   7.019 image. Scene padat menyebabkan teks overlay bertumpuk dan beberapa
   anotasi jauh/teroklusi tetap ambigu.
-- Gate 2 belum selesai karena baseline E00, smoke training, checkpoint
-  fine-tuned, log, dan kurva training belum ada.
+- Gate 2A belum selesai karena baseline E00, smoke training, checkpoint
+  persisten, dan bukti resume belum ada.
 - Tidak ada metrik precision, recall, mAP, latency, atau FPS yang dilaporkan
   pada milestone data ini.
-
-## 6. Next smallest milestone
-
-Jalankan E00 pretrained baseline pada split validation dengan konfigurasi dan
-raw output yang tersimpan. Setelah E00 terverifikasi, jalankan smoke training
-2–3 epoch untuk membuktikan checkpoint dan resume path sebelum training utama.
