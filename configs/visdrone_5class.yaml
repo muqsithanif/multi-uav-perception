@@ -1,0 +1,11 @@
+# Path is intentionally derived from this YAML file for portability.
+train: ../data/processed/visdrone5/images/train
+val: ../data/processed/visdrone5/images/val
+
+names:
+  0: pedestrian
+  1: car
+  2: van
+  3: truck
+  4: bus
+

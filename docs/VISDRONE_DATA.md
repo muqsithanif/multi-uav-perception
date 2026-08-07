@@ -53,6 +53,37 @@ Downloader menghitung SHA-256, ukuran arsip, jumlah image/annotation, dan waktu
 akses aktual ke `data/metadata/visdrone2019_det_download_manifest.json`.
 Ekstraksi menolak path ZIP yang keluar dari direktori tujuan.
 
+## Konversi dan validasi
+
+Kebijakan konversi berada di `configs/visdrone_conversion.yaml`, sedangkan
+konfigurasi dataset portabel untuk Ultralytics berada di
+`configs/visdrone_5class.yaml`. Jalankan pemeriksaan konfigurasi tanpa data,
+tes fixture D00, lalu konversi aktual dengan urutan berikut:
+
+```bash
+.venv/bin/python scripts/prepare_visdrone.py --check-config
+.venv/bin/python -m pytest -q tests/test_visdrone_dataset.py
+.venv/bin/python scripts/prepare_visdrone.py
+```
+
+Hasil lokal yang diabaikan Git menggunakan layout berikut:
+
+```text
+data/processed/visdrone5/
+  images/train/*.jpg
+  images/val/*.jpg
+  labels/train/*.txt
+  labels/val/*.txt
+```
+
+Mode default menggunakan hardlink untuk image agar tidak menggandakan byte
+dataset di volume yang sama, dengan fallback otomatis ke copy bila filesystem
+tidak mendukung hardlink. Label YOLO selalu ditulis terpisah. Converter
+mempertahankan split resmi dan validator memeriksa format delapan field, nilai
+field kategorikal, bbox positif, hasil clipping/normalisasi, file rusak,
+pairing image-label, range kelas YOLO, batas bbox, serta overlap nama file
+antar-split.
+
 ## Format anotasi resmi
 
 Setiap baris memiliki delapan field:
