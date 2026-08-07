@@ -1,26 +1,33 @@
 {
   "gate": "2A",
-  "recorded_at_utc": "2026-08-07T08:01:20.7910566Z",
+  "recorded_at_utc": "2026-08-07T10:07:40.4836117Z",
   "status": "not_passed",
-  "source_revision": "e03dcf201deb7cfe3e84e143ab85f177e170d853",
+  "source_revision": "b61f80024c4e5af86cfc9c947205c7de9bf192a4",
   "criteria": {
     "official_source_and_access_metadata_recorded": true,
     "download_mechanism_ignores_dataset_in_git": true,
     "conversion_config_valid": true,
-    "synthetic_converter_validator_tests_passed": true,
-    "official_train_val_downloaded": false,
-    "official_train_val_structure_validated": false,
-    "official_dataset_converted": false,
-    "official_class_distribution_analyzed": false,
-    "official_annotation_visual_audit_passed": false,
-    "pretrained_baseline_evaluation_recorded": false,
+    "official_train_val_downloaded": true,
+    "official_train_val_structure_validated": true,
+    "official_dataset_converted": true,
+    "official_class_distribution_analyzed": true,
+    "official_annotation_visual_audit_passed": true,
+    "pretrained_baseline_evaluation_recorded": true,
+    "colab_smoke_runner_prepared": true,
+    "smoke_resume_unit_tests_passed": true,
     "colab_smoke_training_2_to_3_epochs_completed": false,
-    "checkpoint_saved": false,
-    "resume_verified": false
+    "checkpoint_saved_to_persistent_storage": false,
+    "actual_resume_verified": false
   },
-  "measured_detection_metrics": null,
+  "pretrained_baseline": {
+    "experiment_id": "E00_20260807_003",
+    "scope": "deterministic_128_image_validation_subset",
+    "precision": 0.28922840735228206,
+    "recall": 0.17337008388684744,
+    "map50": 0.1541897700672453,
+    "map50_95": 0.09688075667063861
+  },
   "training_metrics": null,
   "checkpoint": null,
-  "stop_reason": "Dataset resmi belum dapat diakses karena kuota Google Drive dan fallback BaiduYun membutuhkan alur browser/token yang tidak tersedia."
+  "stop_reason": "Colab smoke training has not been executed in an authenticated GPU runtime; no persistent checkpoint or actual resume evidence exists yet."
 }
-

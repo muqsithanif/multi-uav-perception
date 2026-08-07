@@ -4,7 +4,8 @@ A portfolio-grade ROS 2 software and 2D simulation prototype that detects and tr
 
 > Status: Gate 1 foundation and the Day 2 VisDrone data-validation checkpoint
 > plus the locked E00 pretrained baseline were verified on 2026-08-07. Gate 2A
-> and later project gates have not been completed.
+> and later project gates have not been completed. The Colab smoke runner is
+> prepared and tested, but has not been executed.
 
 ## Verified Day 1 foundation
 
@@ -62,6 +63,7 @@ predictions because the pretrained checkpoint has no distinct van class.
 - [E00 summary](experiments/E00_20260807_003/summary.json)
 - [E00 metrics](results/day2/E00_20260807_003/metrics.csv)
 - [Locked subset manifest](experiments/E00_20260807_003/subset_manifest.json)
+- [Colab smoke run instructions](docs/COLAB_SMOKE_RUN.md)
 
 ## Project goals
 

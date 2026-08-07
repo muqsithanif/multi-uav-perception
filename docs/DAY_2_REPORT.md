@@ -16,6 +16,9 @@ distribusi kelas, dan audit visual.
 
 **E00 pretrained baseline: LULUS pada subset validation terkunci.**
 
+**Colab smoke training: BELUM DIJALANKAN (`not_run`).** Runner dan notebook
+sudah diuji, tetapi belum ada checkpoint atau bukti resume aktual.
+
 **Gate 2A keseluruhan: BELUM LOLOS.** Smoke training, penyimpanan checkpoint
 persisten, dan resume training belum dibuktikan. Full fine-tuning tidak
 dijalankan.
@@ -36,6 +39,13 @@ dijalankan.
 - `scripts/evaluate_pretrained_baseline.py` mengunci subset, mapping kelas,
   inferensi, matching IoU, metrik, timing, dan kurva E00.
 - `configs/e00_pretrained_baseline.yaml` menyimpan protokol E00 aktual.
+- `scripts/run_visdrone_smoke_training.py` menyiapkan subset smoke, memisahkan
+  training menjadi dua phase, mempertahankan optimizer checkpoint, dan
+  memverifikasi resume aktual.
+- `configs/visdrone_smoke_train.yaml` membatasi scope ke 256 train, 64 val, dan
+  tiga epoch; `full_fine_tuning` dikunci `false`.
+- `notebooks/day2_visdrone_smoke_colab.ipynb` mengotomasi setup Colab, validasi
+  dataset, smoke training, persistensi Google Drive, dan push artefak ringkas.
 - Tiga modul test mencakup parser, konversi, sanitasi, validator, pemilihan
   sampel, rendering, perhitungan distribusi, checksum artefak, mapping baseline,
   konversi bbox, dan matching prediksi.
@@ -71,7 +81,7 @@ Perintah yang lulus:
 .venv/bin/python scripts/evaluate_pretrained_baseline.py --config configs/e00_pretrained_baseline.yaml
 ```
 
-Hasil akhir suite Day 2: **22 passed, 0 failed** dalam 36,55 detik. Pada
+Hasil akhir suite Day 2: **27 passed, 0 failed** dalam 32,55 detik. Pada
 checkpoint distribusi, satu percobaan test sempat gagal karena konstanta
 SHA-256 fixture baru salah; konstanta dikoreksi ke digest fixture aktual dan
 suite kemudian lulus.
@@ -161,6 +171,21 @@ disimpan sebagai `E00_20260807_001_failed_order` dan
 `E00_20260807_002_failed_synthetic_names` dengan `metrics: null`. Run ketiga
 memakai file-list `.txt` yang mempertahankan identitas filename.
 
+### Persiapan smoke training Colab
+
+Runner telah diuji untuk validasi config, pembuatan subset, pemeriksaan
+checkpoint mentah, penolakan checkpoint yang sudah di-strip, jumlah baris
+hasil, dan kompilasi seluruh code cell notebook. Preflight read-only pada data
+aktual menghasilkan cakupan berikut:
+
+| Split smoke | Image | pedestrian | car | van | truck | bus |
+|---|---:|---:|---:|---:|---:|---:|
+| train | 256 | 4.196 | 5.951 | 1.074 | 481 | 305 |
+| val | 64 | 1.075 | 1.548 | 198 | 107 | 40 |
+
+Tidak ada training lokal atau Colab yang dijalankan saat persiapan ini.
+`training_metrics` dan `checkpoint` tetap `null` pada status Gate 2A.
+
 ## 4. Artifacts
 
 - `data/metadata/visdrone2019_det_download_manifest.json`
@@ -175,6 +200,8 @@ memakai file-list `.txt` yang mempertahankan identitas filename.
 - `results/day2/visual_audit/summary.json`
 - `results/day2/E00_20260807_003/metrics.csv`
 - empat kurva E00 di `results/day2/E00_20260807_003/curves/`
+- `results/day2/gate_2a_status.json`
+- `notebooks/day2_visdrone_smoke_colab.ipynb`
 - enam overlay di `results/day2/visual_audit/`
 
 Dataset mentah, ZIP, dan hasil konversi tetap diabaikan Git. Manifest, laporan,
@@ -194,3 +221,5 @@ dan sampel visual audit berukuran terbatas dapat disimpan sebagai bukti.
   tidak ada klaim FPS atau real-time.
 - Gate 2A belum selesai karena smoke training, checkpoint persisten, dan bukti
   resume belum ada. Tidak ada metrik fine-tuned yang dilaporkan.
+- Runtime Colab private memerlukan otorisasi Google Drive dan secret GitHub dari
+  pemilik akun; notebook belum pernah dijalankan pada GPU Colab.
