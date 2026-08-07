@@ -1,0 +1,4 @@
+comparison_id: E00_vs_E01_20260807_001
+baseline_summary: experiments/E00_20260807_003/summary.json
+candidate_summary: experiments/E01E_20260807_001/summary.json
+output_dir: results/day2/E00_vs_E01_20260807_001

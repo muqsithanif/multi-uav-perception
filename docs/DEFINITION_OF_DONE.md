@@ -8,18 +8,18 @@ The project is complete only when every **Required** item below has objective ev
 
 - [ ] Supported environment and pinned dependencies are documented.
 - [ ] One-command or clearly sequenced setup works on the stated Ubuntu 24.04/ROS 2 Jazzy environment.
-- [ ] Pretrained one-image smoke inference succeeds and saves a prediction plus actual metadata.
-- [ ] Configs, seeds, dataset manifest/source, license notes, and experiment IDs are recorded.
-- [ ] Dataset, weights, secrets, large video, and ROS build outputs are excluded from Git.
+- [x] Pretrained one-image smoke inference succeeds and saves a prediction plus actual metadata.
+- [x] Configs, seeds, dataset manifest/source, license notes, and experiment IDs are recorded.
+- [x] Dataset, weights, secrets, large video, and ROS build outputs are excluded from Git.
 
 ### Dataset and detector
 
-- [ ] VisDrone category mapping and ignored-annotation handling are documented.
-- [ ] Converter/validator tests invalid boxes, label ranges, image-label pairs, and split integrity.
-- [ ] Converted annotations are visually spot-checked on representative samples.
-- [ ] A pretrained baseline is evaluated using the locked validation protocol.
-- [ ] A real fine-tuned YOLO nano checkpoint, config snapshot, training log, and curves exist.
-- [ ] Baseline and fine-tuned results use comparable settings and report precision, recall, mAP50, and mAP50-95.
+- [x] VisDrone category mapping and ignored-annotation handling are documented.
+- [x] Converter/validator tests invalid boxes, label ranges, image-label pairs, and split integrity.
+- [x] Converted annotations are visually spot-checked on representative samples.
+- [x] A pretrained baseline is evaluated using the locked validation protocol.
+- [x] A real fine-tuned YOLO nano checkpoint, config snapshot, training log, and curves exist.
+- [x] Baseline and fine-tuned results use comparable settings and report precision, recall, mAP50, and mAP50-95.
 - [ ] Error analysis includes small/occluded objects and at least several concrete failure examples.
 
 ### Deployment and performance

@@ -2,10 +2,11 @@
 
 A portfolio-grade ROS 2 software and 2D simulation prototype that detects and tracks people/vehicles in aerial imagery, prioritizes targets, assigns them to three virtual UAVs, and produces high-level mission states.
 
-> Status: Gate 1 foundation and the Day 2 VisDrone data-validation checkpoint
-> plus the locked E00 pretrained baseline were verified on 2026-08-07. Gate 2A
-> and later project gates have not been completed. The Colab smoke runner is
-> prepared and tested, but has not been executed.
+> Status: Gate 1 and Gate 2A were verified on 2026-08-07. The official
+> VisDrone data path, E00 baseline, GPU smoke/resume proof, 30-epoch E01
+> fine-tuning, and the locked E00/E01 comparison have objective artifacts.
+> Later deployment, tracking, ROS 2, assignment, simulation, and handoff gates
+> remain incomplete.
 
 ## Verified Day 1 foundation
 
@@ -64,6 +65,27 @@ predictions because the pretrained checkpoint has no distinct van class.
 - [E00 metrics](results/day2/E00_20260807_003/metrics.csv)
 - [Locked subset manifest](experiments/E00_20260807_003/subset_manifest.json)
 - [Colab smoke run instructions](docs/COLAB_SMOKE_RUN.md)
+
+## Verified E01 fine-tuning and locked comparison
+
+The five-class nano checkpoint was fine-tuned for 30 epochs on all 6,471
+training images using a Tesla T4. The run was interrupted after epoch 11,
+resumed from an optimizer-bearing persistent checkpoint, and completed all 30
+epochs without early stopping. Its full-validation training summary records
+precision 0.53166, recall 0.38044, mAP50 0.38521, and mAP50-95 0.23458.
+
+For the fair detector comparison, `best.pt` was evaluated separately on the
+same locked 128-image subset and CPU/FP32 protocol as E00. The selection hash
+is identical. E01 produced precision 0.56508, recall 0.38806, mAP50 0.40177,
+and mAP50-95 0.25345. Relative to E00, the absolute gains are +0.27585,
++0.21469, +0.24758, and +0.15657 respectively. These are locked-subset
+results; they are not full-validation or deployment-speed claims.
+
+- [E01 training summary](experiments/E01_20260807_001/summary.json)
+- [Verified handoff receipt](experiments/E01_20260807_001/handoff_receipt.json)
+- [Locked E01 evaluation](experiments/E01E_20260807_001/summary.json)
+- [E00 versus E01 comparison](results/day2/E00_vs_E01_20260807_001/summary.json)
+- [E01 evaluation metrics](results/day2/E01E_20260807_001/metrics.csv)
 
 ## Project goals
 

@@ -1,8 +1,13 @@
 # Menjalankan smoke training Day 2 di Google Colab
 
-Status saat dokumen ini dibuat: **belum dijalankan**. Dokumen ini tidak menjadi
-bukti training; bukti hanya sah bila notebook menghasilkan summary berstatus
-`passed`, checkpoint persisten, dan observasi resume aktual.
+Status pembaruan 7 Agustus 2026: **Gate 2A sudah lulus** melalui run Colab
+`E01S_20260807_001` dan bukti resume terpisah `E01R_20260807_001`. Run yang
+diterima memakai dataset penuh, bukan subset runner historis yang dijelaskan di
+bawah. Bukti aktual berada di `experiments/E01_20260807_001/smoke_summary.json`,
+`resume_summary.json`, dan `handoff_receipt.json`; dokumen ini sendiri tetap
+bukan bukti training.
+
+## Workflow subset yang disiapkan di repository
 
 ## Prasyarat
 

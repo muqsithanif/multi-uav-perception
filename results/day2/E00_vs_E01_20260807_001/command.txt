@@ -1,0 +1,1 @@
+.venv/bin/python scripts/compare_detection_experiments.py --config configs/e00_vs_e01_comparison.yaml

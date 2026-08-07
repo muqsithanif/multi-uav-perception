@@ -1,0 +1,56 @@
+experiment_id: E01E_20260807_001
+seed: 42
+
+model: models/checkpoints/E01_20260807_001/best.pt
+device: cpu
+image_size: 640
+confidence: 0.001
+iou_nms: 0.7
+max_detections: 300
+batch: 4
+half: false
+rect: true
+
+dataset: VisDrone2019-DET
+split: val
+images_dir: data/processed/visdrone5/images/val
+labels_dir: data/processed/visdrone5/labels/val
+dataset_validation_report: experiments/D01_visdrone_validation/summary.json
+dataset_manifest: data/metadata/visdrone5_manifest.json
+subset_size: 128
+subset_selection: evenly_spaced_sorted_filename
+reference_subset_manifest: experiments/E00_20260807_003/subset_manifest.json
+
+project_classes:
+  0: pedestrian
+  1: car
+  2: van
+  3: truck
+  4: bus
+
+model_class_mapping:
+  0:
+    model_name: pedestrian
+    project_id: 0
+    project_name: pedestrian
+  1:
+    model_name: car
+    project_id: 1
+    project_name: car
+  2:
+    model_name: van
+    project_id: 2
+    project_name: van
+  3:
+    model_name: truck
+    project_id: 3
+    project_name: truck
+  4:
+    model_name: bus
+    project_id: 4
+    project_name: bus
+
+unsupported_project_classes: []
+evaluation_iou_thresholds: [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
+experiment_dir: experiments/E01E_20260807_001
+result_dir: results/day2/E01E_20260807_001

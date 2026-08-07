@@ -16,12 +16,16 @@ distribusi kelas, dan audit visual.
 
 **E00 pretrained baseline: LULUS pada subset validation terkunci.**
 
-**Colab smoke training: BELUM DIJALANKAN (`not_run`).** Runner dan notebook
-sudah diuji, tetapi belum ada checkpoint atau bukti resume aktual.
+**Colab smoke/resume: LULUS.** Training tiga epoch pada dataset penuh,
+checkpoint persisten di Drive, dan resume dari checkpoint yang masih memiliki
+state optimizer telah dibuktikan pada Tesla T4.
 
-**Gate 2A keseluruhan: BELUM LOLOS.** Smoke training, penyimpanan checkpoint
-persisten, dan resume training belum dibuktikan. Full fine-tuning tidak
-dijalankan.
+**E01 fine-tuning dan perbandingan terkunci: LULUS.** Main run menyelesaikan
+30 epoch dan checkpoint terbaik dievaluasi dengan subset serta protokol E00
+yang identik.
+
+**Gate 2A keseluruhan: LULUS (`passed`).** Gate deployment dan tahap proyek
+sesudahnya belum dinyatakan selesai.
 
 ## 2. Files dan konfigurasi
 
@@ -37,8 +41,14 @@ dijalankan.
 - `scripts/analyze_visdrone_distribution.py` menghasilkan ringkasan JSON/CSV
   dan plot distribusi kelas.
 - `scripts/evaluate_pretrained_baseline.py` mengunci subset, mapping kelas,
-  inferensi, matching IoU, metrik, timing, dan kurva E00.
+  inferensi, matching IoU, metrik, timing, dan kurva untuk E00 maupun E01.
 - `configs/e00_pretrained_baseline.yaml` menyimpan protokol E00 aktual.
+- `configs/e01_finetuned_locked_eval.yaml` memakai checkpoint E01 dengan
+  mapping lima kelas native dan mewajibkan manifest subset E00.
+- `scripts/compare_detection_experiments.py` menolak perbandingan bila subset
+  atau protokol berbeda, lalu menulis delta JSON/CSV.
+- `configs/e00_vs_e01_comparison.yaml` mengunci pasangan ringkasan dan output
+  perbandingan yang diterima.
 - `scripts/run_visdrone_smoke_training.py` menyiapkan subset smoke, memisahkan
   training menjadi dua phase, mempertahankan optimizer checkpoint, dan
   memverifikasi resume aktual.
@@ -46,9 +56,10 @@ dijalankan.
   tiga epoch; `full_fine_tuning` dikunci `false`.
 - `notebooks/day2_visdrone_smoke_colab.ipynb` mengotomasi setup Colab, validasi
   dataset, smoke training, persistensi Google Drive, dan push artefak ringkas.
-- Tiga modul test mencakup parser, konversi, sanitasi, validator, pemilihan
+- Suite test mencakup parser, konversi, sanitasi, validator, pemilihan
   sampel, rendering, perhitungan distribusi, checksum artefak, mapping baseline,
-  konversi bbox, dan matching prediksi.
+  konversi bbox, matching prediksi, subset reference lock, dan penolakan
+  perbandingan yang tidak sebanding.
 
 Kebijakan sanitasi bbox dan trailing comma dikomit pada `0725378`
 (`fix: sanitize measured VisDrone annotation defects`).
@@ -79,9 +90,12 @@ Perintah yang lulus:
 .venv/bin/python scripts/render_visdrone_audit.py --split val --samples 6
 .venv/bin/python scripts/analyze_visdrone_distribution.py
 .venv/bin/python scripts/evaluate_pretrained_baseline.py --config configs/e00_pretrained_baseline.yaml
+.venv/bin/python scripts/evaluate_pretrained_baseline.py --config configs/e01_finetuned_locked_eval.yaml
+.venv/bin/python scripts/compare_detection_experiments.py --config configs/e00_vs_e01_comparison.yaml
 ```
 
-Hasil akhir suite Day 2: **27 passed, 0 failed** dalam 32,55 detik. Pada
+Hasil akhir suite setelah impor E01 dan pembanding: **32 passed, 0 failed**
+dalam 41,25 detik. Pada
 checkpoint distribusi, satu percobaan test sempat gagal karena konstanta
 SHA-256 fixture baru salah; konstanta dikoreksi ke digest fixture aktual dan
 suite kemudian lulus.
@@ -171,20 +185,59 @@ disimpan sebagai `E00_20260807_001_failed_order` dan
 `E00_20260807_002_failed_synthetic_names` dengan `metrics: null`. Run ketiga
 memakai file-list `.txt` yang mempertahankan identitas filename.
 
-### Persiapan smoke training Colab
+### GPU smoke dan bukti resume
 
-Runner telah diuji untuk validasi config, pembuatan subset, pemeriksaan
-checkpoint mentah, penolakan checkpoint yang sudah di-strip, jumlah baris
-hasil, dan kompilasi seluruh code cell notebook. Preflight read-only pada data
-aktual menghasilkan cakupan berikut:
+`E01S_20260807_001` menjalankan tiga epoch pada seluruh 6.471 image train dan
+548 image validation di Tesla T4, batch 16, image size 640. Run selesai dalam
+599,46 detik. Epoch ketiga mencatat precision 0,38560, recall 0,31271, mAP50
+0,26127, dan mAP50-95 0,15114. Checkpoint `best.pt` dan `last.pt` tersimpan di
+Google Drive.
 
-| Split smoke | Image | pedestrian | car | van | truck | bus |
-|---|---:|---:|---:|---:|---:|---:|
-| train | 256 | 4.196 | 5.951 | 1.074 | 481 | 305 |
-| val | 64 | 1.075 | 1.548 | 198 | 107 | 40 |
+`E01R_20260807_001` kemudian benar-benar melanjutkan dari `epoch1.pt` yang
+masih memuat optimizer state. Resume menghasilkan satu row epoch lanjutan dan
+checkpoint baru dalam 199,25 detik. Ini adalah bukti mekanisme recovery, bukan
+run akurasi pembanding.
 
-Tidak ada training lokal atau Colab yang dijalankan saat persiapan ini.
-`training_metrics` dan `checkpoint` tetap `null` pada status Gate 2A.
+### E01 main fine-tuning
+
+`E01_20260807_001` memakai semua data train selama 30 epoch dengan AdamW,
+seed 42, batch 16, image size 640, AMP, dan Tesla T4. Sesi awal terputus setelah
+epoch 11; recovery melanjutkan dari checkpoint epoch index 10 mulai epoch 12.
+Run menyelesaikan 30 epoch tanpa early stopping. Estimasi durasi gabungan kedua
+sesi adalah 5.193,53 detik; angka ini bukan benchmark training kontinu.
+
+| Scope full validation | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|
+| best/final epoch 30 | 0,53166 | 0,38044 | 0,38521 | 0,23458 |
+
+Checkpoint terbaik berukuran 5.363.845 byte dengan SHA-256
+`d5fcbeab43dc5706ea743d834094495be241836da2b25910c1cd1757f84faea5`.
+Arsip handoff diverifikasi terhadap 37 entri manifest tanpa kegagalan; weight
+disimpan lokal pada path yang diabaikan Git.
+
+### Perbandingan E00 versus E01 yang identik
+
+`E01E_20260807_001` menjalankan checkpoint terbaik pada 128 image yang sama
+dengan E00. Selection SHA-256 kedua run adalah
+`7e1bd549153bea5fa2d6f1e17a4e7f29f57f11157c6c277441a6d00520c265bd`.
+Keduanya memakai CPU/FP32, image size 640, confidence 0,001, NMS IoU 0,7,
+max-det 300, batch 4, rect mode, dan evaluator yang sama.
+
+| Metrik macro | E00 | E01 | Delta absolut |
+|---|---:|---:|---:|
+| Precision | 0,289228 | 0,565079 | +0,275850 |
+| Recall | 0,173370 | 0,388065 | +0,214695 |
+| mAP50 | 0,154190 | 0,401769 | +0,247580 |
+| mAP50-95 | 0,096881 | 0,253452 | +0,156572 |
+
+E01 juga menaikkan mAP50-95 setiap kelas: pedestrian 0,049120 -> 0,129983,
+car 0,246381 -> 0,462920, van 0 -> 0,214271, truck 0,072219 -> 0,186587,
+dan bus 0,116683 -> 0,273501. Nilai relatif untuk van sengaja tidak dihitung
+karena baseline nol dan checkpoint COCO tidak mendukung kelas van terpisah.
+
+Wall time evaluasi E01 adalah 16,774275 detik (131,049020 ms/image), sedangkan
+E00 adalah 13,223372 detik (103,307593 ms/image). Keduanya hanya satu run CPU
+untuk validasi pipeline dan belum memenuhi protokol benchmark latency/FPS.
 
 ## 4. Artifacts
 
@@ -194,12 +247,19 @@ Tidak ada training lokal atau Colab yang dijalankan saat persiapan ini.
 - `experiments/D02_visdrone_dataset_audit/summary.json`
 - `experiments/E00_20260807_003/summary.json`
 - `experiments/E00_20260807_003/subset_manifest.json`
+- `experiments/E01_20260807_001/summary.json`
+- `experiments/E01_20260807_001/handoff_receipt.json`
+- `experiments/E01E_20260807_001/summary.json`
 - `results/day2/dataset_analysis/class_distribution.json`
 - `results/day2/dataset_analysis/class_distribution.csv`
 - `results/day2/dataset_analysis/class_distribution.png`
 - `results/day2/visual_audit/summary.json`
 - `results/day2/E00_20260807_003/metrics.csv`
 - empat kurva E00 di `results/day2/E00_20260807_003/curves/`
+- `results/day2/E01_20260807_001/training/` untuk plot/log visual training
+- `results/day2/E01E_20260807_001/metrics.csv` dan empat kurva evaluasi
+- `results/day2/E00_vs_E01_20260807_001/summary.json`
+- `results/day2/E00_vs_E01_20260807_001/comparison.csv`
 - `results/day2/gate_2a_status.json`
 - `notebooks/day2_visdrone_smoke_colab.ipynb`
 - enam overlay di `results/day2/visual_audit/`
@@ -214,12 +274,15 @@ dan sampel visual audit berukuran terbatas dapat disimpan sebagai bukti.
 - Visual audit enam image adalah pemeriksaan sampel, bukan audit manual seluruh
   7.019 image. Scene padat menyebabkan teks overlay bertumpuk dan beberapa
   anotasi jauh/teroklusi tetap ambigu.
-- E00 memakai subset 128 image; hasilnya tidak mewakili evaluasi full validation.
+- Perbandingan fair memakai subset 128 image; hasilnya tidak menggantikan
+  metrik full validation E01 dan tidak boleh digeneralisasi tanpa evaluasi
+  seluruh split dengan protokol yang sama.
 - Kelas van tidak tersedia pada label COCO checkpoint pretrained dan tidak
   dipetakan secara heuristik ke car/truck.
-- Timing E00 adalah satu validasi pipeline CPU tanpa protokol benchmark penuh;
-  tidak ada klaim FPS atau real-time.
-- Gate 2A belum selesai karena smoke training, checkpoint persisten, dan bukti
-  resume belum ada. Tidak ada metrik fine-tuned yang dilaporkan.
-- Runtime Colab private memerlukan otorisasi Google Drive dan secret GitHub dari
-  pemilik akun; notebook belum pernah dijalankan pada GPU Colab.
+- Timing E00/E01 adalah masing-masing satu validasi pipeline CPU tanpa warm-up
+  dan sampling latency; tidak ada klaim FPS atau real-time.
+- Checkpoint tidak dikomit ke Git. Reproduksi inferensi memerlukan pengambilan
+  weight berdasarkan path dan SHA-256 pada receipt/summary.
+- Runtime Colab private tetap memerlukan otorisasi Google Drive pemilik akun.
+- Error analysis small/occluded objects secara terstruktur masih menjadi
+  milestone berikutnya sebelum Gate Evaluation dianggap lengkap.

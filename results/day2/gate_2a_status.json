@@ -1,8 +1,8 @@
 {
   "gate": "2A",
-  "recorded_at_utc": "2026-08-07T10:07:40.4836117Z",
-  "status": "not_passed",
-  "source_revision": "b61f80024c4e5af86cfc9c947205c7de9bf192a4",
+  "recorded_at_utc": "2026-08-07T12:38:21.229503Z",
+  "status": "passed",
+  "source_revision": "201b5628796d0039d7670d4d3312b6893db9948e",
   "criteria": {
     "official_source_and_access_metadata_recorded": true,
     "download_mechanism_ignores_dataset_in_git": true,
@@ -15,9 +15,11 @@
     "pretrained_baseline_evaluation_recorded": true,
     "colab_smoke_runner_prepared": true,
     "smoke_resume_unit_tests_passed": true,
-    "colab_smoke_training_2_to_3_epochs_completed": false,
-    "checkpoint_saved_to_persistent_storage": false,
-    "actual_resume_verified": false
+    "colab_smoke_training_2_to_3_epochs_completed": true,
+    "checkpoint_saved_to_persistent_storage": true,
+    "actual_resume_verified": true,
+    "main_fine_tuning_completed": true,
+    "locked_baseline_comparison_passed": true
   },
   "pretrained_baseline": {
     "experiment_id": "E00_20260807_003",
@@ -27,7 +29,51 @@
     "map50": 0.1541897700672453,
     "map50_95": 0.09688075667063861
   },
-  "training_metrics": null,
-  "checkpoint": null,
-  "stop_reason": "Colab smoke training has not been executed in an authenticated GPU runtime; no persistent checkpoint or actual resume evidence exists yet."
+  "training_metrics": {
+    "smoke": {
+      "experiment_id": "E01S_20260807_001",
+      "scope": "full_dataset_three_epoch_smoke",
+      "epochs_completed": 3,
+      "precision": 0.3856,
+      "recall": 0.31271,
+      "map50": 0.26127,
+      "map50_95": 0.15114
+    },
+    "main": {
+      "experiment_id": "E01_20260807_001",
+      "scope": "full_train_full_validation_30_epochs",
+      "epochs_completed": 30,
+      "precision": 0.53166,
+      "recall": 0.38044,
+      "map50": 0.38521,
+      "map50_95": 0.23458
+    },
+    "locked_comparison_evaluation": {
+      "experiment_id": "E01E_20260807_001",
+      "scope": "same_deterministic_128_image_validation_subset_as_E00",
+      "precision": 0.565078845096499,
+      "recall": 0.3880648651314288,
+      "map50": 0.4017693597771014,
+      "map50_95": 0.25345249224856464
+    }
+  },
+  "checkpoint": {
+    "persistent_source": "/content/drive/MyDrive/uav/runs/E01_20260807_001/weights/best.pt",
+    "local_ignored_path": "models/checkpoints/E01_20260807_001/best.pt",
+    "size_bytes": 5363845,
+    "sha256": "d5fcbeab43dc5706ea743d834094495be241836da2b25910c1cd1757f84faea5"
+  },
+  "resume_verification": {
+    "experiment_id": "E01R_20260807_001",
+    "source_checkpoint_epoch_index": 1,
+    "result_row_count": 1,
+    "status": "passed"
+  },
+  "evidence": {
+    "training_summary": "experiments/E01_20260807_001/summary.json",
+    "handoff_receipt": "experiments/E01_20260807_001/handoff_receipt.json",
+    "locked_evaluation": "experiments/E01E_20260807_001/summary.json",
+    "comparison": "results/day2/E00_vs_E01_20260807_001/summary.json"
+  },
+  "stop_reason": null
 }

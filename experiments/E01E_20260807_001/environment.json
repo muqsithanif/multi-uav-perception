@@ -1,0 +1,12 @@
+{
+  "cuda_available": false,
+  "numpy": "2.4.4",
+  "opencv": "5.0.0",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "recorded_at_utc": "2026-08-07T12:35:07.018486+00:00",
+  "source_revision": "201b5628796d0039d7670d4d3312b6893db9948e",
+  "torch": "2.13.0+cpu",
+  "torch_num_threads": 11,
+  "ultralytics": "8.4.115"
+}

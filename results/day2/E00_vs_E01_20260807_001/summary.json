@@ -1,0 +1,242 @@
+{
+  "artifacts": {
+    "command": "command.txt",
+    "comparison_csv": "comparison.csv",
+    "config": "config.yaml"
+  },
+  "baseline": {
+    "experiment_id": "E00_20260807_003",
+    "summary": "experiments/E00_20260807_003/summary.json",
+    "summary_sha256": "4f8d8282c53860c0dba687b26dab213d733cb495d38da6e710afa4ee9ce6b254"
+  },
+  "candidate": {
+    "experiment_id": "E01E_20260807_001",
+    "summary": "experiments/E01E_20260807_001/summary.json",
+    "summary_sha256": "9625618890781915663c434041f9ecfc7f1a59eaeaafd0c902c9231275df918d"
+  },
+  "comparison": {
+    "overall_macro": {
+      "map50": {
+        "absolute_delta": 0.24757958970985608,
+        "baseline": 0.1541897700672453,
+        "candidate": 0.4017693597771014,
+        "relative_change_percent": 160.56810357903873
+      },
+      "map50_95": {
+        "absolute_delta": 0.15657173557792603,
+        "baseline": 0.09688075667063861,
+        "candidate": 0.25345249224856464,
+        "relative_change_percent": 161.61283309358978
+      },
+      "precision": {
+        "absolute_delta": 0.2758504377442169,
+        "baseline": 0.28922840735228206,
+        "candidate": 0.565078845096499,
+        "relative_change_percent": 95.37460039609087
+      },
+      "recall": {
+        "absolute_delta": 0.21469478124458136,
+        "baseline": 0.17337008388684744,
+        "candidate": 0.3880648651314288,
+        "relative_change_percent": 123.83611776106949
+      }
+    },
+    "per_class": [
+      {
+        "class_id": 0,
+        "class_name": "pedestrian",
+        "instances": 1946,
+        "metrics": {
+          "map50": {
+            "absolute_delta": 0.20212973640980522,
+            "baseline": 0.11957616513168948,
+            "candidate": 0.3217059015414947,
+            "relative_change_percent": 169.03848370383793
+          },
+          "map50_95": {
+            "absolute_delta": 0.08086309675192731,
+            "baseline": 0.04912027343111876,
+            "candidate": 0.12998337018304607,
+            "relative_change_percent": 164.62265191850253
+          },
+          "precision": {
+            "absolute_delta": 0.1260604658177678,
+            "baseline": 0.3928209990834985,
+            "candidate": 0.5188814649012663,
+            "relative_change_percent": 32.09107102519543
+          },
+          "recall": {
+            "absolute_delta": 0.18756423432682423,
+            "baseline": 0.12435765673175746,
+            "candidate": 0.3119218910585817,
+            "relative_change_percent": 150.82644628099172
+          }
+        }
+      },
+      {
+        "class_id": 1,
+        "class_name": "car",
+        "instances": 3417,
+        "metrics": {
+          "map50": {
+            "absolute_delta": 0.303486562272283,
+            "baseline": 0.40898919115146615,
+            "candidate": 0.7124757534237491,
+            "relative_change_percent": 74.20405449294356
+          },
+          "map50_95": {
+            "absolute_delta": 0.21653913679311604,
+            "baseline": 0.24638126033701124,
+            "candidate": 0.4629203971301273,
+            "relative_change_percent": 87.88782738464937
+          },
+          "precision": {
+            "absolute_delta": 0.012320896778281631,
+            "baseline": 0.6342768058200593,
+            "candidate": 0.6465977025983409,
+            "relative_change_percent": 1.942511008636346
+          },
+          "recall": {
+            "absolute_delta": 0.3397808932363719,
+            "baseline": 0.37986537898741585,
+            "candidate": 0.7196462722237877,
+            "relative_change_percent": 89.44771280344244
+          }
+        }
+      },
+      {
+        "class_id": 2,
+        "class_name": "van",
+        "instances": 487,
+        "metrics": {
+          "map50": {
+            "absolute_delta": 0.32374394115638405,
+            "baseline": 0.0,
+            "candidate": 0.32374394115638405,
+            "relative_change_percent": null
+          },
+          "map50_95": {
+            "absolute_delta": 0.2142708251912447,
+            "baseline": 0.0,
+            "candidate": 0.2142708251912447,
+            "relative_change_percent": null
+          },
+          "precision": {
+            "absolute_delta": 0.5262197627393116,
+            "baseline": 0.0,
+            "candidate": 0.5262197627393116,
+            "relative_change_percent": null
+          },
+          "recall": {
+            "absolute_delta": 0.2850840339468728,
+            "baseline": 0.0,
+            "candidate": 0.2850840339468728,
+            "relative_change_percent": null
+          }
+        }
+      },
+      {
+        "class_id": 3,
+        "class_name": "truck",
+        "instances": 187,
+        "metrics": {
+          "map50": {
+            "absolute_delta": 0.17211596808497254,
+            "baseline": 0.09593141232379628,
+            "candidate": 0.2680473804087688,
+            "relative_change_percent": 179.4156511571323
+          },
+          "map50_95": {
+            "absolute_delta": 0.11436782870160458,
+            "baseline": 0.07221948626358332,
+            "candidate": 0.1865873149651879,
+            "relative_change_percent": 158.36145425375946
+          },
+          "precision": {
+            "absolute_delta": 0.44909685106145325,
+            "baseline": 0.17150013492059682,
+            "candidate": 0.62059698598205,
+            "relative_change_percent": 261.8638470864069
+          },
+          "recall": {
+            "absolute_delta": 0.07236549942981874,
+            "baseline": 0.15508021390374332,
+            "candidate": 0.22744571333356206,
+            "relative_change_percent": 46.66327032198656
+          }
+        }
+      },
+      {
+        "class_id": 4,
+        "class_name": "bus",
+        "instances": 53,
+        "metrics": {
+          "map50": {
+            "absolute_delta": 0.23642174062583526,
+            "baseline": 0.14645208172927465,
+            "candidate": 0.3828738223551099,
+            "relative_change_percent": 161.43283033891922
+          },
+          "map50_95": {
+            "absolute_delta": 0.15681779045173733,
+            "baseline": 0.11668276332147968,
+            "candidate": 0.273500553773217,
+            "relative_change_percent": 134.39670606675574
+          },
+          "precision": {
+            "absolute_delta": 0.2655542123242699,
+            "baseline": 0.24754409693725576,
+            "candidate": 0.5130983092615257,
+            "relative_change_percent": 107.2755180227865
+          },
+          "recall": {
+            "absolute_delta": 0.18867924528301888,
+            "baseline": 0.20754716981132076,
+            "candidate": 0.39622641509433965,
+            "relative_change_percent": 90.9090909090909
+          }
+        }
+      }
+    ]
+  },
+  "comparison_id": "E00_vs_E01_20260807_001",
+  "created_at_utc": "2026-08-07T12:38:21.229503+00:00",
+  "locked_subset": {
+    "ground_truth_class_counts": {
+      "0": 1946,
+      "1": 3417,
+      "2": 487,
+      "3": 187,
+      "4": 53
+    },
+    "population_size": 548,
+    "selection_policy": "evenly_spaced_sorted_filename",
+    "selection_sha256": "7e1bd549153bea5fa2d6f1e17a4e7f29f57f11157c6c277441a6d00520c265bd",
+    "size": 128
+  },
+  "protocol": {
+    "batch": 4,
+    "confidence": 0.001,
+    "device": "cpu",
+    "evaluation_iou_thresholds": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9,
+      0.95
+    ],
+    "half": false,
+    "image_size": 640,
+    "iou_nms": 0.7,
+    "max_detections": 300,
+    "metric_implementation": "ultralytics.utils.metrics.DetMetrics",
+    "rect": true
+  },
+  "schema_version": 1,
+  "status": "passed"
+}

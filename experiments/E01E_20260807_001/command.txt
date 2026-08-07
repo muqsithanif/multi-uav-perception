@@ -1,0 +1,1 @@
+YOLO_CONFIG_DIR=/tmp .venv/bin/python scripts/evaluate_pretrained_baseline.py --config configs/e01_finetuned_locked_eval.yaml

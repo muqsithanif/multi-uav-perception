@@ -1,0 +1,163 @@
+{
+  "artifacts": {
+    "config": "config.yaml",
+    "curves_dir": "results/day2/E01E_20260807_001/curves",
+    "environment": "environment.json",
+    "metrics_csv": "results/day2/E01E_20260807_001/metrics.csv",
+    "source_files": "source_files.txt",
+    "subset_manifest": "subset_manifest.json"
+  },
+  "class_mapping": {
+    "0": {
+      "model_name": "pedestrian",
+      "project_id": 0,
+      "project_name": "pedestrian"
+    },
+    "1": {
+      "model_name": "car",
+      "project_id": 1,
+      "project_name": "car"
+    },
+    "2": {
+      "model_name": "van",
+      "project_id": 2,
+      "project_name": "van"
+    },
+    "3": {
+      "model_name": "truck",
+      "project_id": 3,
+      "project_name": "truck"
+    },
+    "4": {
+      "model_name": "bus",
+      "project_id": 4,
+      "project_name": "bus"
+    }
+  },
+  "dataset": "VisDrone2019-DET",
+  "experiment_id": "E01E_20260807_001",
+  "finished_at_utc": "2026-08-07T12:35:27.387909+00:00",
+  "metrics": {
+    "overall_macro": {
+      "map50": 0.4017693597771014,
+      "map50_95": 0.25345249224856464,
+      "precision": 0.565078845096499,
+      "recall": 0.3880648651314288
+    },
+    "per_class": [
+      {
+        "class_id": 0,
+        "class_name": "pedestrian",
+        "instances": 1946,
+        "map50": 0.3217059015414947,
+        "map50_95": 0.12998337018304607,
+        "precision": 0.5188814649012663,
+        "recall": 0.3119218910585817
+      },
+      {
+        "class_id": 1,
+        "class_name": "car",
+        "instances": 3417,
+        "map50": 0.7124757534237491,
+        "map50_95": 0.4629203971301273,
+        "precision": 0.6465977025983409,
+        "recall": 0.7196462722237877
+      },
+      {
+        "class_id": 2,
+        "class_name": "van",
+        "instances": 487,
+        "map50": 0.32374394115638405,
+        "map50_95": 0.2142708251912447,
+        "precision": 0.5262197627393116,
+        "recall": 0.2850840339468728
+      },
+      {
+        "class_id": 3,
+        "class_name": "truck",
+        "instances": 187,
+        "map50": 0.2680473804087688,
+        "map50_95": 0.1865873149651879,
+        "precision": 0.62059698598205,
+        "recall": 0.22744571333356206
+      },
+      {
+        "class_id": 4,
+        "class_name": "bus",
+        "instances": 53,
+        "map50": 0.3828738223551099,
+        "map50_95": 0.273500553773217,
+        "precision": 0.5130983092615257,
+        "recall": 0.39622641509433965
+      }
+    ]
+  },
+  "model": {
+    "bytes": 5363845,
+    "path": "models/checkpoints/E01_20260807_001/best.pt",
+    "sha256": "d5fcbeab43dc5706ea743d834094495be241836da2b25910c1cd1757f84faea5",
+    "source_classes": 5
+  },
+  "prediction_counts": {
+    "0": 14147,
+    "1": 15196,
+    "2": 4777,
+    "3": 1641,
+    "4": 370
+  },
+  "protocol": {
+    "batch": 4,
+    "confidence": 0.001,
+    "device": "cpu",
+    "evaluation_iou_thresholds": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9,
+      0.95
+    ],
+    "half": false,
+    "image_size": 640,
+    "iou_nms": 0.7,
+    "max_detections": 300,
+    "metric_implementation": "ultralytics.utils.metrics.DetMetrics",
+    "rect": true
+  },
+  "schema_version": 1,
+  "source_revision": "201b5628796d0039d7670d4d3312b6893db9948e",
+  "split": "val",
+  "started_at_utc": "2026-08-07T12:34:55.944815+00:00",
+  "status": "passed",
+  "subset": {
+    "ground_truth_class_counts": {
+      "0": 1946,
+      "1": 3417,
+      "2": 487,
+      "3": 187,
+      "4": 53
+    },
+    "population_size": 548,
+    "reference_manifest": {
+      "path": "experiments/E00_20260807_003/subset_manifest.json",
+      "sha256": "fb657f0f9cb794776e4fc7fd9916a643d9c729f5c4f84fb3651cca3c4b3c2a98"
+    },
+    "selection_policy": "evenly_spaced_sorted_filename",
+    "selection_sha256": "7e1bd549153bea5fa2d6f1e17a4e7f29f57f11157c6c277441a6d00520c265bd",
+    "size": 128
+  },
+  "timing": {
+    "evaluation_wall_seconds": 16.77427459699996,
+    "reported_stage_seconds": {
+      "inference": 11.471283765999829,
+      "postprocess": 0.042157638999867686,
+      "preprocess": 0.8455365120001375
+    },
+    "wall_milliseconds_per_image": 131.04902028906218
+  },
+  "unsupported_project_classes": []
+}
