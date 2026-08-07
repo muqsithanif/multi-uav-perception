@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "experiment_id": "E00_20260807_002_failed_synthetic_names",
+  "requested_experiment_id": "E00_20260807_002",
+  "recorded_at_utc": "2026-08-07T09:46:50.6961187Z",
+  "source_revision": "00c0c7069a577eacbdbc244c47c6898787164ddb",
+  "status": "failed",
+  "failure_stage": "prediction_result_pairing",
+  "error_type": "RuntimeError",
+  "error": "prediction is outside locked subset: image0.jpg",
+  "shell_observed_duration_seconds": 60.2,
+  "cause": "Ultralytics autocast the list of source paths and replaced source filenames with synthetic result names",
+  "metrics": null,
+  "artifacts": {
+    "config": "config.yaml",
+    "environment": "environment.json",
+    "subset_manifest": "subset_manifest.json"
+  }
+}

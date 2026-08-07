@@ -317,9 +317,14 @@ def run(config_path: Path) -> dict[str, Any]:
     metrics = DetMetrics(names=class_names)
     prediction_counts = {str(class_id): 0 for class_id in class_names}
     stage_seconds = {"preprocess": 0.0, "inference": 0.0, "postprocess": 0.0}
+    source_list_path = experiment_dir / "source_files.txt"
+    source_list_path.write_text(
+        "\n".join(str(image_path) for image_path, _ in selected) + "\n",
+        encoding="utf-8",
+    )
     wall_start = time.perf_counter()
     predictions = model.predict(
-        source=[str(image_path) for image_path, _ in selected],
+        source=str(source_list_path),
         imgsz=int(config["image_size"]),
         conf=float(config["confidence"]),
         iou=float(config["iou_nms"]),
@@ -459,6 +464,7 @@ def run(config_path: Path) -> dict[str, Any]:
         "artifacts": {
             "config": "config.yaml",
             "environment": "environment.json",
+            "source_files": "source_files.txt",
             "subset_manifest": "subset_manifest.json",
             "metrics_csv": metrics_path.relative_to(REPO_ROOT).as_posix(),
             "curves_dir": curves_dir.relative_to(REPO_ROOT).as_posix(),

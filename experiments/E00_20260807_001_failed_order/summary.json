@@ -9,7 +9,7 @@
   "error_type": "RuntimeError",
   "error": "prediction order does not match locked subset",
   "shell_observed_duration_seconds": 51.6,
-  "cause": "the evaluator incorrectly assumed predictor results preserve the input list order",
+  "cause": "Ultralytics autocast the list of source paths and returned synthetic result names such as image0.jpg; the evaluator compared that synthetic name with the locked filename",
   "metrics": null,
   "artifacts": {
     "config": "config.yaml",
