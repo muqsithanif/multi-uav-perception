@@ -1,0 +1,33 @@
+experiment_id: S01_20260807_colab_smoke
+seed: 42
+
+model: yolo26n.pt
+expected_model_sha256: 9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef
+device: 0
+image_size: 640
+batch: 16
+workers: 2
+amp: true
+deterministic: true
+
+dataset: VisDrone2019-DET
+source_images_root: data/processed/visdrone5/images
+source_labels_root: data/processed/visdrone5/labels
+smoke_dataset_root: data/processed/visdrone5_smoke
+train_subset_size: 256
+val_subset_size: 64
+subset_selection: evenly_spaced_sorted_filename
+class_names: [pedestrian, car, van, truck, bus]
+
+planned_epochs: 3
+phase_1_stop_after_epoch: 2
+resume_target_epoch: 3
+optimizer: auto
+patience: 100
+cache: false
+plots: true
+save_period: 1
+close_mosaic: 0
+
+scope: subset_smoke_only
+full_fine_tuning: false
