@@ -332,18 +332,15 @@ def render_overlay(
         raise ValueError(f"unreadable image: {image_path}")
     matched_true = {true_index for true_index, _, _ in matches}
     matched_pred = {pred_index for _, pred_index, _ in matches}
-    confusion_pred = {pred_index for _, pred_index, _ in confusions}
+    confusion_by_pred = {
+        pred_index: true_index for true_index, pred_index, _ in confusions
+    }
     thickness = max(1, round(max(image.shape[:2]) / 900))
 
     for true_index, item in enumerate(objects):
         if true_index in matched_true:
             continue
-        area = (item.xyxy[2] - item.xyxy[0]) * (item.xyxy[3] - item.xyxy[1])
-        label = (
-            f"FN {item.class_name} a={area:.0f} "
-            f"o={item.occlusion} t={item.truncation}"
-        )
-        draw_box(image, item.xyxy, (0, 0, 255), label, thickness)
+        draw_box(image, item.xyxy, (0, 0, 255), "", thickness)
 
     false_positive_indexes = [
         index for index in range(len(pred_boxes)) if index not in matched_pred
@@ -351,12 +348,16 @@ def render_overlay(
     false_positive_indexes.sort(key=lambda index: -pred_confidences[index])
     shown = false_positive_indexes[:max_false_positives]
     for pred_index in shown:
-        color = (255, 0, 255) if pred_index in confusion_pred else (0, 165, 255)
-        prefix = "CLS" if pred_index in confusion_pred else "FP"
-        label = (
-            f"{prefix} {class_names[pred_classes[pred_index]]} "
-            f"{pred_confidences[pred_index]:.2f}"
-        )
+        if pred_index in confusion_by_pred:
+            true_index = confusion_by_pred[pred_index]
+            color = (255, 0, 255)
+            label = (
+                f"{objects[true_index].class_name}>{class_names[pred_classes[pred_index]]} "
+                f"{pred_confidences[pred_index]:.2f}"
+            )
+        else:
+            color = (0, 165, 255)
+            label = ""
         draw_box(image, pred_boxes[pred_index], color, label, thickness)
 
     header_height = 50
@@ -374,7 +375,7 @@ def render_overlay(
     )
     cv2.putText(
         image,
-        f"red=FN orange=FP magenta=class confusion | FP shown {len(shown)}/{len(false_positive_indexes)}",
+        f"red=FN orange=FP magenta=class confusion (labeled) | FP shown {len(shown)}/{len(false_positive_indexes)}",
         (8, 41),
         cv2.FONT_HERSHEY_SIMPLEX,
         0.42,
@@ -667,6 +668,7 @@ def run(config_path: Path) -> dict[str, Any]:
             int(config["max_overlay_false_positives"]),
         )
         example["overlay"] = destination.relative_to(REPO_ROOT).as_posix()
+        example["overlay_sha256"] = sha256_file(destination)
 
     environment = {
         "recorded_at_utc": datetime.now(UTC).isoformat(),
