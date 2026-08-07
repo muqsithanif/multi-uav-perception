@@ -1,7 +1,9 @@
 # E01 Locked-Subset Error Analysis
 
-Tanggal run: 7 Agustus 2026  
-Experiment: `E01A_20260807_001`  
+Tanggal run: 7 Agustus 2026
+
+Experiment: `E01A_20260807_001`
+
 Status: **passed**
 
 ## Hasil utama
