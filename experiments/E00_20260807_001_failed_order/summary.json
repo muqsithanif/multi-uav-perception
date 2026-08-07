@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "experiment_id": "E00_20260807_001_failed_order",
+  "requested_experiment_id": "E00_pretrained_nano_val128_640",
+  "recorded_at_utc": "2026-08-07T09:43:20.9256852Z",
+  "source_revision": "c8174f18f320fbfee7dd504691cf08f983a07b0e",
+  "status": "failed",
+  "failure_stage": "prediction_result_pairing",
+  "error_type": "RuntimeError",
+  "error": "prediction order does not match locked subset",
+  "shell_observed_duration_seconds": 51.6,
+  "cause": "the evaluator incorrectly assumed predictor results preserve the input list order",
+  "metrics": null,
+  "artifacts": {
+    "config": "config.yaml",
+    "environment": "environment.json",
+    "subset_manifest": "subset_manifest.json"
+  }
+}

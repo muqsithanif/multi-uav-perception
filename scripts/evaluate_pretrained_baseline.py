@@ -216,6 +216,18 @@ def build_subset_manifest(
     return selected, manifest
 
 
+def index_pairs_by_image_name(
+    pairs: list[tuple[Path, Path]],
+) -> dict[str, tuple[Path, Path]]:
+    """Index locked pairs without relying on predictor output ordering."""
+    indexed: dict[str, tuple[Path, Path]] = {}
+    for image_path, label_path in pairs:
+        if image_path.name in indexed:
+            raise ValueError(f"duplicate selected image name: {image_path.name}")
+        indexed[image_path.name] = (image_path, label_path)
+    return indexed
+
+
 def write_metrics_csv(
     path: Path,
     overall: dict[str, float],
@@ -320,10 +332,16 @@ def run(config_path: Path) -> dict[str, Any]:
         stream=True,
         verbose=False,
     )
-    seen = 0
-    for result, (image_path, label_path) in zip(predictions, selected, strict=True):
-        if Path(result.path).name != image_path.name:
-            raise RuntimeError("prediction order does not match locked subset")
+    selected_by_name = index_pairs_by_image_name(selected)
+    seen_names: set[str] = set()
+    for result in predictions:
+        result_name = Path(result.path).name
+        if result_name not in selected_by_name:
+            raise RuntimeError(f"prediction is outside locked subset: {result_name}")
+        if result_name in seen_names:
+            raise RuntimeError(f"duplicate prediction result: {result_name}")
+        image_path, label_path = selected_by_name[result_name]
+        seen_names.add(result_name)
         image_height, image_width = result.orig_shape
         true_boxes, true_classes = yolo_boxes_to_xyxy(
             label_path, len(class_names), image_width, image_height
@@ -351,10 +369,13 @@ def run(config_path: Path) -> dict[str, Any]:
         )
         for stage in stage_seconds:
             stage_seconds[stage] += float(result.speed.get(stage, 0.0)) / 1000.0
-        seen += 1
     wall_seconds = time.perf_counter() - wall_start
-    if seen != len(selected):
-        raise RuntimeError(f"expected {len(selected)} predictions, received {seen}")
+    missing_results = sorted(selected_by_name.keys() - seen_names)
+    if missing_results:
+        raise RuntimeError(
+            f"missing {len(missing_results)} prediction results; first={missing_results[0]}"
+        )
+    seen = len(seen_names)
 
     curves_dir = result_dir / "curves"
     curves_dir.mkdir(parents=True)

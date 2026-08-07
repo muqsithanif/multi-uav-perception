@@ -4,6 +4,7 @@ import torch
 
 from scripts.evaluate_pretrained_baseline import (
     evenly_spaced_indices,
+    index_pairs_by_image_name,
     match_predictions,
     validate_mapping,
     yolo_boxes_to_xyxy,
@@ -52,3 +53,15 @@ def test_validate_mapping_requires_explicit_unsupported_class() -> None:
     }
 
     assert validate_mapping(config, {0: "person"}) == {0: 0}
+
+
+def test_index_pairs_by_image_name_does_not_depend_on_order() -> None:
+    pairs = [
+        (Path("b.jpg"), Path("b.txt")),
+        (Path("a.jpg"), Path("a.txt")),
+    ]
+
+    indexed = index_pairs_by_image_name(pairs)
+
+    assert indexed["a.jpg"] == (Path("a.jpg"), Path("a.txt"))
+    assert indexed["b.jpg"] == (Path("b.jpg"), Path("b.txt"))
