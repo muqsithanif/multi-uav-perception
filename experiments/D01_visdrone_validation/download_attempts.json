@@ -1,0 +1,73 @@
+{
+  "experiment_id": "D01_visdrone_validation",
+  "recorded_at_utc": "2026-08-07T08:01:20.7910566Z",
+  "source_revision": "e03dcf201deb7cfe3e84e143ab85f177e170d853",
+  "status": "blocked",
+  "dataset": "VisDrone2019-DET",
+  "official_repository": "https://github.com/VisDrone/VisDrone-Dataset",
+  "attempted_command": ".venv/bin/python scripts/download_visdrone.py --splits train val",
+  "attempts": [
+    {
+      "split": "train",
+      "provider": "Google Drive",
+      "file_id": "1a2oHjcEcwXP8oUF95qiwrqzACb2YlUhn",
+      "outcome": "failed",
+      "error_type": "gdown.exceptions.FileURLRetrievalError",
+      "error_summary": "Too many users have viewed or downloaded this file recently."
+    },
+    {
+      "split": "val",
+      "provider": "Google Drive",
+      "file_id": "1bxK5zgLn0_L8x276eKkuYA_FzwCIjb59",
+      "outcome": "failed",
+      "error_type": "gdown.exceptions.FileURLRetrievalError",
+      "error_summary": "Too many users have viewed or downloaded this file recently."
+    },
+    {
+      "split": "train",
+      "provider": "BaiduYun",
+      "official_share_url": "https://pan.baidu.com/s/1K-JtLnlHw98UuBDrYJvw3A",
+      "page_http_status": 200,
+      "server_filename": "VisDrone2019-DET-train.zip",
+      "server_size_bytes": 1549875511,
+      "share_id": 4209329234,
+      "file_system_id": 186306004774687,
+      "anonymous_download_api_outcome": "failed",
+      "anonymous_download_api_errno": 2,
+      "anonymous_download_api_message": "请求失败"
+    },
+    {
+      "split": "val",
+      "provider": "BaiduYun",
+      "official_share_url": "https://pan.baidu.com/s/1jdK_dAxRJeF2Xi50IoML1g",
+      "page_http_status": 200,
+      "server_filename": "VisDrone2019-DET-val.zip",
+      "server_size_bytes": 81625797,
+      "share_id": 2728319053,
+      "file_system_id": 152236512086437,
+      "anonymous_download_api_outcome": "not_attempted_after_train_rejection"
+    },
+    {
+      "provider": "in-app browser",
+      "target": "official BaiduYun train share",
+      "outcome": "failed_before_navigation",
+      "error_type": "EPERM",
+      "error_summary": "Browser runtime could not lstat C:\\Users\\muqsi\\AppData."
+    }
+  ],
+  "local_download_state": {
+    "raw_root_exists": true,
+    "final_archive_count": 0,
+    "partial_archive_count": 0,
+    "extracted_split_count": 0,
+    "archive_checksums": null
+  },
+  "validation": {
+    "official_train_structure": "not_run",
+    "official_val_structure": "not_run",
+    "conversion": "not_run",
+    "split_integrity": "not_run"
+  },
+  "blocker": "Kedua file Google Drive resmi terkena quota publik; fallback BaiduYun resmi memerlukan alur browser/token dan unduhan anonim ditolak."
+}
+

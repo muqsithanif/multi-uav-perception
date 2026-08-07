@@ -1,0 +1,26 @@
+{
+  "gate": "2A",
+  "recorded_at_utc": "2026-08-07T08:01:20.7910566Z",
+  "status": "not_passed",
+  "source_revision": "e03dcf201deb7cfe3e84e143ab85f177e170d853",
+  "criteria": {
+    "official_source_and_access_metadata_recorded": true,
+    "download_mechanism_ignores_dataset_in_git": true,
+    "conversion_config_valid": true,
+    "synthetic_converter_validator_tests_passed": true,
+    "official_train_val_downloaded": false,
+    "official_train_val_structure_validated": false,
+    "official_dataset_converted": false,
+    "official_class_distribution_analyzed": false,
+    "official_annotation_visual_audit_passed": false,
+    "pretrained_baseline_evaluation_recorded": false,
+    "colab_smoke_training_2_to_3_epochs_completed": false,
+    "checkpoint_saved": false,
+    "resume_verified": false
+  },
+  "measured_detection_metrics": null,
+  "training_metrics": null,
+  "checkpoint": null,
+  "stop_reason": "Dataset resmi belum dapat diakses karena kuota Google Drive dan fallback BaiduYun membutuhkan alur browser/token yang tidak tersedia."
+}
+

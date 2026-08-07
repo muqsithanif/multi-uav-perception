@@ -1,0 +1,44 @@
+{
+  "experiment_id": "D00_visdrone_conversion_smoke",
+  "recorded_at_utc": "2026-08-07T08:01:20.7910566Z",
+  "scope": "synthetic_fixture_only",
+  "source_revision": "e03dcf201deb7cfe3e84e143ab85f177e170d853",
+  "status": "passed",
+  "commands": [
+    ".venv/bin/python scripts/prepare_visdrone.py --check-config",
+    ".venv/bin/python -m pytest -q tests/test_visdrone_dataset.py"
+  ],
+  "config_check": {
+    "status": "passed",
+    "dataset_yaml": "configs/visdrone_5class.yaml",
+    "train": "../data/processed/visdrone5/images/train",
+    "val": "../data/processed/visdrone5/images/val",
+    "names": [
+      "pedestrian",
+      "car",
+      "van",
+      "truck",
+      "bus"
+    ]
+  },
+  "tests": {
+    "passed": 11,
+    "failed": 0,
+    "pytest_duration_seconds": 2.03,
+    "coverage": [
+      "source class range",
+      "invalid source boxes including excluded classes",
+      "box clipping and normalization",
+      "image-annotation pairing",
+      "YOLO class range and box bounds",
+      "split filename overlap",
+      "five-class mapping",
+      "score-zero ignored annotations",
+      "excluded unselected classes",
+      "converted output validation"
+    ]
+  },
+  "official_dataset_used": false,
+  "dataset_metrics": null
+}
+
