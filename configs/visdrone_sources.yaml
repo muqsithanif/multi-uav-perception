@@ -1,0 +1,24 @@
+dataset: VisDrone2019-DET
+task: object_detection_in_images
+accessed_date: 2026-08-07
+official_repository: https://github.com/VisDrone/VisDrone-Dataset
+official_download_page: https://aiskyeye.com/download/
+annotation_toolkit: https://github.com/VisDrone/VisDrone2018-DET-toolkit
+license_status: no_explicit_dataset_license_found_in_official_repository
+raw_root: data/raw/visdrone2019_det
+manifest_path: data/metadata/visdrone2019_det_download_manifest.json
+minimum_free_gib: 6
+
+archives:
+  train:
+    filename: VisDrone2019-DET-train.zip
+    google_drive_file_id: 1a2oHjcEcwXP8oUF95qiwrqzACb2YlUhn
+    official_reported_size_gb: 1.44
+    extracted_directory: VisDrone2019-DET-train
+    expected_image_count: 6471
+  val:
+    filename: VisDrone2019-DET-val.zip
+    google_drive_file_id: 1bxK5zgLn0_L8x276eKkuYA_FzwCIjb59
+    official_reported_size_gb: 0.07
+    extracted_directory: VisDrone2019-DET-val
+    expected_image_count: 548
