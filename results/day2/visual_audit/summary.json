@@ -1,0 +1,169 @@
+{
+  "all_project_classes_covered": true,
+  "artifacts": [
+    {
+      "class_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "class_names": [
+        "pedestrian",
+        "car",
+        "van",
+        "truck",
+        "bus"
+      ],
+      "image_height": 765,
+      "image_width": 1360,
+      "object_count": 24,
+      "output_image": "results/day2/visual_audit/val_0000289_01401_d_0000818.jpg",
+      "output_sha256": "5686771fba31d6974d344005a0c5fef65f7814924b6e8a0e56bcf9190723d8ef",
+      "source_image": "data/processed/visdrone5/images/val/0000289_01401_d_0000818.jpg",
+      "source_label": "data/processed/visdrone5/labels/val/0000289_01401_d_0000818.txt"
+    },
+    {
+      "class_ids": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "class_names": [
+        "pedestrian",
+        "car",
+        "van",
+        "truck"
+      ],
+      "image_height": 1080,
+      "image_width": 1920,
+      "object_count": 26,
+      "output_image": "results/day2/visual_audit/val_0000001_02999_d_0000005.jpg",
+      "output_sha256": "658efe9f1bad64860715e86eb0b2f6f16d0caf35398c961a3a075a6a51e98128",
+      "source_image": "data/processed/visdrone5/images/val/0000001_02999_d_0000005.jpg",
+      "source_label": "data/processed/visdrone5/labels/val/0000001_02999_d_0000005.txt"
+    },
+    {
+      "class_ids": [
+        0,
+        1,
+        2
+      ],
+      "class_names": [
+        "pedestrian",
+        "car",
+        "van"
+      ],
+      "image_height": 765,
+      "image_width": 1360,
+      "object_count": 64,
+      "output_image": "results/day2/visual_audit/val_0000216_00520_d_0000001.jpg",
+      "output_sha256": "5f01b193311e3205f0e138b6cbe141724974ebf641d373f50ad5cc0288b02ff6",
+      "source_image": "data/processed/visdrone5/images/val/0000216_00520_d_0000001.jpg",
+      "source_label": "data/processed/visdrone5/labels/val/0000216_00520_d_0000001.txt"
+    },
+    {
+      "class_ids": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "class_names": [
+        "pedestrian",
+        "car",
+        "van",
+        "truck"
+      ],
+      "image_height": 765,
+      "image_width": 1360,
+      "object_count": 54,
+      "output_image": "results/day2/visual_audit/val_0000280_02001_d_0000622.jpg",
+      "output_sha256": "335d7e45819429cebc3157721a870bf2bdf94ead6e3d8fe9671548a9208050ca",
+      "source_image": "data/processed/visdrone5/images/val/0000280_02001_d_0000622.jpg",
+      "source_label": "data/processed/visdrone5/labels/val/0000280_02001_d_0000622.txt"
+    },
+    {
+      "class_ids": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "class_names": [
+        "pedestrian",
+        "car",
+        "van",
+        "truck"
+      ],
+      "image_height": 765,
+      "image_width": 1360,
+      "object_count": 50,
+      "output_image": "results/day2/visual_audit/val_0000327_00201_d_0000712.jpg",
+      "output_sha256": "2261d59979c3164a00694042a31ce6f72bd2c3870f562ecc3a48ce9104a2fb38",
+      "source_image": "data/processed/visdrone5/images/val/0000327_00201_d_0000712.jpg",
+      "source_label": "data/processed/visdrone5/labels/val/0000327_00201_d_0000712.txt"
+    },
+    {
+      "class_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "class_names": [
+        "pedestrian",
+        "car",
+        "van",
+        "truck",
+        "bus"
+      ],
+      "image_height": 540,
+      "image_width": 960,
+      "object_count": 39,
+      "output_image": "results/day2/visual_audit/val_0000364_01765_d_0000782.jpg",
+      "output_sha256": "b4b7868f7fbce96d7f075c5d2a62774ee8d8bde758e410b7fe5ac691f52a67e9",
+      "source_image": "data/processed/visdrone5/images/val/0000364_01765_d_0000782.jpg",
+      "source_label": "data/processed/visdrone5/labels/val/0000364_01765_d_0000782.txt"
+    }
+  ],
+  "covered_class_ids": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "covered_class_names": [
+    "pedestrian",
+    "car",
+    "van",
+    "truck",
+    "bus"
+  ],
+  "created_at_utc": "2026-08-07T09:19:33.626438+00:00",
+  "dataset": "VisDrone2019-DET",
+  "rendered_sample_count": 6,
+  "requested_sample_count": 6,
+  "review": {
+    "criteria": [
+      "boxes align with visible object extents without systematic offset or scale error",
+      "boxes remain within image boundaries",
+      "project class labels are consistent with the visible annotated objects"
+    ],
+    "limitations": [
+      "six deterministic validation images are a sample, not an exhaustive annotation audit",
+      "dense scenes cause text overlays to overlap",
+      "some distant or occluded source annotations remain visually ambiguous"
+    ],
+    "notes": "All six overlays were inspected at original resolution. Box geometry and five-class mapping were consistent; no conversion defect was observed.",
+    "reviewed_at_utc": "2026-08-07T09:22:00+00:00"
+  },
+  "review_status": "passed",
+  "schema_version": 1,
+  "selection_policy": "greedy_class_coverage_then_even_filename_sampling",
+  "split": "val"
+}

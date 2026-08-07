@@ -2,7 +2,8 @@
 
 A portfolio-grade ROS 2 software and 2D simulation prototype that detects and tracks people/vehicles in aerial imagery, prioritizes targets, assigns them to three virtual UAVs, and produces high-level mission states.
 
-> Status: Gate 1 foundation verified on 2026-08-07. Later project gates have not been run.
+> Status: Gate 1 foundation and Gate 2A VisDrone data validation verified on
+> 2026-08-07. Gate 2 training and later project gates have not been completed.
 
 ## Verified Day 1 foundation
 
@@ -27,6 +28,23 @@ The exact successful invocation is stored in
 `experiments/S00_20260807_001/command.txt`. Experiment directories are
 immutable; use a new experiment ID and matching output directories for a
 separate run.
+
+## Verified VisDrone data path
+
+Official VisDrone2019-DET train and validation splits were downloaded,
+checksummed, converted to the documented five-class YOLO mapping, and validated.
+The output contains 6,471 train and 548 validation image/label pairs. Source
+sanitization is explicit: three zero-height train boxes were excluded (only one
+belonged to a selected training class), and 34 empty trailing fields were
+normalized. The converted output contains zero invalid boxes.
+
+Six deterministic validation overlays covering all five project classes passed
+visual inspection. This proves the data conversion path, not detector accuracy.
+
+- [Day 2 data report](docs/DAY_2_REPORT.md)
+- [VisDrone source, mapping, and conversion policy](docs/VISDRONE_DATA.md)
+- [Validation summary](experiments/D01_visdrone_validation/summary.json)
+- [Visual audit summary](results/day2/visual_audit/summary.json)
 
 ## Project goals
 
