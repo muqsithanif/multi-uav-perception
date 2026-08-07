@@ -1,5 +1,7 @@
+import json
 from pathlib import Path
 
+import pytest
 import torch
 
 from scripts.evaluate_pretrained_baseline import (
@@ -7,6 +9,7 @@ from scripts.evaluate_pretrained_baseline import (
     index_pairs_by_image_name,
     match_predictions,
     validate_mapping,
+    validate_reference_subset_manifest,
     yolo_boxes_to_xyxy,
 )
 
@@ -65,3 +68,63 @@ def test_index_pairs_by_image_name_does_not_depend_on_order() -> None:
 
     assert indexed["a.jpg"] == (Path("a.jpg"), Path("a.txt"))
     assert indexed["b.jpg"] == (Path("b.jpg"), Path("b.txt"))
+
+
+def test_validate_reference_subset_manifest_accepts_identical_lock(
+    tmp_path: Path, monkeypatch
+) -> None:
+    entry = {
+        "source_index": 0,
+        "image_name": "a.jpg",
+        "label_name": "a.txt",
+        "image_sha256": "image-hash",
+        "label_sha256": "label-hash",
+    }
+    manifest = {
+        "selection_policy": "evenly_spaced_sorted_filename",
+        "population_size": 1,
+        "subset_size": 1,
+        "selection_sha256": "selection-hash",
+        "ground_truth_class_counts": {"0": 1},
+        "entries": [entry],
+    }
+    path = tmp_path / "subset.json"
+    path.write_text(json.dumps(manifest), encoding="utf-8")
+    monkeypatch.setattr(
+        "scripts.evaluate_pretrained_baseline.REPO_ROOT", tmp_path
+    )
+
+    reference = validate_reference_subset_manifest(manifest, path)
+
+    assert reference["path"] == "subset.json"
+    assert len(reference["sha256"]) == 64
+
+
+def test_validate_reference_subset_manifest_rejects_changed_entries(
+    tmp_path: Path,
+) -> None:
+    manifest = {
+        "selection_policy": "evenly_spaced_sorted_filename",
+        "population_size": 1,
+        "subset_size": 1,
+        "selection_sha256": "selection-hash",
+        "ground_truth_class_counts": {"0": 1},
+        "entries": [
+            {
+                "source_index": 0,
+                "image_name": "a.jpg",
+                "label_name": "a.txt",
+                "image_sha256": "image-hash",
+                "label_sha256": "label-hash",
+            }
+        ],
+    }
+    reference = {
+        **manifest,
+        "entries": [{**manifest["entries"][0], "image_name": "b.jpg"}],
+    }
+    path = tmp_path / "subset.json"
+    path.write_text(json.dumps(reference), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="entries"):
+        validate_reference_subset_manifest(manifest, path)

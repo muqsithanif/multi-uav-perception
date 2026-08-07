@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "experiment_id": "E01_20260807_001",
+  "purpose": "main full-dataset five-class fine-tuning",
+  "interrupted_and_resumed": true,
+  "initial_training_revision": "0d8196fd38c3bb7d86b0e839cda5ed1efedd11dc",
+  "recovery_revision": "8ee590aedbe52bf31ffb28648629e4ec314ee7c0",
+  "resume": {
+    "source_checkpoint": "weights/last.pt",
+    "source_checkpoint_epoch_index": 10,
+    "source_checkpoint_sha256": "1708b2ebbecabad880331693e8382f300776fb5ef7f974d6738e4836d96b31cf",
+    "resume_started_at_utc": "2026-08-07T11:19:03.833655+00:00",
+    "finished_at_utc": "2026-08-07T12:12:32.723298+00:00",
+    "resume_duration_seconds": 3208.889657063,
+    "initial_session_csv_elapsed_seconds": 1984.64,
+    "estimated_total_training_seconds": 5193.529657063
+  },
+  "requested_epochs": 30,
+  "epochs_completed": 30,
+  "stopped_early": false,
+  "best_epoch_metrics": {
+    "epoch": 30.0,
+    "time": 3162.92,
+    "train/box_loss": 1.88435,
+    "train/cls_loss": 1.25827,
+    "train/l1_loss": 0.00261,
+    "metrics/precision(B)": 0.53166,
+    "metrics/recall(B)": 0.38044,
+    "metrics/mAP50(B)": 0.38521,
+    "metrics/mAP50-95(B)": 0.23458,
+    "val/box_loss": 1.82598,
+    "val/cls_loss": 1.27816,
+    "val/l1_loss": 0.00336,
+    "lr/pg0": 4.3e-05,
+    "lr/pg1": 4.3e-05,
+    "lr/pg2": 4.3e-05
+  },
+  "final_epoch_metrics": {
+    "epoch": 30.0,
+    "time": 3162.92,
+    "train/box_loss": 1.88435,
+    "train/cls_loss": 1.25827,
+    "train/l1_loss": 0.00261,
+    "metrics/precision(B)": 0.53166,
+    "metrics/recall(B)": 0.38044,
+    "metrics/mAP50(B)": 0.38521,
+    "metrics/mAP50-95(B)": 0.23458,
+    "val/box_loss": 1.82598,
+    "val/cls_loss": 1.27816,
+    "val/l1_loss": 0.00336,
+    "lr/pg0": 4.3e-05,
+    "lr/pg1": 4.3e-05,
+    "lr/pg2": 4.3e-05
+  },
+  "device": {
+    "name": "Tesla T4",
+    "torch": "2.11.0+cu128",
+    "torch_cuda": "12.8",
+    "resume_peak_allocated_bytes": 5428556800
+  },
+  "model": {
+    "initial_checkpoint": "yolo26n.pt",
+    "initial_checkpoint_sha256": "9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef"
+  },
+  "protocol": {
+    "data": "configs/visdrone_5class.yaml",
+    "epochs": 30,
+    "imgsz": 640,
+    "batch": 16,
+    "device": 0,
+    "workers": 2,
+    "seed": 42,
+    "deterministic": true,
+    "pretrained": true,
+    "optimizer": "AdamW",
+    "lr0": 0.001,
+    "lrf": 0.01,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "warmup_epochs": 3.0,
+    "cos_lr": false,
+    "close_mosaic": 10,
+    "amp": true,
+    "cache": false,
+    "rect": false,
+    "fraction": 1.0,
+    "conf": 0.001,
+    "iou": 0.7,
+    "val": true,
+    "plots": true,
+    "save": true,
+    "save_period": 1,
+    "patience": 10,
+    "project": "/content/drive/MyDrive/uav/runs",
+    "name": "E01_20260807_001",
+    "exist_ok": true
+  },
+  "artifacts": {
+    "args_yaml": "args.yaml",
+    "results_csv": "results.csv",
+    "best_checkpoint": "weights/best.pt",
+    "last_checkpoint": "weights/last.pt",
+    "best_checkpoint_sha256": "d5fcbeab43dc5706ea743d834094495be241836da2b25910c1cd1757f84faea5",
+    "last_checkpoint_sha256": "3f96dd3044270a518c3cda34ae2f45d8c77d72d0c593c9de94782183990904ab",
+    "best_checkpoint_size_bytes": 5363845,
+    "last_checkpoint_size_bytes": 5363845,
+    "periodic_checkpoint_count": 30,
+    "periodic_checkpoints": [
+      {
+        "name": "epoch0.pt",
+        "size_bytes": 20748293
+      },
+      {
+        "name": "epoch1.pt",
+        "size_bytes": 20748421
+      },
+      {
+        "name": "epoch10.pt",
+        "size_bytes": 20749573
+      },
+      {
+        "name": "epoch11.pt",
+        "size_bytes": 20749765
+      },
+      {
+        "name": "epoch12.pt",
+        "size_bytes": 20749893
+      },
+      {
+        "name": "epoch13.pt",
+        "size_bytes": 20750021
+      },
+      {
+        "name": "epoch14.pt",
+        "size_bytes": 20750149
+      },
+      {
+        "name": "epoch15.pt",
+        "size_bytes": 20750277
+      },
+      {
+        "name": "epoch16.pt",
+        "size_bytes": 20750405
+      },
+      {
+        "name": "epoch17.pt",
+        "size_bytes": 20750533
+      },
+      {
+        "name": "epoch18.pt",
+        "size_bytes": 20750661
+      },
+      {
+        "name": "epoch19.pt",
+        "size_bytes": 20750789
+      },
+      {
+        "name": "epoch2.pt",
+        "size_bytes": 20748549
+      },
+      {
+        "name": "epoch20.pt",
+        "size_bytes": 20750917
+      },
+      {
+        "name": "epoch21.pt",
+        "size_bytes": 20751045
+      },
+      {
+        "name": "epoch22.pt",
+        "size_bytes": 20751173
+      },
+      {
+        "name": "epoch23.pt",
+        "size_bytes": 20751301
+      },
+      {
+        "name": "epoch24.pt",
+        "size_bytes": 20751429
+      },
+      {
+        "name": "epoch25.pt",
+        "size_bytes": 20751557
+      },
+      {
+        "name": "epoch26.pt",
+        "size_bytes": 20751685
+      },
+      {
+        "name": "epoch27.pt",
+        "size_bytes": 20751813
+      },
+      {
+        "name": "epoch28.pt",
+        "size_bytes": 20751941
+      },
+      {
+        "name": "epoch29.pt",
+        "size_bytes": 20752069
+      },
+      {
+        "name": "epoch3.pt",
+        "size_bytes": 20748677
+      },
+      {
+        "name": "epoch4.pt",
+        "size_bytes": 20748805
+      },
+      {
+        "name": "epoch5.pt",
+        "size_bytes": 20748933
+      },
+      {
+        "name": "epoch6.pt",
+        "size_bytes": 20749061
+      },
+      {
+        "name": "epoch7.pt",
+        "size_bytes": 20749189
+      },
+      {
+        "name": "epoch8.pt",
+        "size_bytes": 20749317
+      },
+      {
+        "name": "epoch9.pt",
+        "size_bytes": 20749445
+      }
+    ]
+  }
+}

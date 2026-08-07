@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "experiment_id": "E01_20260807_001",
+  "status": "passed",
+  "created_at_utc": "2026-08-07T12:20:33.985210+00:00",
+  "excluded": [
+    "main_run/weights/epoch*.pt"
+  ],
+  "files": [
+    {
+      "archive_path": "main_run/BoxF1_curve.png",
+      "size_bytes": 212373,
+      "sha256": "f97a39d40713474c00c5eafd693c413cd1ec6edccf402b68105554401a9f25f6"
+    },
+    {
+      "archive_path": "main_run/BoxPR_curve.png",
+      "size_bytes": 222809,
+      "sha256": "17992d602e2508b9297383ee2ad8210b2190d2fe2dbb4b60a86e979f78f4f8ce"
+    },
+    {
+      "archive_path": "main_run/BoxP_curve.png",
+      "size_bytes": 236466,
+      "sha256": "03717d3712366e900b7e35f0bdee688c359c582c9a499ad399a5d007d33f7cfb"
+    },
+    {
+      "archive_path": "main_run/BoxR_curve.png",
+      "size_bytes": 201219,
+      "sha256": "3de75a5ed4edc4bb6ec24192203dd827faebe7b85035fcac65acb0eeeabba2bc"
+    },
+    {
+      "archive_path": "main_run/args.yaml",
+      "size_bytes": 1879,
+      "sha256": "8b7b348ed1147db6517ca3f9b5c5071025457385efbf08542834c53eea81a8e9"
+    },
+    {
+      "archive_path": "main_run/command.json",
+      "size_bytes": 843,
+      "sha256": "b60ed546a9f782f12d682079c2b989a92f5c349610b5294680dc5ccb3c6c03c0"
+    },
+    {
+      "archive_path": "main_run/config.yaml",
+      "size_bytes": 807,
+      "sha256": "d268b6003972af0bb929f0ebb2b51a176806782f8d34ef907ba863e13c1fc3d5"
+    },
+    {
+      "archive_path": "main_run/confusion_matrix.png",
+      "size_bytes": 185008,
+      "sha256": "d47606d74dae425f473aa1a9c004600dfaae47a120486d2e8bb103cbedf93439"
+    },
+    {
+      "archive_path": "main_run/confusion_matrix_normalized.png",
+      "size_bytes": 183037,
+      "sha256": "968d3dc889e2571cbd83908daa750b3f1d822d215d92ebb9b3d278369427c91c"
+    },
+    {
+      "archive_path": "main_run/labels.jpg",
+      "size_bytes": 121175,
+      "sha256": "dd2a4931582ab8f951ea2048895e4dc31f6ffbeb08d4fc81a34dc5e43beae774"
+    },
+    {
+      "archive_path": "main_run/preflight.json",
+      "size_bytes": 1695,
+      "sha256": "452ec64cefb8028f727be8382479825b5c80772faf3ba8a402f256ca1425a40a"
+    },
+    {
+      "archive_path": "main_run/recovery.json",
+      "size_bytes": 428,
+      "sha256": "108384b3d1203f387bad4a26dfc0c3edb954d3aa88cdc6e9412d460b00885317"
+    },
+    {
+      "archive_path": "main_run/results.csv",
+      "size_bytes": 3690,
+      "sha256": "bee95b9cd2a0a6acd3a40ddb91385afde7bb514ccd50bad27a17b317d448e9d0"
+    },
+    {
+      "archive_path": "main_run/results.png",
+      "size_bytes": 272253,
+      "sha256": "93062279ef0173acda91929331197c331323387eb7b4471ff4151b1e8283b580"
+    },
+    {
+      "archive_path": "main_run/run_status.json",
+      "size_bytes": 150,
+      "sha256": "24c5c4d2d1a51c5d577aaac0fc7e4e432a0ad9e6e00e1df176be9b3c893fdafc"
+    },
+    {
+      "archive_path": "main_run/summary.json",
+      "size_bytes": 5664,
+      "sha256": "5399565246f80e6c1eaed89031a6e1f13a530ea1f3cf22fd90d07ec4e5775566"
+    },
+    {
+      "archive_path": "main_run/train_batch0.jpg",
+      "size_bytes": 722917,
+      "sha256": "06e9ba0d280540a3e0a56b44ae96e9f63435c8a035a9eacb67a490bc7b051299"
+    },
+    {
+      "archive_path": "main_run/train_batch1.jpg",
+      "size_bytes": 761282,
+      "sha256": "69be13e31c3012f34dd5ba9d9b7d5b5765f36f75a95e21343daa56e133271278"
+    },
+    {
+      "archive_path": "main_run/train_batch2.jpg",
+      "size_bytes": 806568,
+      "sha256": "4cdd59028fb7fd2206db02a7f417e93b6e4bdd1fdf68f5e1a0a4202b33d5f85a"
+    },
+    {
+      "archive_path": "main_run/train_batch8100.jpg",
+      "size_bytes": 598445,
+      "sha256": "b8012f78006dabf4fbf925c19a18e45bf722f563c48c463b0cc7657979c200c6"
+    },
+    {
+      "archive_path": "main_run/train_batch8101.jpg",
+      "size_bytes": 616425,
+      "sha256": "05da9cc19692fcb1e0ddd64d009ef3c45dc2cf27a9c427716d8d601ee5999a86"
+    },
+    {
+      "archive_path": "main_run/train_batch8102.jpg",
+      "size_bytes": 642872,
+      "sha256": "8ea0e0ff2328b748f169cfba7142b2eeb6798443876f1dcc2f8a54d70f6476f3"
+    },
+    {
+      "archive_path": "main_run/val_batch0_labels.jpg",
+      "size_bytes": 464869,
+      "sha256": "0b4f68460758cab3ff35b169a6dd772b932b9f2ed1b70a9f4ebd0c82239e8ee5"
+    },
+    {
+      "archive_path": "main_run/val_batch0_pred.jpg",
+      "size_bytes": 478172,
+      "sha256": "805a499cd936e529e295c7a88455bc12fb7330b8a0f7259ed2660bd7c073c2db"
+    },
+    {
+      "archive_path": "main_run/val_batch1_labels.jpg",
+      "size_bytes": 485729,
+      "sha256": "403717feedce40b82ef8c428d7b6399fa050310e618d0beaa70de6b91e008373"
+    },
+    {
+      "archive_path": "main_run/val_batch1_pred.jpg",
+      "size_bytes": 510401,
+      "sha256": "f42702f9ad8e95756a39a44f6a7b046c595cbf2d7910d673d4a08b0b288d206f"
+    },
+    {
+      "archive_path": "main_run/val_batch2_labels.jpg",
+      "size_bytes": 513559,
+      "sha256": "884d609708dece4c7bb4cca82035b547780cf0570cb25ce36af6f37c29ff9a09"
+    },
+    {
+      "archive_path": "main_run/val_batch2_pred.jpg",
+      "size_bytes": 512633,
+      "sha256": "78ffe915805c655b889765a8d5df71dbdae26c204998fbdb091008388a5ac60f"
+    },
+    {
+      "archive_path": "main_run/weights/best.pt",
+      "size_bytes": 5363845,
+      "sha256": "d5fcbeab43dc5706ea743d834094495be241836da2b25910c1cd1757f84faea5"
+    },
+    {
+      "archive_path": "main_run/weights/last.pt",
+      "size_bytes": 5363845,
+      "sha256": "3f96dd3044270a518c3cda34ae2f45d8c77d72d0c593c9de94782183990904ab"
+    },
+    {
+      "archive_path": "smoke_run/smoke_summary.json",
+      "size_bytes": 2295,
+      "sha256": "293d190a5adf65672b03d97ef8eeeb7c5f78ecfe5dc9a60119e066a0956db935"
+    },
+    {
+      "archive_path": "resume_verification/resume_summary.json",
+      "size_bytes": 1200,
+      "sha256": "3166771cd5d764c140617323b2e1376ce4a731a2ad1eff72254eecd5c38300bb"
+    },
+    {
+      "archive_path": "repository_evidence/SOURCE_BUNDLE.json",
+      "size_bytes": 185,
+      "sha256": "1b4cc536b86dc6b9750b0214b2e73326054d5deda5cb247bbe9898a7d36e5ee1"
+    },
+    {
+      "archive_path": "repository_evidence/configs/visdrone_5class.yaml",
+      "size_bytes": 235,
+      "sha256": "399ccd01a70378da91b69f4f6a09b9e4bf4f4158678ef46e2124c885db9ac4c2"
+    },
+    {
+      "archive_path": "repository_evidence/configs/e01_main_colab.yaml",
+      "size_bytes": 807,
+      "sha256": "d268b6003972af0bb929f0ebb2b51a176806782f8d34ef907ba863e13c1fc3d5"
+    },
+    {
+      "archive_path": "repository_evidence/data/metadata/visdrone5_manifest.json",
+      "size_bytes": 7722,
+      "sha256": "c9db165f94519f53cdd9d92b241682115b09f3bebae7b90431ae04516e58d5f1"
+    },
+    {
+      "archive_path": "repository_evidence/experiments/D01_visdrone_validation/summary.json",
+      "size_bytes": 7722,
+      "sha256": "c9db165f94519f53cdd9d92b241682115b09f3bebae7b90431ae04516e58d5f1"
+    }
+  ]
+}

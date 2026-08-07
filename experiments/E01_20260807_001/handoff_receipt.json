@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "experiment_id": "E01_20260807_001",
+  "verified_at_utc": "2026-08-07T12:33:08.6127248Z",
+  "source_download": {
+    "filename": "drive-download-20260807T122143Z-1-001.zip",
+    "size_bytes": 17807187,
+    "sha256": "e172ae8ab6fcf8d216c788e740d94a6629b28af6de302d42b52b264ffcef6d3f"
+  },
+  "handoff": {
+    "filename": "E01_20260807_001_handoff.zip",
+    "size_bytes": 17801490,
+    "sha256": "e2f30398d3413e0b18a68e34d518a57f1d289a2ca3423cf5956dcc9f9a525593",
+    "manifest_sha256": "8c94dfc07f9dd60ef3a07de93299b8c0b7a265df19f0a28cdd35323957732716",
+    "manifest_entries_verified": 37,
+    "unsafe_archive_paths": 0,
+    "validation_failures": 0
+  },
+  "checkpoint_import": {
+    "best_path": "models/checkpoints/E01_20260807_001/best.pt",
+    "best_size_bytes": 5363845,
+    "best_sha256": "d5fcbeab43dc5706ea743d834094495be241836da2b25910c1cd1757f84faea5",
+    "last_path": "models/checkpoints/E01_20260807_001/last.pt",
+    "last_size_bytes": 5363845,
+    "last_sha256": "3f96dd3044270a518c3cda34ae2f45d8c77d72d0c593c9de94782183990904ab",
+    "git_ignored": true
+  },
+  "status": "passed"
+}

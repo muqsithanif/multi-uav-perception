@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Evaluate a pretrained COCO detector on a locked VisDrone validation subset."""
+"""Evaluate a YOLO detector on a locked VisDrone validation subset."""
 
 from __future__ import annotations
 
@@ -122,7 +122,7 @@ def git_revision() -> str | None:
 def load_config(path: Path) -> dict[str, Any]:
     config = yaml.safe_load(path.read_text(encoding="utf-8"))
     if not isinstance(config, dict):
-        raise ValueError("baseline config must be a mapping")
+        raise ValueError("evaluation config must be a mapping")
     required = {
         "experiment_id",
         "model",
@@ -131,6 +131,7 @@ def load_config(path: Path) -> dict[str, Any]:
         "subset_size",
         "project_classes",
         "model_class_mapping",
+        "unsupported_project_classes",
         "experiment_dir",
         "result_dir",
     }
@@ -216,6 +217,54 @@ def build_subset_manifest(
     return selected, manifest
 
 
+def validate_reference_subset_manifest(
+    actual: dict[str, Any], reference_path: Path
+) -> dict[str, str]:
+    """Require an evaluation subset to match a previously locked manifest."""
+    reference = json.loads(reference_path.read_text(encoding="utf-8"))
+    if not isinstance(reference, dict):
+        raise ValueError("reference subset manifest must be a mapping")
+    keys = (
+        "selection_policy",
+        "population_size",
+        "subset_size",
+        "selection_sha256",
+        "ground_truth_class_counts",
+    )
+    mismatches = [key for key in keys if actual.get(key) != reference.get(key)]
+    actual_entries = [
+        (
+            entry["source_index"],
+            entry["image_name"],
+            entry["label_name"],
+            entry["image_sha256"],
+            entry["label_sha256"],
+        )
+        for entry in actual["entries"]
+    ]
+    reference_entries = [
+        (
+            entry["source_index"],
+            entry["image_name"],
+            entry["label_name"],
+            entry["image_sha256"],
+            entry["label_sha256"],
+        )
+        for entry in reference.get("entries", [])
+    ]
+    if actual_entries != reference_entries:
+        mismatches.append("entries")
+    if mismatches:
+        raise ValueError(
+            "evaluation subset differs from locked reference: "
+            + ", ".join(mismatches)
+        )
+    return {
+        "path": reference_path.relative_to(REPO_ROOT).as_posix(),
+        "sha256": sha256_file(reference_path),
+    }
+
+
 def index_pairs_by_image_name(
     pairs: list[tuple[Path, Path]],
 ) -> dict[str, tuple[Path, Path]]:
@@ -290,6 +339,12 @@ def run(config_path: Path) -> dict[str, Any]:
         int(config["subset_size"]),
         len(class_names),
     )
+    reference_subset = None
+    if config.get("reference_subset_manifest"):
+        reference_subset = validate_reference_subset_manifest(
+            subset_manifest,
+            resolve_repo_path(config["reference_subset_manifest"]),
+        )
     subset_manifest.update(
         {
             "created_at_utc": datetime.now(UTC).isoformat(),
@@ -433,6 +488,7 @@ def run(config_path: Path) -> dict[str, Any]:
             "selection_policy": subset_manifest["selection_policy"],
             "selection_sha256": subset_manifest["selection_sha256"],
             "ground_truth_class_counts": subset_manifest["ground_truth_class_counts"],
+            "reference_manifest": reference_subset,
         },
         "model": {
             "path": config["model"],

@@ -1,0 +1,10 @@
+{
+  "status": "ready_to_resume",
+  "recovered_at_utc": "2026-08-07T11:14:53.995747+00:00",
+  "pre_disconnect_training_revision": "0d8196fd38c3bb7d86b0e839cda5ed1efedd11dc",
+  "recovery_revision": "8ee590aedbe52bf31ffb28648629e4ec314ee7c0",
+  "checkpoint": "weights/last.pt",
+  "checkpoint_epoch_index": 10,
+  "checkpoint_sha256": "1708b2ebbecabad880331693e8382f300776fb5ef7f974d6738e4836d96b31cf",
+  "optimizer_present": true
+}
