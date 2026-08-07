@@ -1,0 +1,1 @@
+YOLO_CONFIG_DIR=/tmp .venv/bin/python scripts/analyze_detection_errors.py --config configs/e01_error_analysis.yaml

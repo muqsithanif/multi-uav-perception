@@ -20,7 +20,7 @@ The project is complete only when every **Required** item below has objective ev
 - [x] A pretrained baseline is evaluated using the locked validation protocol.
 - [x] A real fine-tuned YOLO nano checkpoint, config snapshot, training log, and curves exist.
 - [x] Baseline and fine-tuned results use comparable settings and report precision, recall, mAP50, and mAP50-95.
-- [ ] Error analysis includes small/occluded objects and at least several concrete failure examples.
+- [x] Error analysis includes small/occluded objects and at least several concrete failure examples.
 
 ### Deployment and performance
 

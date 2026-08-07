@@ -94,8 +94,8 @@ Perintah yang lulus:
 .venv/bin/python scripts/compare_detection_experiments.py --config configs/e00_vs_e01_comparison.yaml
 ```
 
-Hasil akhir suite setelah impor E01 dan pembanding: **32 passed, 0 failed**
-dalam 41,25 detik. Pada
+Hasil akhir suite setelah error analysis E01: **37 passed, 0 failed** dalam
+49,47 detik. Pada
 checkpoint distribusi, satu percobaan test sempat gagal karena konstanta
 SHA-256 fixture baru salah; konstanta dikoreksi ke digest fixture aktual dan
 suite kemudian lulus.
@@ -239,6 +239,19 @@ Wall time evaluasi E01 adalah 16,774275 detik (131,049020 ms/image), sedangkan
 E00 adalah 13,223372 detik (103,307593 ms/image). Keduanya hanya satu run CPU
 untuk validasi pipeline dan belum memenuhi protokol benchmark latency/FPS.
 
+### E01 error analysis
+
+`E01A_20260807_001` menganalisis subset yang sama pada operating point
+confidence 0,25 dan matching IoU 0,50. Dari 6.090 GT terdapat 2.975 TP, 3.115
+FN, dan 1.243 FP. Recall small object adalah 0,325061, jauh di bawah medium
+0,731993 dan large 0,836735. Recall heavily occluded adalah 0,174004,
+dibandingkan 0,392680 partial dan 0,622742 tanpa occlusion.
+
+Sebanyak 237 class-confusion ditemukan; 155 di antaranya adalah `van -> car`.
+Enam overlay deterministik sudah diperiksa. Detail metode, tabel kelas, contoh,
+dan keterbatasan tersedia di `docs/E01_ERROR_ANALYSIS.md`. Angka ini adalah
+diagnosis satu operating point, bukan AP atau benchmark deployment.
+
 ## 4. Artifacts
 
 - `data/metadata/visdrone2019_det_download_manifest.json`
@@ -250,6 +263,7 @@ untuk validasi pipeline dan belum memenuhi protokol benchmark latency/FPS.
 - `experiments/E01_20260807_001/summary.json`
 - `experiments/E01_20260807_001/handoff_receipt.json`
 - `experiments/E01E_20260807_001/summary.json`
+- `experiments/E01A_20260807_001/summary.json`
 - `results/day2/dataset_analysis/class_distribution.json`
 - `results/day2/dataset_analysis/class_distribution.csv`
 - `results/day2/dataset_analysis/class_distribution.png`
@@ -260,6 +274,7 @@ untuk validasi pipeline dan belum memenuhi protokol benchmark latency/FPS.
 - `results/day2/E01E_20260807_001/metrics.csv` dan empat kurva evaluasi
 - `results/day2/E00_vs_E01_20260807_001/summary.json`
 - `results/day2/E00_vs_E01_20260807_001/comparison.csv`
+- empat CSV mentah dan enam overlay di `results/day2/E01A_20260807_001/`
 - `results/day2/gate_2a_status.json`
 - `notebooks/day2_visdrone_smoke_colab.ipynb`
 - enam overlay di `results/day2/visual_audit/`
@@ -284,5 +299,5 @@ dan sampel visual audit berukuran terbatas dapat disimpan sebagai bukti.
 - Checkpoint tidak dikomit ke Git. Reproduksi inferensi memerlukan pengambilan
   weight berdasarkan path dan SHA-256 pada receipt/summary.
 - Runtime Colab private tetap memerlukan otorisasi Google Drive pemilik akun.
-- Error analysis small/occluded objects secara terstruktur masih menjadi
-  milestone berikutnya sebelum Gate Evaluation dianggap lengkap.
+- Error analysis mengukur satu confidence/IoU operating point; pemilihan
+  threshold deployment dan eksperimen mitigasi small-object belum dilakukan.

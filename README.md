@@ -86,6 +86,7 @@ results; they are not full-validation or deployment-speed claims.
 - [Locked E01 evaluation](experiments/E01E_20260807_001/summary.json)
 - [E00 versus E01 comparison](results/day2/E00_vs_E01_20260807_001/summary.json)
 - [E01 evaluation metrics](results/day2/E01E_20260807_001/metrics.csv)
+- [E01 small-object/occlusion error analysis](docs/E01_ERROR_ANALYSIS.md)
 
 ## Project goals
 

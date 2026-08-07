@@ -1,0 +1,294 @@
+{
+  "analysis_id": "E01A_20260807_001",
+  "artifacts": {
+    "classification_confusions": {
+      "path": "results/day2/E01A_20260807_001/classification_confusions.csv",
+      "sha256": "8e728d908f792b3088c40c5e3b23a3f54da2026cf5aab9d3d4978bb152f82cd8"
+    },
+    "false_positives": {
+      "path": "results/day2/E01A_20260807_001/false_positives.csv",
+      "sha256": "ba3de18f5f376e0a98fed51f00449e8293e832f86b959f85c02e6b0de34c0d75"
+    },
+    "ground_truth_outcomes": {
+      "path": "results/day2/E01A_20260807_001/ground_truth_outcomes.csv",
+      "sha256": "2736ffc627f00c046c738bb7df5c04f1a323bce960c5467b19a3494d0bc025ee"
+    },
+    "image_summary": {
+      "path": "results/day2/E01A_20260807_001/image_summary.csv",
+      "sha256": "d87c42cd9305bdd81d78de4c75ae0ff248c4569cc1ef7a19d7cbf495aac4fd28"
+    }
+  },
+  "classification_confusion_counts": {
+    "bus->car": 1,
+    "bus->truck": 1,
+    "car->pedestrian": 2,
+    "car->truck": 1,
+    "car->van": 29,
+    "pedestrian->car": 1,
+    "truck->bus": 5,
+    "truck->car": 31,
+    "truck->van": 6,
+    "van->bus": 2,
+    "van->car": 155,
+    "van->truck": 3
+  },
+  "duration_seconds": 23.140351827999993,
+  "false_positives_by_class": {
+    "bus": 12,
+    "car": 850,
+    "pedestrian": 278,
+    "truck": 19,
+    "van": 84
+  },
+  "finished_at_utc": "2026-08-07T13:01:05.546177+00:00",
+  "ground_truth_breakdown": {
+    "by_class": {
+      "bus": {
+        "ground_truth": 53,
+        "matched": 20,
+        "missed": 33,
+        "recall_at_operating_point": 0.37735849056603776
+      },
+      "car": {
+        "ground_truth": 3417,
+        "matched": 2315,
+        "missed": 1102,
+        "recall_at_operating_point": 0.6774948785484343
+      },
+      "pedestrian": {
+        "ground_truth": 1946,
+        "matched": 484,
+        "missed": 1462,
+        "recall_at_operating_point": 0.24871531346351491
+      },
+      "truck": {
+        "ground_truth": 187,
+        "matched": 37,
+        "missed": 150,
+        "recall_at_operating_point": 0.19786096256684493
+      },
+      "van": {
+        "ground_truth": 487,
+        "matched": 119,
+        "missed": 368,
+        "recall_at_operating_point": 0.24435318275154005
+      }
+    },
+    "by_occlusion": {
+      "heavy": {
+        "ground_truth": 477,
+        "matched": 83,
+        "missed": 394,
+        "recall_at_operating_point": 0.1740041928721174
+      },
+      "none": {
+        "ground_truth": 2990,
+        "matched": 1862,
+        "missed": 1128,
+        "recall_at_operating_point": 0.622742474916388
+      },
+      "partial": {
+        "ground_truth": 2623,
+        "matched": 1030,
+        "missed": 1593,
+        "recall_at_operating_point": 0.3926801372474266
+      }
+    },
+    "by_size": {
+      "large": {
+        "ground_truth": 245,
+        "matched": 205,
+        "missed": 40,
+        "recall_at_operating_point": 0.8367346938775511
+      },
+      "medium": {
+        "ground_truth": 2138,
+        "matched": 1565,
+        "missed": 573,
+        "recall_at_operating_point": 0.7319925163704397
+      },
+      "small": {
+        "ground_truth": 3707,
+        "matched": 1205,
+        "missed": 2502,
+        "recall_at_operating_point": 0.3250606959805773
+      }
+    },
+    "by_truncation": {
+      "not_truncated": {
+        "ground_truth": 5797,
+        "matched": 2781,
+        "missed": 3016,
+        "recall_at_operating_point": 0.4797308952906676
+      },
+      "truncated": {
+        "ground_truth": 293,
+        "matched": 194,
+        "missed": 99,
+        "recall_at_operating_point": 0.6621160409556314
+      }
+    }
+  },
+  "limitations": [
+    "Counts use one declared confidence/IoU operating point and are not AP metrics.",
+    "Small/medium/large use original-image pixel area, not physical object size.",
+    "Occlusion and truncation come from VisDrone annotations and may contain labeling ambiguity.",
+    "Qualitative overlays are deterministic selected examples, not a manual review of every image."
+  ],
+  "locked_subset": {
+    "manifest": "experiments/E01E_20260807_001/subset_manifest.json",
+    "manifest_sha256": "162c91374b0c84ea35f2b1b864d308cc8e08e025cd8551769aa1d5d0913ff65a",
+    "selection_sha256": "7e1bd549153bea5fa2d6f1e17a4e7f29f57f11157c6c277441a6d00520c265bd",
+    "size": 128
+  },
+  "model": {
+    "class_names": {
+      "0": "pedestrian",
+      "1": "car",
+      "2": "van",
+      "3": "truck",
+      "4": "bus"
+    },
+    "path": "models/checkpoints/E01_20260807_001/best.pt",
+    "sha256": "d5fcbeab43dc5706ea743d834094495be241836da2b25910c1cd1757f84faea5",
+    "size_bytes": 5363845
+  },
+  "protocol": {
+    "batch": 4,
+    "confidence": 0.25,
+    "device": "cpu",
+    "half": false,
+    "image_size": 640,
+    "iou_nms": 0.7,
+    "match_iou": 0.5,
+    "max_detections": 300,
+    "occlusion_definition": {
+      "0": "none",
+      "1": "partial",
+      "2": "heavy"
+    },
+    "rect": true,
+    "size_definition": {
+      "basis": "original-image bounding-box area in pixels squared",
+      "large": "area >= 9216",
+      "medium": "1024 <= area < 9216",
+      "small": "area < 1024"
+    },
+    "truncation_definition": {
+      "0": "not_truncated",
+      "1": "truncated"
+    }
+  },
+  "schema_version": 1,
+  "selected_failure_examples": [
+    {
+      "classification_confusions": 9,
+      "false_negatives": 120,
+      "false_positives": 36,
+      "ground_truth": 174,
+      "heavy_occlusion_false_negatives": 7,
+      "image_name": "0000291_03201_d_0000884.jpg",
+      "overlay": "results/day2/E01A_20260807_001/overlays/01_small_false_negatives_0000291_03201_d_0000884.jpg",
+      "overlay_sha256": "131e6ee31cefdec6e63b1f3b451f02ba2e4ca87d5361ae9c34bad95b45403bc0",
+      "predictions": 90,
+      "selection_reason": "small_false_negatives",
+      "small_false_negatives": 102,
+      "total_errors": 156,
+      "true_positives": 54,
+      "truncated_false_negatives": 2
+    },
+    {
+      "classification_confusions": 4,
+      "false_negatives": 50,
+      "false_positives": 11,
+      "ground_truth": 91,
+      "heavy_occlusion_false_negatives": 22,
+      "image_name": "0000280_01601_d_0000620.jpg",
+      "overlay": "results/day2/E01A_20260807_001/overlays/02_heavy_occlusion_false_negatives_0000280_01601_d_0000620.jpg",
+      "overlay_sha256": "2d6d790e00d4ee428a0d5a42ad4261b7401de1f3b7b294e7151658d562b7181d",
+      "predictions": 52,
+      "selection_reason": "heavy_occlusion_false_negatives",
+      "small_false_negatives": 43,
+      "total_errors": 61,
+      "true_positives": 41,
+      "truncated_false_negatives": 1
+    },
+    {
+      "classification_confusions": 2,
+      "false_negatives": 34,
+      "false_positives": 10,
+      "ground_truth": 50,
+      "heavy_occlusion_false_negatives": 8,
+      "image_name": "0000301_00001_d_0000156.jpg",
+      "overlay": "results/day2/E01A_20260807_001/overlays/03_truncated_false_negatives_0000301_00001_d_0000156.jpg",
+      "overlay_sha256": "f7a5bc94f7a3d6a51fbf9cb0ed63aa09fb7db4683cb62b0ecd191cc696ebdd0f",
+      "predictions": 26,
+      "selection_reason": "truncated_false_negatives",
+      "small_false_negatives": 24,
+      "total_errors": 44,
+      "true_positives": 16,
+      "truncated_false_negatives": 7
+    },
+    {
+      "classification_confusions": 9,
+      "false_negatives": 59,
+      "false_positives": 20,
+      "ground_truth": 83,
+      "heavy_occlusion_false_negatives": 7,
+      "image_name": "0000277_01801_d_0000548.jpg",
+      "overlay": "results/day2/E01A_20260807_001/overlays/04_classification_confusions_0000277_01801_d_0000548.jpg",
+      "overlay_sha256": "15f9dfa50b7e15f25d30852d920dfe734894e7cc450b7964db89dd88e391b33d",
+      "predictions": 44,
+      "selection_reason": "classification_confusions",
+      "small_false_negatives": 39,
+      "total_errors": 79,
+      "true_positives": 24,
+      "truncated_false_negatives": 0
+    },
+    {
+      "classification_confusions": 2,
+      "false_negatives": 49,
+      "false_positives": 37,
+      "ground_truth": 115,
+      "heavy_occlusion_false_negatives": 0,
+      "image_name": "0000295_01600_d_0000029.jpg",
+      "overlay": "results/day2/E01A_20260807_001/overlays/05_false_positives_0000295_01600_d_0000029.jpg",
+      "overlay_sha256": "e350232c8dfae1069c28d5101376c0f0581c00d5328d1e90d213319512274b5b",
+      "predictions": 103,
+      "selection_reason": "false_positives",
+      "small_false_negatives": 45,
+      "total_errors": 86,
+      "true_positives": 66,
+      "truncated_false_negatives": 1
+    },
+    {
+      "classification_confusions": 0,
+      "false_negatives": 85,
+      "false_positives": 21,
+      "ground_truth": 164,
+      "heavy_occlusion_false_negatives": 5,
+      "image_name": "0000295_02900_d_0000034.jpg",
+      "overlay": "results/day2/E01A_20260807_001/overlays/06_total_errors_0000295_02900_d_0000034.jpg",
+      "overlay_sha256": "ba61ace8b3dfb24be24669c16a28a0c639c126db95c45b6522b516c40053b280",
+      "predictions": 100,
+      "selection_reason": "total_errors",
+      "small_false_negatives": 83,
+      "total_errors": 106,
+      "true_positives": 79,
+      "truncated_false_negatives": 0
+    }
+  ],
+  "source_revision": "ffad30f3c89f8648f860314ebbf85964a2fd96c6",
+  "started_at_utc": "2026-08-07T13:00:42.405843+00:00",
+  "status": "passed",
+  "totals_at_operating_point": {
+    "classification_confusions": 237,
+    "false_negatives": 3115,
+    "false_positives": 1243,
+    "ground_truth": 6090,
+    "precision": 0.7053105737316263,
+    "predictions": 4218,
+    "recall": 0.4885057471264368,
+    "true_positives": 2975
+  }
+}

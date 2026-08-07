@@ -1,0 +1,35 @@
+analysis_id: E01A_20260807_001
+seed: 42
+
+model: models/checkpoints/E01_20260807_001/best.pt
+device: cpu
+image_size: 640
+confidence: 0.25
+iou_nms: 0.7
+match_iou: 0.50
+max_detections: 300
+batch: 4
+half: false
+rect: true
+
+images_dir: data/processed/visdrone5/images/val
+labels_dir: data/processed/visdrone5/labels/val
+source_annotations_dir: data/raw/visdrone2019_det/VisDrone2019-DET-val/annotations
+conversion_config: configs/visdrone_conversion.yaml
+subset_manifest: experiments/E01E_20260807_001/subset_manifest.json
+
+project_classes:
+  0: pedestrian
+  1: car
+  2: van
+  3: truck
+  4: bus
+
+size_area_thresholds_px2:
+  small_max_exclusive: 1024
+  medium_max_exclusive: 9216
+
+max_examples: 6
+max_overlay_false_positives: 40
+experiment_dir: experiments/E01A_20260807_001
+result_dir: results/day2/E01A_20260807_001
