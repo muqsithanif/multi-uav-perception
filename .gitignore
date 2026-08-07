@@ -36,6 +36,7 @@ datasets/
 *.weights
 models/**/*.xml
 models/**/*.bin
+models/deployment/
 
 # Generated experiment output
 runs/

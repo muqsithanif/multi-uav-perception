@@ -1,0 +1,5 @@
+-r requirements.txt
+
+onnx==1.22.0
+onnxruntime==1.28.0
+openvino==2026.3.0
