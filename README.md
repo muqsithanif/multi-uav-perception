@@ -2,7 +2,31 @@
 
 A portfolio-grade ROS 2 software and 2D simulation prototype that detects and tracks people/vehicles in aerial imagery, prioritizes targets, assigns them to three virtual UAVs, and produces high-level mission states.
 
-> Status: specification/migration package. Measured performance and implementation claims must be added only after successful execution.
+> Status: Gate 1 foundation verified on 2026-08-07. Later project gates have not been run.
+
+## Verified Day 1 foundation
+
+The CPU smoke test ran in WSL 2 on Ubuntu 24.04.4 LTS with Python 3.12.3,
+Ultralytics 8.4.115, and PyTorch 2.13.0+cpu. It loaded the pretrained
+`yolo26n.pt` checkpoint and saved a prediction plus machine-readable records.
+
+The one cold prediction call took 967.907 ms wall time. Ultralytics reported
+560.715 ms for its inference stage. This is a one-sample smoke measurement with
+no warm-up, not a benchmark or real-time-performance claim. At the configured
+640-pixel input size and 0.25 confidence threshold, the run produced zero
+detections; that result is retained rather than tuned away.
+
+- [Day 1 verification report](docs/DAY_1_REPORT.md)
+- [Immutable config snapshot](experiments/S00_20260807_001/config.yaml)
+- [Machine-readable summary](experiments/S00_20260807_001/summary.json)
+- [Environment record](experiments/S00_20260807_001/environment.json)
+- [Saved prediction](results/smoke/S00_20260807_001/prediction.jpg)
+- [Current asset and tool licenses](docs/LICENSES.md)
+
+The exact successful invocation is stored in
+`experiments/S00_20260807_001/command.txt`. Experiment directories are
+immutable; use a new experiment ID and matching output directories for a
+separate run.
 
 ## Project goals
 

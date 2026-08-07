@@ -1,0 +1,64 @@
+{
+  "artifacts": {
+    "config_snapshot": "experiments/S00_20260807_001/config.yaml",
+    "environment": "experiments/S00_20260807_001/environment.json",
+    "prediction": "results/smoke/S00_20260807_001/prediction.jpg"
+  },
+  "completed_at_utc": "2026-08-07T06:41:10.936498+00:00",
+  "detections": {
+    "class_counts": {},
+    "count": 0,
+    "path": "results/smoke/S00_20260807_001/detections.json"
+  },
+  "experiment_id": "S00_20260807_001",
+  "input": {
+    "height_px": 1080,
+    "license": "CC BY-SA 4.0",
+    "metadata_path": "data/samples/wolapark_dron.yaml",
+    "path": "data/samples/wolapark_dron.jpg",
+    "sha256": "5198970f04a8b6ff3bedc63552d3fe5811e9c19250ca1454802b8868d906a0b0",
+    "source_page": "https://commons.wikimedia.org/wiki/File:Wolapark_dron.jpg",
+    "width_px": 1920
+  },
+  "invocation": [
+    "/mnt/d/02_Proyek_Dev/UAV/multi-uav-perception/.venv/bin/python",
+    "scripts/smoke_inference.py",
+    "--config",
+    "configs/smoke_pretrained.yaml"
+  ],
+  "model": {
+    "checkpoint_path": "yolo26n.pt",
+    "checkpoint_sha256": "9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef",
+    "checkpoint_size_bytes": 5544453,
+    "requested": "yolo26n.pt",
+    "task": "detect"
+  },
+  "schema_version": 1,
+  "seed": 42,
+  "settings": {
+    "confidence": 0.25,
+    "device": "cpu",
+    "half": false,
+    "image_size": 640,
+    "iou": 0.7,
+    "max_detections": 300
+  },
+  "source_revision": "23f8ff0716d4dee4451231e7ce3ba1a5bc1e3dbd",
+  "started_at_utc": "2026-08-07T06:41:03.732385+00:00",
+  "status": "success",
+  "timing": {
+    "classification": "smoke_only_not_a_benchmark",
+    "model_load_wall_ms": 5412.497,
+    "prediction_wall_ms": 967.907,
+    "render_and_save_wall_ms": 183.3,
+    "sample_count": 1,
+    "total_wall_ms": 7281.56,
+    "ultralytics_speed_ms": {
+      "inference": 560.715,
+      "postprocess": 14.511,
+      "preprocess": 44.21
+    },
+    "warmup_runs": 0
+  },
+  "tracked_worktree_clean_at_start": true
+}

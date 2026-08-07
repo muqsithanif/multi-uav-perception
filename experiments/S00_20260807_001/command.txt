@@ -1,0 +1,1 @@
+/mnt/d/02_Proyek_Dev/UAV/multi-uav-perception/.venv/bin/python scripts/smoke_inference.py --config configs/smoke_pretrained.yaml

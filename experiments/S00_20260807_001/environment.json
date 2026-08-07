@@ -1,0 +1,22 @@
+{
+  "captured_at_utc": "2026-08-07T06:41:04.319273+00:00",
+  "cpu_model": "Intel(R) Core(TM) Ultra 7 155H",
+  "kernel_release": "6.18.33.2-microsoft-standard-WSL2",
+  "logical_cpu_count": 22,
+  "machine": "x86_64",
+  "memory_total_kib": 7927980,
+  "packages": {
+    "numpy": "2.4.4",
+    "opencv_python": "5.0.0",
+    "pyyaml": "6.0.3",
+    "torch": "2.13.0+cpu",
+    "torchvision": "0.28.0+cpu",
+    "ultralytics": "8.4.115"
+  },
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "torch": {
+    "cuda_available": false,
+    "thread_count": 11
+  }
+}
