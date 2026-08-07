@@ -33,6 +33,8 @@ class VisDroneAnnotation:
     category: int
     truncation: int
     occlusion: int
+    line_number: int = 0
+    normalized_trailing_empty_field: bool = False
 
 
 def load_conversion_config(path: Path) -> dict[str, Any]:
@@ -98,6 +100,9 @@ def parse_annotation_file(path: Path) -> list[VisDroneAnnotation]:
         if not raw_line.strip():
             continue
         fields = [field.strip() for field in raw_line.split(",")]
+        normalized_trailing_empty_field = len(fields) == 9 and fields[-1] == ""
+        if normalized_trailing_empty_field:
+            fields = fields[:-1]
         if len(fields) != 8:
             raise ValueError(
                 f"{path}:{line_number}: expected 8 comma-separated fields, found {len(fields)}"
@@ -105,10 +110,6 @@ def parse_annotation_file(path: Path) -> list[VisDroneAnnotation]:
         left, top, width, height = (float(value) for value in fields[:4])
         if not all(math.isfinite(value) for value in (left, top, width, height)):
             raise ValueError(f"{path}:{line_number}: bounding box contains a non-finite value")
-        if width <= 0 or height <= 0:
-            raise ValueError(
-                f"{path}:{line_number}: bounding-box width and height must be positive"
-            )
         score = _parse_integer(fields[4], "score", path, line_number)
         category = _parse_integer(fields[5], "category", path, line_number)
         truncation = _parse_integer(fields[6], "truncation", path, line_number)
@@ -131,6 +132,8 @@ def parse_annotation_file(path: Path) -> list[VisDroneAnnotation]:
                 category,
                 truncation,
                 occlusion,
+                line_number,
+                normalized_trailing_empty_field,
             )
         )
     return annotations
@@ -308,6 +311,11 @@ def convert_split(
     clipped_boxes = 0
     score_zero_annotations = 0
     empty_label_images = 0
+    invalid_source_boxes: Counter[int] = Counter()
+    invalid_selected_source_boxes: Counter[int] = Counter()
+    invalid_box_samples: list[dict[str, Any]] = []
+    normalized_trailing_empty_field_count = 0
+    normalized_trailing_empty_field_samples: list[dict[str, Any]] = []
 
     for image_path, annotation_path in pairs:
         image = cv2.imread(str(image_path), cv2.IMREAD_COLOR)
@@ -319,6 +327,33 @@ def convert_split(
         output_lines: list[str] = []
         for annotation in parse_annotation_file(annotation_path):
             source_categories[annotation.category] += 1
+            if annotation.normalized_trailing_empty_field:
+                normalized_trailing_empty_field_count += 1
+                if len(normalized_trailing_empty_field_samples) < 20:
+                    normalized_trailing_empty_field_samples.append(
+                        {
+                            "annotation_file": annotation_path.name,
+                            "line_number": annotation.line_number,
+                        }
+                    )
+            invalid_box = annotation.width <= 0 or annotation.height <= 0
+            if invalid_box:
+                invalid_source_boxes[annotation.category] += 1
+                if len(invalid_box_samples) < 20:
+                    invalid_box_samples.append(
+                        {
+                            "annotation_file": annotation_path.name,
+                            "line_number": annotation.line_number,
+                            "score": annotation.score,
+                            "source_class_id": annotation.category,
+                            "bbox_xywh": [
+                                annotation.left,
+                                annotation.top,
+                                annotation.width,
+                                annotation.height,
+                            ],
+                        }
+                    )
             if annotation.score == 0:
                 score_zero_annotations += 1
                 ignored_categories[annotation.category] += 1
@@ -328,6 +363,9 @@ def convert_split(
                 continue
             if annotation.category in excluded_source_ids:
                 excluded_categories[annotation.category] += 1
+                continue
+            if invalid_box:
+                invalid_selected_source_boxes[annotation.category] += 1
                 continue
             mapping = class_mapping[annotation.category]
             normalized, clipped = convert_box(annotation, image_width, image_height)
@@ -356,6 +394,21 @@ def convert_split(
         "ignored_source_class_counts": _counter_dict(ignored_categories),
         "excluded_source_class_counts": _counter_dict(excluded_categories),
         "score_zero_annotation_count": score_zero_annotations,
+        "invalid_source_box_count": sum(invalid_source_boxes.values()),
+        "invalid_source_box_counts_by_class": _counter_dict(invalid_source_boxes),
+        "invalid_selected_source_box_count": sum(
+            invalid_selected_source_boxes.values()
+        ),
+        "invalid_selected_source_box_counts_by_class": _counter_dict(
+            invalid_selected_source_boxes
+        ),
+        "invalid_box_samples": invalid_box_samples,
+        "normalized_trailing_empty_field_count": (
+            normalized_trailing_empty_field_count
+        ),
+        "normalized_trailing_empty_field_samples": (
+            normalized_trailing_empty_field_samples
+        ),
         "clipped_box_count": clipped_boxes,
         "empty_label_image_count": empty_label_images,
         "selected_occlusion_counts": _counter_dict(occlusion),
@@ -399,10 +452,21 @@ def prepare_dataset(config: dict[str, Any], repo_root: Path) -> dict[str, Any]:
             raise ValueError(f"Converted object count mismatch for split {split}")
 
     finished_at = datetime.now(UTC)
+    invalid_source_box_count = sum(
+        int(stats["invalid_source_box_count"]) for stats in split_stats.values()
+    )
+    normalized_trailing_empty_field_count = sum(
+        int(stats["normalized_trailing_empty_field_count"])
+        for stats in split_stats.values()
+    )
     return {
         "schema_version": 1,
         "dataset": config["dataset"],
-        "status": "passed",
+        "status": (
+            "passed_with_sanitization"
+            if invalid_source_box_count or normalized_trailing_empty_field_count
+            else "passed"
+        ),
         "started_at_utc": started_at.isoformat(),
         "finished_at_utc": finished_at.isoformat(),
         "duration_seconds": (finished_at - started_at).total_seconds(),
@@ -417,6 +481,14 @@ def prepare_dataset(config: dict[str, Any], repo_root: Path) -> dict[str, Any]:
         "splits": split_stats,
         "converted_validation": validation,
         "split_integrity": integrity,
+        "sanitization": {
+            "policy": "exclude_nonpositive_source_boxes_and_record_them",
+            "invalid_source_box_count": invalid_source_box_count,
+            "invalid_output_box_count": 0,
+            "normalized_trailing_empty_field_count": (
+                normalized_trailing_empty_field_count
+            ),
+        },
     }
 
 

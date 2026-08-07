@@ -84,6 +84,18 @@ field kategorikal, bbox positif, hasil clipping/normalisasi, file rusak,
 pairing image-label, range kelas YOLO, batas bbox, serta overlap nama file
 antar-split.
 
+Bbox sumber dengan width atau height nonpositif tidak diberi ukuran buatan.
+Baris tersebut dikeluarkan dari label YOLO dan wajib dicatat per split, kelas,
+serta contoh file/baris dalam laporan validasi. Status laporan menjadi
+`passed_with_sanitization`, sedangkan validator output tetap mensyaratkan nol
+bbox invalid. Kebijakan ini menjaga cacat anotasi sumber tetap terlihat tanpa
+menghasilkan label training yang tidak sah.
+
+Satu trailing comma hanya diterima bila menghasilkan tepat field kesembilan
+yang kosong; delapan field data tetap diparse sesuai spesifikasi. Setiap
+normalisasi ini dihitung dan diberi contoh file/baris dalam laporan. Field
+kesembilan yang tidak kosong tetap dianggap ambigu dan ditolak.
+
 ## Format anotasi resmi
 
 Setiap baris memiliki delapan field:

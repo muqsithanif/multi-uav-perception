@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -19,6 +20,21 @@ from visdrone_dataset import (
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = REPO_ROOT / "configs" / "visdrone_conversion.yaml"
 DATASET_YAML = REPO_ROOT / "configs" / "visdrone_5class.yaml"
+
+
+def git_state() -> dict[str, object]:
+    revision = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, text=True
+    ).strip()
+    tracked_status = subprocess.check_output(
+        ["git", "status", "--porcelain", "--untracked-files=no"],
+        cwd=REPO_ROOT,
+        text=True,
+    ).strip()
+    return {
+        "source_revision": revision,
+        "tracked_source_dirty": bool(tracked_status),
+    }
 
 
 def parse_args() -> argparse.Namespace:
@@ -54,6 +70,7 @@ def main() -> int:
         return 0
 
     report = prepare_dataset(config, REPO_ROOT)
+    report.update(git_state())
     report["conversion_config"] = config_path.relative_to(REPO_ROOT).as_posix()
     report["dataset_yaml"] = DATASET_YAML.relative_to(REPO_ROOT).as_posix()
     manifest_path = REPO_ROOT / config["manifest_path"]
@@ -70,4 +87,3 @@ if __name__ == "__main__":
     except Exception as error:
         print(f"ERROR: {error}", file=sys.stderr)
         raise
-

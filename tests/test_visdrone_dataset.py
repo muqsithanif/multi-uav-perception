@@ -65,11 +65,25 @@ def test_parse_rejects_source_class_outside_range(tmp_path: Path) -> None:
         parse_annotation_file(label)
 
 
-def test_parse_rejects_invalid_box_even_for_excluded_class(tmp_path: Path) -> None:
+def test_parse_retains_invalid_box_for_policy_accounting(tmp_path: Path) -> None:
     label = tmp_path / "bad_box.txt"
     label.write_text("0,0,0,10,1,3,0,0\n", encoding="utf-8")
-    with pytest.raises(ValueError, match="must be positive"):
-        parse_annotation_file(label)
+    annotation = parse_annotation_file(label)[0]
+    assert annotation.width == 0
+    assert annotation.category == 3
+    assert annotation.line_number == 1
+
+
+def test_parse_accepts_only_empty_ninth_field(tmp_path: Path) -> None:
+    accepted = tmp_path / "accepted.txt"
+    accepted.write_text("1,2,3,4,1,4,0,0,\n", encoding="utf-8")
+    annotation = parse_annotation_file(accepted)[0]
+    assert annotation.normalized_trailing_empty_field is True
+
+    rejected = tmp_path / "rejected.txt"
+    rejected.write_text("1,2,3,4,1,4,0,0,unexpected\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="expected 8"):
+        parse_annotation_file(rejected)
 
 
 @pytest.mark.parametrize("width,height", [(0, 10), (10, 0), (-1, 5)])
@@ -133,3 +147,35 @@ def test_fixture_conversion_maps_ignores_excludes_and_validates(tmp_path: Path) 
         label_path = tmp_path / "processed" / "labels" / split / f"{split}_001.txt"
         classes = [int(line.split()[0]) for line in label_path.read_text().splitlines()]
         assert classes == [0, 2, 4]
+
+
+def test_fixture_conversion_excludes_and_reports_invalid_selected_box(
+    tmp_path: Path,
+) -> None:
+    config = fixture_config(tmp_path)
+    for split in ("train", "val"):
+        split_dir = config["splits"][split]
+        write_image(tmp_path / "raw" / split_dir / "images" / f"{split}_bad.jpg")
+        annotation_path = (
+            tmp_path / "raw" / split_dir / "annotations" / f"{split}_bad.txt"
+        )
+        annotation_path.parent.mkdir(parents=True, exist_ok=True)
+        annotation_path.write_text(
+            "1,1,0,10,1,4,0,0\n"  # selected car, invalid width
+            "10,5,20,10,1,1,0,0,\n",  # valid pedestrian, trailing comma
+            encoding="utf-8",
+        )
+
+    report = prepare_dataset(config, tmp_path)
+
+    assert report["status"] == "passed_with_sanitization"
+    assert report["sanitization"]["invalid_source_box_count"] == 2
+    assert report["sanitization"]["invalid_output_box_count"] == 0
+    assert report["sanitization"]["normalized_trailing_empty_field_count"] == 2
+    for split in ("train", "val"):
+        stats = report["splits"][split]
+        assert stats["invalid_source_box_counts_by_class"] == {"4": 1}
+        assert stats["invalid_selected_source_box_counts_by_class"] == {"4": 1}
+        assert stats["normalized_trailing_empty_field_count"] == 1
+        assert stats["converted_object_count"] == 1
+        assert report["converted_validation"][split]["object_count"] == 1
