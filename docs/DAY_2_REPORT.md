@@ -14,9 +14,11 @@ distribusi kelas, dan audit visual.
 **Checkpoint data Day 2: LULUS DENGAN SANITASI
 (`passed_with_sanitization`).**
 
-**Gate 2A keseluruhan: BELUM LOLOS.** Baseline E00, smoke training, penyimpanan
-checkpoint persisten, dan resume training belum dibuktikan. Full fine-tuning
-tidak dijalankan.
+**E00 pretrained baseline: LULUS pada subset validation terkunci.**
+
+**Gate 2A keseluruhan: BELUM LOLOS.** Smoke training, penyimpanan checkpoint
+persisten, dan resume training belum dibuktikan. Full fine-tuning tidak
+dijalankan.
 
 ## 2. Files dan konfigurasi
 
@@ -31,8 +33,12 @@ tidak dijalankan.
   secara deterministik.
 - `scripts/analyze_visdrone_distribution.py` menghasilkan ringkasan JSON/CSV
   dan plot distribusi kelas.
+- `scripts/evaluate_pretrained_baseline.py` mengunci subset, mapping kelas,
+  inferensi, matching IoU, metrik, timing, dan kurva E00.
+- `configs/e00_pretrained_baseline.yaml` menyimpan protokol E00 aktual.
 - Tiga modul test mencakup parser, konversi, sanitasi, validator, pemilihan
-  sampel, rendering, perhitungan distribusi, dan checksum artefak.
+  sampel, rendering, perhitungan distribusi, checksum artefak, mapping baseline,
+  konversi bbox, dan matching prediksi.
 
 Kebijakan sanitasi bbox dan trailing comma dikomit pada `0725378`
 (`fix: sanitize measured VisDrone annotation defects`).
@@ -62,12 +68,13 @@ Perintah yang lulus:
 .venv/bin/python scripts/prepare_visdrone.py
 .venv/bin/python scripts/render_visdrone_audit.py --split val --samples 6
 .venv/bin/python scripts/analyze_visdrone_distribution.py
+.venv/bin/python scripts/evaluate_pretrained_baseline.py --config configs/e00_pretrained_baseline.yaml
 ```
 
-Hasil akhir unit test: **17 passed, 0 failed** dalam 3,79 detik. Percobaan
-sebelumnya menghasilkan 16 passed dan 1 failed karena konstanta SHA-256 pada
-fixture test baru salah; konstanta dikoreksi ke digest fixture yang aktual dan
-seluruh suite kemudian lulus.
+Hasil akhir suite Day 2: **22 passed, 0 failed** dalam 36,55 detik. Pada
+checkpoint distribusi, satu percobaan test sempat gagal karena konstanta
+SHA-256 fixture baru salah; konstanta dikoreksi ke digest fixture aktual dan
+suite kemudian lulus.
 
 | Split | Input image/label | Anotasi sumber | Output object | Output image/label |
 |---|---:|---:|---:|---:|
@@ -115,16 +122,59 @@ lima kelas. Kotak tidak menunjukkan offset/skala sistematis, tetap di dalam
 frame, dan mapping kelas konsisten dengan object beranotasi yang terlihat.
 Status visual audit: **passed**.
 
+### E00 pretrained baseline
+
+Run yang diterima adalah `E00_20260807_003` pada revision `9e5727e`. Protokol
+memakai 128 dari 548 image validation (23,36%) yang dipilih merata berdasarkan
+urutan nama file. Selection SHA-256 adalah
+`7e1bd549153bea5fa2d6f1e17a4e7f29f57f11157c6c277441a6d00520c265bd`.
+Subset memuat 6.090 object: 1.946 pedestrian, 3.417 car, 487 van, 187 truck,
+dan 53 bus.
+
+Checkpoint `yolo26n.pt` berukuran 5.544.453 byte dengan SHA-256
+`9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef`.
+Evaluasi berjalan di CPU/FP32 dengan image size 640, confidence 0,001, NMS IoU
+0,7, maksimum 300 deteksi, batch 4, dan IoU evaluasi 0,50-0,95.
+
+| Scope | Instances | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|---:|
+| macro 5 kelas | 6.090 | 0,289228 | 0,173370 | 0,154190 | 0,096881 |
+| pedestrian | 1.946 | 0,392821 | 0,124358 | 0,119576 | 0,049120 |
+| car | 3.417 | 0,634277 | 0,379865 | 0,408989 | 0,246381 |
+| van | 487 | 0,000000 | 0,000000 | 0,000000 | 0,000000 |
+| truck | 187 | 0,171500 | 0,155080 | 0,095931 | 0,072219 |
+| bus | 53 | 0,247544 | 0,207547 | 0,146452 | 0,116683 |
+
+Mapping output pretrained adalah COCO `person -> pedestrian`, `car -> car`,
+`truck -> truck`, dan `bus -> bus`. Ground truth `van` tetap dihitung, tetapi
+checkpoint COCO tidak memiliki kelas van terpisah; karena itu prediction count
+dan seluruh metrik van adalah nol.
+
+Waktu wall untuk bagian evaluasi adalah 13,223372 detik atau 103,307593
+ms/image. Total tahap inference yang dilaporkan Ultralytics adalah 8,285059
+detik. Angka ini adalah satu run CPU untuk validasi pipeline, bukan benchmark
+performa; loading model dan pembuatan manifest terjadi sebelum timer evaluasi.
+
+Dua percobaan sebelumnya gagal sebelum metrik dihitung karena sumber berupa
+list path dikonversi loader menjadi nama sintetis `image0.jpg`. Keduanya
+disimpan sebagai `E00_20260807_001_failed_order` dan
+`E00_20260807_002_failed_synthetic_names` dengan `metrics: null`. Run ketiga
+memakai file-list `.txt` yang mempertahankan identitas filename.
+
 ## 4. Artifacts
 
 - `data/metadata/visdrone2019_det_download_manifest.json`
 - `data/metadata/visdrone5_manifest.json`
 - `experiments/D01_visdrone_validation/summary.json`
 - `experiments/D02_visdrone_dataset_audit/summary.json`
+- `experiments/E00_20260807_003/summary.json`
+- `experiments/E00_20260807_003/subset_manifest.json`
 - `results/day2/dataset_analysis/class_distribution.json`
 - `results/day2/dataset_analysis/class_distribution.csv`
 - `results/day2/dataset_analysis/class_distribution.png`
 - `results/day2/visual_audit/summary.json`
+- `results/day2/E00_20260807_003/metrics.csv`
+- empat kurva E00 di `results/day2/E00_20260807_003/curves/`
 - enam overlay di `results/day2/visual_audit/`
 
 Dataset mentah, ZIP, dan hasil konversi tetap diabaikan Git. Manifest, laporan,
@@ -137,7 +187,10 @@ dan sampel visual audit berukuran terbatas dapat disimpan sebagai bukti.
 - Visual audit enam image adalah pemeriksaan sampel, bukan audit manual seluruh
   7.019 image. Scene padat menyebabkan teks overlay bertumpuk dan beberapa
   anotasi jauh/teroklusi tetap ambigu.
-- Gate 2A belum selesai karena baseline E00, smoke training, checkpoint
-  persisten, dan bukti resume belum ada.
-- Tidak ada metrik precision, recall, mAP, latency, atau FPS yang dilaporkan
-  pada milestone data ini.
+- E00 memakai subset 128 image; hasilnya tidak mewakili evaluasi full validation.
+- Kelas van tidak tersedia pada label COCO checkpoint pretrained dan tidak
+  dipetakan secara heuristik ke car/truck.
+- Timing E00 adalah satu validasi pipeline CPU tanpa protokol benchmark penuh;
+  tidak ada klaim FPS atau real-time.
+- Gate 2A belum selesai karena smoke training, checkpoint persisten, dan bukti
+  resume belum ada. Tidak ada metrik fine-tuned yang dilaporkan.

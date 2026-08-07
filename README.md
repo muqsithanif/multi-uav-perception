@@ -3,8 +3,8 @@
 A portfolio-grade ROS 2 software and 2D simulation prototype that detects and tracks people/vehicles in aerial imagery, prioritizes targets, assigns them to three virtual UAVs, and produces high-level mission states.
 
 > Status: Gate 1 foundation and the Day 2 VisDrone data-validation checkpoint
-> were verified on 2026-08-07. Gate 2A and later project gates have not been
-> completed.
+> plus the locked E00 pretrained baseline were verified on 2026-08-07. Gate 2A
+> and later project gates have not been completed.
 
 ## Verified Day 1 foundation
 
@@ -47,6 +47,21 @@ visual inspection. This proves the data conversion path, not detector accuracy.
 - [Validation summary](experiments/D01_visdrone_validation/summary.json)
 - [Visual audit summary](results/day2/visual_audit/summary.json)
 - [Class-distribution analysis](results/day2/dataset_analysis/class_distribution.json)
+
+## Verified E00 pretrained baseline
+
+The COCO-pretrained `yolo26n.pt` baseline was evaluated on a deterministic
+128-image subset of the official VisDrone validation split at 640 pixels. The
+recorded macro results are precision 0.28923, recall 0.17337, mAP50 0.15419,
+and mAP50-95 0.09688. These are subset results, not full-validation claims.
+
+COCO `person`, `car`, `truck`, and `bus` outputs were mapped explicitly. The
+project `van` class remains present in the ground truth but has zero baseline
+predictions because the pretrained checkpoint has no distinct van class.
+
+- [E00 summary](experiments/E00_20260807_003/summary.json)
+- [E00 metrics](results/day2/E00_20260807_003/metrics.csv)
+- [Locked subset manifest](experiments/E00_20260807_003/subset_manifest.json)
 
 ## Project goals
 

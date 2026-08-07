@@ -1,0 +1,1 @@
+.venv/bin/python scripts/evaluate_pretrained_baseline.py --config configs/e00_pretrained_baseline.yaml
