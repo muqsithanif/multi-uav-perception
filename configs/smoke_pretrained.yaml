@@ -1,0 +1,16 @@
+experiment_id: S00_20260807_001
+seed: 42
+
+model: yolo26n.pt
+source: data/samples/wolapark_dron.jpg
+source_metadata: data/samples/wolapark_dron.yaml
+device: cpu
+
+image_size: 640
+confidence: 0.25
+iou: 0.7
+max_detections: 300
+half: false
+
+experiment_dir: experiments/S00_20260807_001
+result_dir: results/smoke/S00_20260807_001

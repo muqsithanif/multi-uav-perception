@@ -1,0 +1,63 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+
+# Datasets and archives
+data/raw/
+data/processed/
+data/VisDrone*/
+datasets/
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# Model weights and exported artifacts
+*.pt
+*.pth
+*.onnx
+*.engine
+*.tflite
+*.blob
+*.safetensors
+*.weights
+models/**/*.xml
+models/**/*.bin
+
+# Generated experiment output
+runs/
+wandb/
+events.out.tfevents.*
+experiments/**/weights/
+results/**/*.mp4
+results/**/*.avi
+results/**/*.mov
+results/**/*.mkv
+
+# ROS 2 and colcon output
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+build/
+install/
+log/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
