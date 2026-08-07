@@ -1,0 +1,2 @@
+.venv/bin/python scripts/download_visdrone.py --splits train val
+.venv/bin/python scripts/prepare_visdrone.py

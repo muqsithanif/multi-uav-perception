@@ -1,0 +1,30 @@
+dataset: VisDrone2019-DET
+raw_root: data/raw/visdrone2019_det
+output_root: data/processed/visdrone5
+manifest_path: data/metadata/visdrone5_manifest.json
+validation_report_path: experiments/D01_visdrone_validation/summary.json
+image_mode: hardlink
+
+splits:
+  train: VisDrone2019-DET-train
+  val: VisDrone2019-DET-val
+
+class_mapping:
+  1:
+    project_id: 0
+    name: pedestrian
+  4:
+    project_id: 1
+    name: car
+  5:
+    project_id: 2
+    name: van
+  6:
+    project_id: 3
+    name: truck
+  9:
+    project_id: 4
+    name: bus
+
+ignored_source_class_ids: [0, 11]
+excluded_source_class_ids: [2, 3, 7, 8, 10]

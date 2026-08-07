@@ -1,0 +1,327 @@
+{
+  "conversion_config": "configs/visdrone_conversion.yaml",
+  "converted_validation": {
+    "train": {
+      "image_count": 6471,
+      "label_file_count": 6471,
+      "object_count": 267960
+    },
+    "val": {
+      "image_count": 548,
+      "label_file_count": 548,
+      "object_count": 25884
+    }
+  },
+  "dataset": "VisDrone2019-DET",
+  "dataset_yaml": "configs/visdrone_5class.yaml",
+  "duration_seconds": 715.866127,
+  "excluded_source_class_ids": [
+    2,
+    3,
+    7,
+    8,
+    10
+  ],
+  "finished_at_utc": "2026-08-07T09:22:39.839442+00:00",
+  "ignored_source_class_ids": [
+    0,
+    11
+  ],
+  "project_class_names": [
+    "pedestrian",
+    "car",
+    "van",
+    "truck",
+    "bus"
+  ],
+  "sanitization": {
+    "invalid_output_box_count": 0,
+    "invalid_source_box_count": 3,
+    "normalized_trailing_empty_field_count": 34,
+    "policy": "exclude_nonpositive_source_boxes_and_record_them"
+  },
+  "schema_version": 1,
+  "source_revision": "0725378e538a1609d2ad873d9d52e5033ea99fc0",
+  "source_splits_preserved": true,
+  "source_to_project_class": {
+    "1": 0,
+    "4": 1,
+    "5": 2,
+    "6": 3,
+    "9": 4
+  },
+  "split_integrity": {
+    "checked_splits": [
+      "train",
+      "val"
+    ],
+    "overlap_count": 0
+  },
+  "splits": {
+    "train": {
+      "clipped_box_count": 0,
+      "converted_object_count": 267960,
+      "empty_label_image_count": 3,
+      "excluded_source_class_counts": {
+        "10": 29647,
+        "2": 27059,
+        "3": 10480,
+        "7": 4812,
+        "8": 3246
+      },
+      "ignored_source_class_counts": {
+        "0": 8813,
+        "11": 1532
+      },
+      "image_height_max": 1500,
+      "image_height_min": 360,
+      "image_materialization_counts": {
+        "existing": 6471
+      },
+      "image_width_max": 2000,
+      "image_width_min": 480,
+      "invalid_box_samples": [
+        {
+          "annotation_file": "0000293_03401_d_0000939.txt",
+          "bbox_xywh": [
+            1008.0,
+            374.0,
+            3.0,
+            0.0
+          ],
+          "line_number": 130,
+          "score": 0,
+          "source_class_id": 0
+        },
+        {
+          "annotation_file": "9999985_00000_d_0000020.txt",
+          "bbox_xywh": [
+            611.0,
+            158.0,
+            4.0,
+            0.0
+          ],
+          "line_number": 12,
+          "score": 1,
+          "source_class_id": 4
+        },
+        {
+          "annotation_file": "9999999_00590_d_0000267.txt",
+          "bbox_xywh": [
+            545.0,
+            414.0,
+            10.0,
+            0.0
+          ],
+          "line_number": 89,
+          "score": 0,
+          "source_class_id": 0
+        }
+      ],
+      "invalid_selected_source_box_count": 1,
+      "invalid_selected_source_box_counts_by_class": {
+        "4": 1
+      },
+      "invalid_source_box_count": 3,
+      "invalid_source_box_counts_by_class": {
+        "0": 2,
+        "4": 1
+      },
+      "normalized_trailing_empty_field_count": 34,
+      "normalized_trailing_empty_field_samples": [
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 1
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 2
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 3
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 4
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 5
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 6
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 7
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 8
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 9
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 10
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 11
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 12
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 13
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 14
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 15
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 16
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 17
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 18
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 19
+        },
+        {
+          "annotation_file": "9999974_00000_d_0000053.txt",
+          "line_number": 20
+        }
+      ],
+      "project_class_counts": {
+        "0": 79337,
+        "1": 144866,
+        "2": 24956,
+        "3": 12875,
+        "4": 5926
+      },
+      "score_zero_annotation_count": 10345,
+      "selected_occlusion_counts": {
+        "0": 144074,
+        "1": 100379,
+        "2": 23507
+      },
+      "selected_truncation_counts": {
+        "0": 255940,
+        "1": 12020
+      },
+      "source_annotation_count": 353550,
+      "source_annotation_file_count": 6471,
+      "source_class_counts": {
+        "0": 8813,
+        "1": 79337,
+        "10": 29647,
+        "11": 1532,
+        "2": 27059,
+        "3": 10480,
+        "4": 144867,
+        "5": 24956,
+        "6": 12875,
+        "7": 4812,
+        "8": 3246,
+        "9": 5926
+      },
+      "source_image_count": 6471
+    },
+    "val": {
+      "clipped_box_count": 0,
+      "converted_object_count": 25884,
+      "empty_label_image_count": 0,
+      "excluded_source_class_counts": {
+        "10": 4886,
+        "2": 5125,
+        "3": 1287,
+        "7": 1045,
+        "8": 532
+      },
+      "ignored_source_class_counts": {
+        "0": 1378,
+        "11": 32
+      },
+      "image_height_max": 1080,
+      "image_height_min": 540,
+      "image_materialization_counts": {
+        "existing": 548
+      },
+      "image_width_max": 1920,
+      "image_width_min": 960,
+      "invalid_box_samples": [],
+      "invalid_selected_source_box_count": 0,
+      "invalid_selected_source_box_counts_by_class": {},
+      "invalid_source_box_count": 0,
+      "invalid_source_box_counts_by_class": {},
+      "normalized_trailing_empty_field_count": 0,
+      "normalized_trailing_empty_field_samples": [],
+      "project_class_counts": {
+        "0": 8844,
+        "1": 14064,
+        "2": 1975,
+        "3": 750,
+        "4": 251
+      },
+      "score_zero_annotation_count": 1410,
+      "selected_occlusion_counts": {
+        "0": 13043,
+        "1": 10935,
+        "2": 1906
+      },
+      "selected_truncation_counts": {
+        "0": 24703,
+        "1": 1181
+      },
+      "source_annotation_count": 40169,
+      "source_annotation_file_count": 548,
+      "source_class_counts": {
+        "0": 1378,
+        "1": 8844,
+        "10": 4886,
+        "11": 32,
+        "2": 5125,
+        "3": 1287,
+        "4": 14064,
+        "5": 1975,
+        "6": 750,
+        "7": 1045,
+        "8": 532,
+        "9": 251
+      },
+      "source_image_count": 548
+    }
+  },
+  "started_at_utc": "2026-08-07T09:10:43.973315+00:00",
+  "status": "passed_with_sanitization",
+  "tracked_source_dirty": true,
+  "tracked_source_diff_paths_detected": [
+    "README.md",
+    "docs/DAY_2_REPORT.md",
+    "docs/VISDRONE_DATA.md"
+  ],
+  "conversion_source_paths_dirty": false,
+  "concurrent_untracked_paths_detected": [
+    "results/day2/visual_audit/",
+    "scripts/render_visdrone_audit.py",
+    "tests/test_visdrone_audit.py"
+  ]
+}

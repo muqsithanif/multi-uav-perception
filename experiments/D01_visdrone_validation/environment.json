@@ -1,0 +1,13 @@
+{
+  "recorded_at_utc": "2026-08-07T09:22:39.839442+00:00",
+  "source_revision": "0725378e538a1609d2ad873d9d52e5033ea99fc0",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "opencv": "5.0.0",
+  "numpy": "2.4.4",
+  "pytest": "9.1.1",
+  "torch": "2.13.0+cpu",
+  "ultralytics": "8.4.115",
+  "pyyaml": "6.0.3",
+  "cuda_available": false
+}
