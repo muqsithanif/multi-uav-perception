@@ -24,11 +24,11 @@ The project is complete only when every **Required** item below has objective ev
 
 ### Deployment and performance
 
-- [ ] ONNX FP32 export loads and runs.
-- [ ] OpenVINO FP16 export loads and runs, or a genuine environment/tool limitation is reproduced and documented with logs and a fallback.
-- [ ] Prediction/metric agreement against the PyTorch reference is checked with declared tolerance.
-- [ ] Benchmarks record hardware, software versions, backend, device, precision, resolution, thresholds, warm-up, sample count, and timing boundary.
-- [ ] FPS, mean/median and percentile latency, model size, and available CPU/RAM data are stored in machine-readable form.
+- [x] ONNX FP32 export loads and runs.
+- [x] OpenVINO FP16 export loads and runs, or a genuine environment/tool limitation is reproduced and documented with logs and a fallback.
+- [x] Prediction/metric agreement against the PyTorch reference is checked with declared tolerance.
+- [x] Benchmarks record hardware, software versions, backend, device, precision, resolution, thresholds, warm-up, sample count, and timing boundary.
+- [x] FPS, mean/median and percentile latency, model size, and available CPU/RAM data are stored in machine-readable form.
 
 ### Tracking
 

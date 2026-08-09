@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "deployment_id": "B01_20260807_001",
+  "status": "failed_validation",
+  "failed_at_utc": "2026-08-07T13:27:32.5740064Z",
+  "source_revision": "1d384f8",
+  "stage": "openvino_port_metadata_validation",
+  "error_type": "RuntimeError",
+  "error": "OpenVINO tensor had no names; validator used any_name without a fallback.",
+  "core_exports_completed": {
+    "onnx_fp32": {
+      "size_bytes": 9760468,
+      "sha256": "711fe63a8e351b4b81aa30e691109f4cfe2d8c8d4f7565f6cb7e5065067a0598"
+    },
+    "openvino_fp16_xml": {
+      "size_bytes": 492606,
+      "sha256": "cff5c115700510f6083451e646f2a0b3b51c9448ecc480e7f54a911e6b5dca4e"
+    },
+    "openvino_fp16_bin": {
+      "size_bytes": 4802358,
+      "sha256": "6c7db57a149dbe41a8c455ead7c77449151c65da439eb92ec1f426efd43c4e48"
+    }
+  },
+  "measurement_status": "not_run",
+  "recovery": "Use a deterministic fallback name for unnamed OpenVINO ports and rerun under a new deployment ID."
+}

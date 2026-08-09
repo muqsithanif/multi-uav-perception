@@ -1,0 +1,1 @@
+YOLO_CONFIG_DIR=/tmp .venv/bin/python scripts/export_and_validate_detector.py --config configs/e01_deployment_export.yaml

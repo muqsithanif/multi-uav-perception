@@ -68,6 +68,19 @@ def git_revision() -> str | None:
     return completed.stdout.strip() if completed.returncode == 0 else None
 
 
+def git_tracked_dirty_paths() -> list[str]:
+    completed = subprocess.run(
+        ["git", "diff", "--name-only", "HEAD"],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+    if completed.returncode != 0:
+        return []
+    return sorted(line.strip() for line in completed.stdout.splitlines() if line.strip())
+
+
 def load_config(path: Path) -> dict[str, Any]:
     config = yaml.safe_load(path.read_text(encoding="utf-8"))
     if not isinstance(config, dict):
@@ -252,6 +265,16 @@ def validate_onnx(path: Path) -> dict[str, Any]:
     }
 
 
+def openvino_port_record(item: Any, index: int, prefix: str) -> dict[str, Any]:
+    names = sorted(item.get_names())
+    return {
+        "name": names[0] if names else f"{prefix}_{index}",
+        "names": names,
+        "shape": str(item.partial_shape),
+        "type": str(item.element_type),
+    }
+
+
 def validate_openvino(directory: Path) -> dict[str, Any]:
     xml_files = sorted(directory.glob("*.xml"))
     bin_files = sorted(directory.glob("*.bin"))
@@ -270,12 +293,12 @@ def validate_openvino(directory: Path) -> dict[str, Any]:
         "compile_cpu": "passed",
         "available_devices": core.available_devices,
         "inputs": [
-            {"name": item.any_name, "shape": str(item.partial_shape), "type": str(item.element_type)}
-            for item in compiled.inputs
+            openvino_port_record(item, index, "input")
+            for index, item in enumerate(compiled.inputs)
         ],
         "outputs": [
-            {"name": item.any_name, "shape": str(item.partial_shape), "type": str(item.element_type)}
-            for item in compiled.outputs
+            openvino_port_record(item, index, "output")
+            for index, item in enumerate(compiled.outputs)
         ],
         "constant_element_types": dict(sorted(constant_types.items())),
         "xml": xml_files[0].name,
@@ -506,9 +529,12 @@ def run(config_path: Path) -> dict[str, Any]:
         if all(item["tolerance"]["passed"] for item in agreement_summary.values())
         else "failed_tolerance"
     )
+    dirty_paths = git_tracked_dirty_paths()
     environment = {
         "recorded_at_utc": datetime.now(UTC).isoformat(),
         "source_revision": git_revision(),
+        "source_tracked_dirty": bool(dirty_paths),
+        "source_tracked_dirty_paths": dirty_paths,
         "platform": platform.platform(),
         "cpu": cpu_model_name(),
         "logical_cpu_count": os.cpu_count(),

@@ -2,11 +2,11 @@
 
 A portfolio-grade ROS 2 software and 2D simulation prototype that detects and tracks people/vehicles in aerial imagery, prioritizes targets, assigns them to three virtual UAVs, and produces high-level mission states.
 
-> Status: Gate 1 and Gate 2A were verified on 2026-08-07. The official
-> VisDrone data path, E00 baseline, GPU smoke/resume proof, 30-epoch E01
-> fine-tuning, and the locked E00/E01 comparison have objective artifacts.
-> Later deployment, tracking, ROS 2, assignment, simulation, and handoff gates
-> remain incomplete.
+> Status: Gate 1, Gate 2A, and Gate 5 deployment were verified by
+> 2026-08-09. The official VisDrone data path, E00 baseline, GPU smoke/resume
+> proof, 30-epoch E01 fine-tuning, locked E00/E01 comparison, ONNX FP32 export,
+> and OpenVINO FP16 CPU export have objective artifacts. Tracking, ROS 2,
+> assignment, simulation, and handoff gates remain incomplete.
 
 ## Verified Day 1 foundation
 
@@ -87,6 +87,26 @@ results; they are not full-validation or deployment-speed claims.
 - [E00 versus E01 comparison](results/day2/E00_vs_E01_20260807_001/summary.json)
 - [E01 evaluation metrics](results/day2/E01E_20260807_001/metrics.csv)
 - [E01 small-object/occlusion error analysis](docs/E01_ERROR_ANALYSIS.md)
+
+## Verified deployment export
+
+The E01 checkpoint was exported and validated against PyTorch on a deterministic
+16-image subset using identical 640x640 square-preprocessed inputs. ONNX Runtime
+FP32 achieved 100% reference/candidate detection matching. OpenVINO FP16 on the
+available WSL CPU achieved 99.598% reference matching and 100% candidate
+matching; both formats met their declared IoU and confidence-difference
+tolerances.
+
+This local CPU observation measured mean end-to-end wall latency of 88.470 ms
+for PyTorch, 51.894 ms for ONNX Runtime, and 74.149 ms for OpenVINO. The
+measurement has one timed repetition after two warm-ups and is not a
+production-performance claim.
+
+- [Day 3 deployment report](docs/DAY_3_REPORT.md)
+- [Deployment config](configs/e01_deployment_export.yaml)
+- [Machine-readable deployment summary](experiments/B01_20260809_003/summary.json)
+- [Agreement measurements](results/day3/B01_20260809_003/agreement.csv)
+- [Benchmark measurements](results/day3/B01_20260809_003/benchmark.csv)
 
 ## Project goals
 

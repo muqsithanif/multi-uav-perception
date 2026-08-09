@@ -5,6 +5,8 @@ from scripts.export_and_validate_detector import (
     aggregate_agreement,
     check_tolerance,
     compare_detection_sets,
+    git_tracked_dirty_paths,
+    openvino_port_record,
     summarize_timings,
 )
 
@@ -82,3 +84,38 @@ def test_summarize_timings_reports_required_statistics() -> None:
     assert summary["mean"] == pytest.approx(2.5)
     assert summary["median"] == pytest.approx(2.5)
     assert summary["p95"] == pytest.approx(3.85)
+
+
+def test_openvino_port_record_falls_back_when_tensor_has_no_name() -> None:
+    class PortWithoutName:
+        partial_shape = "[1,3,640,640]"
+        element_type = "f32"
+
+        @staticmethod
+        def get_names():
+            return set()
+
+    record = openvino_port_record(PortWithoutName(), 2, "output")
+
+    assert record == {
+        "name": "output_2",
+        "names": [],
+        "shape": "[1,3,640,640]",
+        "type": "f32",
+    }
+
+
+def test_git_tracked_dirty_paths_ignores_blank_output(monkeypatch: pytest.MonkeyPatch) -> None:
+    class Completed:
+        returncode = 0
+        stdout = "configs/deployment.yaml\n\n scripts/export.py\n"
+
+    monkeypatch.setattr(
+        "scripts.export_and_validate_detector.subprocess.run",
+        lambda *args, **kwargs: Completed(),
+    )
+
+    assert git_tracked_dirty_paths() == [
+        "configs/deployment.yaml",
+        "scripts/export.py",
+    ]

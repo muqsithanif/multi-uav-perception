@@ -1,0 +1,390 @@
+{
+  "agreement": {
+    "onnx": {
+      "candidate_count": 498,
+      "candidate_match_rate": 0.3895582329317269,
+      "matched_count": 194,
+      "max_confidence_abs_diff": 0.3344062268733978,
+      "mean_box_iou": 0.9949063452863202,
+      "mean_confidence_abs_diff": 0.015121485154653332,
+      "min_box_iou": 0.9900136590003967,
+      "reference_count": 496,
+      "reference_match_rate": 0.3911290322580645,
+      "sample_count": 16,
+      "tolerance": {
+        "checks": {
+          "candidate_match_rate": false,
+          "max_confidence_abs_diff": false,
+          "mean_box_iou": false,
+          "reference_match_rate": false
+        },
+        "passed": false,
+        "thresholds": {
+          "max_confidence_abs_diff": 0.005,
+          "min_candidate_match_rate": 0.995,
+          "min_mean_box_iou": 0.999,
+          "min_reference_match_rate": 0.995
+        }
+      },
+      "unmatched_candidate": 304,
+      "unmatched_reference": 302
+    },
+    "openvino": {
+      "candidate_count": 496,
+      "candidate_match_rate": 0.38306451612903225,
+      "matched_count": 190,
+      "max_confidence_abs_diff": 0.33550921082496643,
+      "mean_box_iou": 0.994982310659007,
+      "mean_confidence_abs_diff": 0.01568072642150678,
+      "min_box_iou": 0.9900541305541992,
+      "reference_count": 496,
+      "reference_match_rate": 0.38306451612903225,
+      "sample_count": 16,
+      "tolerance": {
+        "checks": {
+          "candidate_match_rate": false,
+          "max_confidence_abs_diff": false,
+          "mean_box_iou": true,
+          "reference_match_rate": false
+        },
+        "passed": false,
+        "thresholds": {
+          "max_confidence_abs_diff": 0.02,
+          "min_candidate_match_rate": 0.98,
+          "min_mean_box_iou": 0.99,
+          "min_reference_match_rate": 0.98
+        }
+      },
+      "unmatched_candidate": 306,
+      "unmatched_reference": 306
+    }
+  },
+  "artifacts": {
+    "agreement_csv": {
+      "path": "results/day3/B01_20260807_002/agreement.csv",
+      "sha256": "a920ffac0dd222b456eb56621b94a8208cd3f9674ca054cc5f34ccdb67a6423a",
+      "size_bytes": 5147
+    },
+    "benchmark_csv": {
+      "path": "results/day3/B01_20260807_002/benchmark.csv",
+      "sha256": "3889bebc40cfa8f5148e6383ec617861829c94555c5a2caf093d6c19381acac8",
+      "size_bytes": 5653
+    },
+    "onnx": {
+      "path": "models/deployment/B01_20260807_002/best.onnx",
+      "sha256": "1680a15d7555ebde24457d2af3d2321253ca3b54a48d4d5c626acab065505578",
+      "size_bytes": 9760468
+    },
+    "openvino_bin": {
+      "path": "models/deployment/B01_20260807_002/best_openvino_model/best.bin",
+      "sha256": "6c7db57a149dbe41a8c455ead7c77449151c65da439eb92ec1f426efd43c4e48",
+      "size_bytes": 4802358
+    },
+    "openvino_metadata": {
+      "path": "models/deployment/B01_20260807_002/best_openvino_model/metadata.yaml",
+      "sha256": "0b68cdb8f4848d3032d2546f30dcbfa961b0a0ac8d8e650febf093438c82815c",
+      "size_bytes": 525
+    },
+    "openvino_xml": {
+      "path": "models/deployment/B01_20260807_002/best_openvino_model/best.xml",
+      "sha256": "cff5c115700510f6083451e646f2a0b3b51c9448ecc480e7f54a911e6b5dca4e",
+      "size_bytes": 492606
+    },
+    "source_checkpoint": {
+      "path": "models/checkpoints/E01_20260807_001/best.pt",
+      "sha256": "d5fcbeab43dc5706ea743d834094495be241836da2b25910c1cd1757f84faea5",
+      "size_bytes": 5363845
+    }
+  },
+  "deployment_id": "B01_20260807_002",
+  "environment": {
+    "cpu": "Intel(R) Core(TM) Ultra 7 155H",
+    "logical_cpu_count": 22,
+    "numpy": "2.4.4",
+    "onnx": "1.22.0",
+    "onnxruntime": "1.28.0",
+    "onnxruntime_available_providers": [
+      "AzureExecutionProvider",
+      "CPUExecutionProvider"
+    ],
+    "opencv": "5.0.0",
+    "openvino": "2026.3.0-22451-8a17657b995-releases/2026/3",
+    "openvino_available_devices": [
+      "CPU"
+    ],
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "recorded_at_utc": "2026-08-09T07:49:23.110795+00:00",
+    "source_revision": "1d384f886012ca8ee7df0aa6adae952486a583d9",
+    "torch": "2.13.0+cpu",
+    "ultralytics": "8.4.115"
+  },
+  "exports": {
+    "onnx_fp32": {
+      "duration_seconds": 8.661199953999997,
+      "status": "passed",
+      "validation": {
+        "checker": "passed",
+        "inputs": [
+          {
+            "name": "images",
+            "shape": [
+              1,
+              3,
+              640,
+              640
+            ],
+            "type": "tensor(float)"
+          }
+        ],
+        "ir_version": 8,
+        "opsets": {
+          "ai.onnx": 17
+        },
+        "outputs": [
+          {
+            "name": "output0",
+            "shape": [
+              1,
+              300,
+              6
+            ],
+            "type": "tensor(float)"
+          }
+        ],
+        "providers": [
+          "CPUExecutionProvider"
+        ]
+      }
+    },
+    "openvino_fp16": {
+      "duration_seconds": 4.542948836999997,
+      "status": "passed",
+      "validation": {
+        "available_devices": [
+          "CPU"
+        ],
+        "bin": "best.bin",
+        "compile_cpu": "passed",
+        "constant_element_types": {
+          "<Type: 'float16'>": 206,
+          "<Type: 'float32'>": 4,
+          "<Type: 'int32_t'>": 6,
+          "<Type: 'int64_t'>": 39
+        },
+        "inputs": [
+          {
+            "name": "x.1",
+            "names": [
+              "x.1"
+            ],
+            "shape": "[1,3,640,640]",
+            "type": "<Type: 'float32'>"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output_0",
+            "names": [],
+            "shape": "[1,300,6]",
+            "type": "<Type: 'float32'>"
+          }
+        ],
+        "read_model": "passed",
+        "xml": "best.xml"
+      }
+    }
+  },
+  "finished_at_utc": "2026-08-09T07:49:23.273671+00:00",
+  "limitations": [
+    "Benchmark uses 16 deterministic images and one timed repetition after two warm-ups.",
+    "Wall timing is a local WSL CPU observation, not a production or real-time guarantee.",
+    "OpenVINO was tested only on the CPU device exposed to this WSL environment.",
+    "Export agreement is measured on final detections at confidence 0.25, not raw tensors across all values."
+  ],
+  "protocol": {
+    "agreement_match_iou": 0.99,
+    "benchmark": {
+      "sample_count": 16,
+      "selection": "evenly_spaced_locked_subset",
+      "timed_repetitions": 1,
+      "timing_boundary": "one_model_predict_call_per_image_including_preprocess_inference_postprocess_and_wrapper",
+      "warmup_runs": 2
+    },
+    "export": {
+      "batch": 1,
+      "dynamic": false,
+      "image_size": 640,
+      "nms": false,
+      "onnx": {
+        "opset": 17,
+        "quantize": null,
+        "simplify": false
+      },
+      "openvino": {
+        "quantize": 16
+      }
+    },
+    "inference": {
+      "confidence": 0.25,
+      "device": "cpu",
+      "image_size": 640,
+      "iou_nms": 0.7,
+      "max_detections": 300,
+      "rect": true
+    }
+  },
+  "sample_manifest": {
+    "image_names": [
+      "0000001_02999_d_0000005.jpg",
+      "0000026_04978_d_0000034.jpg",
+      "0000117_03096_d_0000091.jpg",
+      "0000193_02606_d_0000117.jpg",
+      "0000242_01475_d_0000007.jpg",
+      "0000249_03400_d_0000010.jpg",
+      "0000276_00601_d_0000510.jpg",
+      "0000277_02601_d_0000552.jpg",
+      "0000287_01601_d_0000767.jpg",
+      "0000289_04801_d_0000835.jpg",
+      "0000295_00800_d_0000025.jpg",
+      "0000316_00801_d_0000523.jpg",
+      "0000330_02201_d_0000811.jpg",
+      "0000335_04117_d_0000064.jpg",
+      "0000359_01177_d_0000705.jpg",
+      "0000364_01765_d_0000782.jpg"
+    ],
+    "population_size": 128,
+    "sample_count": 16,
+    "selection": "evenly_spaced_locked_subset",
+    "selection_sha256": "4a9d31d089873af61bf00fa8c2054858f158a5c34d99c40e9a385dcdd3c7d7a8",
+    "source_indexes": [
+      0,
+      8,
+      17,
+      25,
+      34,
+      42,
+      51,
+      59,
+      68,
+      76,
+      85,
+      93,
+      102,
+      110,
+      119,
+      127
+    ]
+  },
+  "schema_version": 1,
+  "source_revision": "1d384f886012ca8ee7df0aa6adae952486a583d9",
+  "started_at_utc": "2026-08-09T07:48:59.856022+00:00",
+  "status": "failed_tolerance",
+  "timing": {
+    "onnx": {
+      "fps_from_mean_wall": 15.699475367491397,
+      "inference_ms": {
+        "max": 60.62758299999871,
+        "mean": 33.67854612500132,
+        "median": 32.69305950000145,
+        "min": 23.497555000005832,
+        "p95": 50.28781674999827
+      },
+      "model_load_seconds": 0.005117304000002321,
+      "postprocess_ms": {
+        "max": 0.5507710000003385,
+        "mean": 0.34406649999940697,
+        "median": 0.29750099999859003,
+        "min": 0.2794509999972661,
+        "p95": 0.4971332499987824
+      },
+      "preprocess_ms": {
+        "max": 25.24056499999716,
+        "mean": 9.835068749997955,
+        "median": 7.265035499997907,
+        "min": 1.5208550000025411,
+        "p95": 21.9581614999953
+      },
+      "process_peak_rss_bytes": 633696256,
+      "timed_images": 16,
+      "wall_ms": {
+        "max": 97.42463399999934,
+        "mean": 63.69639600000143,
+        "median": 60.56118100000418,
+        "min": 42.166986000005124,
+        "p95": 92.25937349999924
+      },
+      "warmup_runs": 2
+    },
+    "openvino": {
+      "fps_from_mean_wall": 16.253275556907234,
+      "inference_ms": {
+        "max": 74.14481999999367,
+        "mean": 39.616327187499856,
+        "median": 36.63461949999913,
+        "min": 31.685865000000035,
+        "p95": 54.048485250000056
+      },
+      "model_load_seconds": 0.003051649000006762,
+      "postprocess_ms": {
+        "max": 0.477568999997402,
+        "mean": 0.35581799999961916,
+        "median": 0.372275000000144,
+        "min": 0.26275900000172214,
+        "p95": 0.42418324999538015
+      },
+      "preprocess_ms": {
+        "max": 1.9795810000005076,
+        "mean": 1.6212402500008771,
+        "median": 1.5592165000022362,
+        "min": 1.434005999996657,
+        "p95": 1.9386287500040567
+      },
+      "process_peak_rss_bytes": 633696256,
+      "timed_images": 16,
+      "wall_ms": {
+        "max": 101.19691100000239,
+        "mean": 61.526059562500016,
+        "median": 58.46101249999691,
+        "min": 52.306885000000136,
+        "p95": 81.01202674999897
+      },
+      "warmup_runs": 2
+    },
+    "pytorch": {
+      "fps_from_mean_wall": 11.465426444035709,
+      "inference_ms": {
+        "max": 122.85878599999478,
+        "mean": 59.05434043750102,
+        "median": 53.66248100000348,
+        "min": 39.19539000000327,
+        "p95": 89.75868350000127
+      },
+      "model_load_seconds": 0.4940446399999985,
+      "postprocess_ms": {
+        "max": 0.5649710000028563,
+        "mean": 0.324135874999687,
+        "median": 0.3084489999984896,
+        "min": 0.1590339999992807,
+        "p95": 0.49561775000128705
+      },
+      "preprocess_ms": {
+        "max": 3.3091799999951377,
+        "mean": 2.1851571874988984,
+        "median": 2.018747499999307,
+        "min": 1.4917749999980856,
+        "p95": 3.2651475000022856
+      },
+      "process_peak_rss_bytes": 559427584,
+      "timed_images": 16,
+      "wall_ms": {
+        "max": 142.07752400000118,
+        "mean": 87.21873581249984,
+        "median": 79.39885150000237,
+        "min": 67.71275799999898,
+        "p95": 115.88635100000033
+      },
+      "warmup_runs": 2
+    }
+  }
+}

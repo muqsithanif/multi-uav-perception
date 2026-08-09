@@ -1,8 +1,8 @@
-deployment_id: B01_20260809_004
+deployment_id: B01_20260807_001
 seed: 42
 
 source_model: models/checkpoints/E01_20260807_001/best.pt
-export_root: models/deployment/B01_20260809_004
+export_root: models/deployment/B01_20260807_001
 subset_manifest: experiments/E01E_20260807_001/subset_manifest.json
 images_dir: data/processed/visdrone5/images/val
 
@@ -24,7 +24,7 @@ inference:
   confidence: 0.25
   iou_nms: 0.7
   max_detections: 300
-  rect: false
+  rect: true
 
 benchmark:
   sample_count: 16
@@ -46,5 +46,5 @@ agreement:
     min_mean_box_iou: 0.99
     max_confidence_abs_diff: 0.02
 
-experiment_dir: experiments/B01_20260809_004
-result_dir: results/day3/B01_20260809_004
+experiment_dir: experiments/B01_20260807_001
+result_dir: results/day3/B01_20260807_001
