@@ -1,0 +1,19 @@
+priority:
+  class_scores: {person: 0.35, car: 0.20, bus: 0.25, truck: 0.25, van: 0.20}
+  default_class_score: 0.10
+  zone_scores: {restricted: 0.25, normal: 0.0}
+  motion:
+    high_speed_threshold: 8.0
+    high_speed_score: 0.12
+    heading_change_threshold_deg: 45.0
+    heading_change_score: 0.08
+    reacquired_score: 0.05
+  confidence_weight: 0.10
+  thresholds: {critical: 0.75, high: 0.50}
+assignment:
+  default_algorithm: hungarian
+  minimum_confidence: 0.20
+  minimum_priority: 0.20
+  distance_normalization: 100.0
+  waiting_normalization_s: 30.0
+  cost_weights: {distance: 0.60, load: 0.10, priority: 0.25, confidence: 0.05, waiting: 0.10, switching: 0.15}

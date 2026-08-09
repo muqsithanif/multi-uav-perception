@@ -1,0 +1,217 @@
+{
+  "config": "configs/priority_assignment.yaml",
+  "rows": [
+    {
+      "scenario": "underloaded",
+      "algorithm": "greedy",
+      "repetitions": 50,
+      "mean_compute_ms": 0.017358739987685112,
+      "total_cost": 0.35300000000000004,
+      "assigned_count": 2,
+      "unassigned_target_ids": [],
+      "skipped_target_ids": [],
+      "assignments": [
+        {
+          "target_id": "t1",
+          "uav_id": "uav_1",
+          "priority": 0.44,
+          "cost": 0.15700000000000003
+        },
+        {
+          "target_id": "t2",
+          "uav_id": "uav_2",
+          "priority": 0.28,
+          "cost": 0.196
+        }
+      ]
+    },
+    {
+      "scenario": "underloaded",
+      "algorithm": "hungarian",
+      "repetitions": 50,
+      "mean_compute_ms": 0.01884096001049329,
+      "total_cost": 0.35300000000000004,
+      "assigned_count": 2,
+      "unassigned_target_ids": [],
+      "skipped_target_ids": [],
+      "assignments": [
+        {
+          "target_id": "t1",
+          "uav_id": "uav_1",
+          "priority": 0.44,
+          "cost": 0.15700000000000003
+        },
+        {
+          "target_id": "t2",
+          "uav_id": "uav_2",
+          "priority": 0.28,
+          "cost": 0.196
+        }
+      ]
+    },
+    {
+      "scenario": "balanced",
+      "algorithm": "greedy",
+      "repetitions": 50,
+      "mean_compute_ms": 0.029082740047670086,
+      "total_cost": 0.535,
+      "assigned_count": 3,
+      "unassigned_target_ids": [],
+      "skipped_target_ids": [],
+      "assignments": [
+        {
+          "target_id": "t1",
+          "uav_id": "uav_1",
+          "priority": 0.44,
+          "cost": 0.15700000000000003
+        },
+        {
+          "target_id": "t3",
+          "uav_id": "uav_3",
+          "priority": 0.34,
+          "cost": 0.182
+        },
+        {
+          "target_id": "t2",
+          "uav_id": "uav_2",
+          "priority": 0.28,
+          "cost": 0.196
+        }
+      ]
+    },
+    {
+      "scenario": "balanced",
+      "algorithm": "hungarian",
+      "repetitions": 50,
+      "mean_compute_ms": 0.028465580026022508,
+      "total_cost": 0.535,
+      "assigned_count": 3,
+      "unassigned_target_ids": [],
+      "skipped_target_ids": [],
+      "assignments": [
+        {
+          "target_id": "t1",
+          "uav_id": "uav_1",
+          "priority": 0.44,
+          "cost": 0.15700000000000003
+        },
+        {
+          "target_id": "t2",
+          "uav_id": "uav_2",
+          "priority": 0.28,
+          "cost": 0.196
+        },
+        {
+          "target_id": "t3",
+          "uav_id": "uav_3",
+          "priority": 0.34,
+          "cost": 0.182
+        }
+      ]
+    },
+    {
+      "scenario": "overloaded_critical",
+      "algorithm": "greedy",
+      "repetitions": 50,
+      "mean_compute_ms": 0.0162209199697827,
+      "total_cost": 0.7047949736751647,
+      "assigned_count": 3,
+      "unassigned_target_ids": [
+        "t2"
+      ],
+      "skipped_target_ids": [],
+      "assignments": [
+        {
+          "target_id": "critical",
+          "uav_id": "uav_3",
+          "priority": 0.819,
+          "cost": 0.11324741198332074
+        },
+        {
+          "target_id": "t3",
+          "uav_id": "uav_1",
+          "priority": 0.34,
+          "cost": 0.293547561691844
+        },
+        {
+          "target_id": "t1",
+          "uav_id": "uav_2",
+          "priority": 0.28,
+          "cost": 0.298
+        }
+      ]
+    },
+    {
+      "scenario": "overloaded_critical",
+      "algorithm": "hungarian",
+      "repetitions": 50,
+      "mean_compute_ms": 0.018582579987196368,
+      "total_cost": 0.5112474119833208,
+      "assigned_count": 3,
+      "unassigned_target_ids": [
+        "t3"
+      ],
+      "skipped_target_ids": [],
+      "assignments": [
+        {
+          "target_id": "t1",
+          "uav_id": "uav_1",
+          "priority": 0.28,
+          "cost": 0.202
+        },
+        {
+          "target_id": "t2",
+          "uav_id": "uav_2",
+          "priority": 0.28,
+          "cost": 0.196
+        },
+        {
+          "target_id": "critical",
+          "uav_id": "uav_3",
+          "priority": 0.819,
+          "cost": 0.11324741198332074
+        }
+      ]
+    },
+    {
+      "scenario": "unavailable_lost",
+      "algorithm": "greedy",
+      "repetitions": 50,
+      "mean_compute_ms": 0.005031020009482745,
+      "total_cost": 0.1885,
+      "assigned_count": 1,
+      "unassigned_target_ids": [],
+      "skipped_target_ids": [
+        "lost"
+      ],
+      "assignments": [
+        {
+          "target_id": "live",
+          "uav_id": "uav_2",
+          "priority": 0.29000000000000004,
+          "cost": 0.1885
+        }
+      ]
+    },
+    {
+      "scenario": "unavailable_lost",
+      "algorithm": "hungarian",
+      "repetitions": 50,
+      "mean_compute_ms": 0.007801160018061637,
+      "total_cost": 0.1885,
+      "assigned_count": 1,
+      "unassigned_target_ids": [],
+      "skipped_target_ids": [
+        "lost"
+      ],
+      "assignments": [
+        {
+          "target_id": "live",
+          "uav_id": "uav_2",
+          "priority": 0.29000000000000004,
+          "cost": 0.1885
+        }
+      ]
+    }
+  ]
+}
