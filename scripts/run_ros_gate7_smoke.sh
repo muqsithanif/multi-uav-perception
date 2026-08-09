@@ -7,7 +7,14 @@ workspace="${repo_root}/ros2_ws"
 output_dir="${repo_root}/results/day4/${run_id}"
 source_revision="$(git -C "${repo_root}" rev-parse HEAD)"
 source_tracked_dirty=false
-if ! git -C "${repo_root}" diff --quiet || ! git -C "${repo_root}" diff --cached --quiet; then
+if command -v powershell.exe >/dev/null 2>&1; then
+  host_repo_root="$(wslpath -w "${repo_root}")"
+  source_revision="$(powershell.exe -NoProfile -Command "git -C '${host_repo_root}' rev-parse HEAD" | tr -d '\r')"
+  host_tracked_status="$(powershell.exe -NoProfile -Command "git -C '${host_repo_root}' status --porcelain --untracked-files=no" | tr -d '\r')"
+  if [[ -n "${host_tracked_status}" ]]; then
+    source_tracked_dirty=true
+  fi
+elif ! git -C "${repo_root}" diff --quiet || ! git -C "${repo_root}" diff --cached --quiet; then
   source_tracked_dirty=true
 fi
 

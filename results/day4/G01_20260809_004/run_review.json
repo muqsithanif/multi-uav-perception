@@ -1,0 +1,7 @@
+{
+  "run_id": "G01_20260809_004",
+  "status": "passed_with_metadata_correction",
+  "source_revision": "2ad63d1c9264461ae02eb8ee7bb2886c9fefdf2e",
+  "source_tracked_dirty": "reported_true_by_wsl_git_but_clean_by_host_git",
+  "note": "The typed graph, monitor, and smoke checks passed. This run is not the final provenance reference because WSL Git falsely detected CRLF changes in a Windows-backed worktree."
+}
