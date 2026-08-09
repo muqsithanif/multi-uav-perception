@@ -5,6 +5,7 @@ from scripts.export_and_validate_detector import (
     aggregate_agreement,
     check_tolerance,
     compare_detection_sets,
+    git_command,
     git_tracked_dirty_paths,
     openvino_port_record,
     summarize_timings,
@@ -119,3 +120,12 @@ def test_git_tracked_dirty_paths_ignores_blank_output(monkeypatch: pytest.Monkey
         "configs/deployment.yaml",
         "scripts/export.py",
     ]
+
+
+def test_git_command_prefers_host_git_when_available(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        "scripts.export_and_validate_detector.shutil.which",
+        lambda name: "C:/Program Files/Git/cmd/git.exe" if name == "git.exe" else None,
+    )
+
+    assert git_command() == "git.exe"

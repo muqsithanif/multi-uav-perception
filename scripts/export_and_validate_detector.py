@@ -44,6 +44,10 @@ DEFAULT_CONFIG = REPO_ROOT / "configs" / "e01_deployment_export.yaml"
 BACKEND_ORDER = ("pytorch", "onnx", "openvino")
 
 
+def git_command() -> str:
+    return "git.exe" if shutil.which("git.exe") else "git"
+
+
 def resolve_repo_path(value: str) -> Path:
     path = Path(value)
     return path.resolve() if path.is_absolute() else (REPO_ROOT / path).resolve()
@@ -59,7 +63,7 @@ def sha256_file(path: Path) -> str:
 
 def git_revision() -> str | None:
     completed = subprocess.run(
-        ["git", "rev-parse", "HEAD"],
+        [git_command(), "rev-parse", "HEAD"],
         cwd=REPO_ROOT,
         capture_output=True,
         check=False,
@@ -70,7 +74,7 @@ def git_revision() -> str | None:
 
 def git_tracked_dirty_paths() -> list[str]:
     completed = subprocess.run(
-        ["git", "diff", "--name-only", "HEAD"],
+        [git_command(), "diff", "--name-only", "HEAD"],
         cwd=REPO_ROOT,
         capture_output=True,
         check=False,
