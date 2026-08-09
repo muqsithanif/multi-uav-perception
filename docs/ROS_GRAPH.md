@@ -1,37 +1,41 @@
-# Gate 7 ROS graph
+# ROS graph and assignment integration
 
 ## Scope
 
-This workspace establishes the typed, observable data transport required for
-Gate 7. It deliberately uses deterministic synthetic targets so the ROS gate
-is independent of detector frame rate and video availability. The assignment
-relay is a transport stub, not the configurable Greedy/Hungarian implementation
-scheduled for Gate 8.
+The ROS workspace provides typed local transport and a configured assignment
+decision for the software prototype. The deterministic source keeps this gate
+independent of detector frame rate and video availability.
 
 ```text
 perception_source -- TargetArray --> assignment_relay -- Assignment --> mission_relay
-                                                                     |-- MissionCommand
-                                                                     |-- MissionStatus --> C++ mission_monitor
+                                            |                              |-- MissionCommand
+                                            |                              |-- MissionStatus --> C++ mission_monitor
+                                            +-- shared priority/Hungarian core
 ```
 
-`gate7_bringup.launch.py` starts all four nodes in one command.
+`gate7_bringup.launch.py` starts all four nodes. `assignment_relay` converts
+the ROS targets to `multi_uav_core.Target` values and calls the same
+`assign_targets` implementation used by Gate 8 comparison and Gate 9
+simulation. The current launch selects `hungarian`; a configured
+`ros_assignment.uavs` list supplies synthetic image-space positions. It no
+longer uses the historical static track-ID routing helper.
 
 ## Interfaces and units
 
 All topics use reliable, volatile QoS with depth 10. The values express
-same-host local transport semantics; they do not measure a wireless UAV link.
+same-host local transport only; they do not measure a wireless UAV link.
 
 | Topic | Type | Meaning |
 | --- | --- | --- |
-| `/perception/targets` | `multi_uav_interfaces/msg/TargetArray` | Source timestamp, source ID, monotonically increasing source sequence, and tracked targets. |
-| `/assignment/decisions` | `multi_uav_interfaces/msg/Assignment` | A deterministic Gate 7 routing record for each target. |
+| `/perception/targets` | `multi_uav_interfaces/msg/TargetArray` | Source timestamp, source ID, sequence, and tracked targets in `synthetic_image_px`. |
+| `/assignment/decisions` | `multi_uav_interfaces/msg/Assignment` | Solver-selected vehicle ID and configured priority score for each eligible target. |
 | `/mission/commands` | `multi_uav_interfaces/msg/MissionCommand` | High-level `MOVE_TO_TARGET` simulation command; never a flight-control output. |
-| `/mission/status` | `multi_uav_interfaces/msg/MissionStatus` | Dispatched state consumed by the C++ health monitor. |
+| `/mission/status` | `multi_uav_interfaces/msg/MissionStatus` | Dispatched status consumed by the C++ health monitor. |
 
-`TargetArray.header.frame_id` is `synthetic_image_px`; `center_*_px` uses
-source-image pixels, `velocity_*_px_s` uses pixels per second, and
-`priority_hint` is a synthetic value in `[0, 1]`. The later priority gate owns
-the actual configurable score and its interpretation.
+`center_*_px` uses synthetic source-image pixels and `velocity_*_px_s` uses
+pixels per second. The static values in `ros_assignment.uavs` are also
+image-space positions solely to make the solver and 2D replay deterministic.
+They are not latitude/longitude, metres, or physical UAV positions.
 
 ## Build and run
 
@@ -40,35 +44,33 @@ In WSL, from the repository root:
 ```bash
 source /opt/ros/jazzy/setup.bash
 cd ros2_ws
-colcon build --symlink-install --merge-install
+colcon build --merge-install --symlink-install
 source install/setup.bash
+cd ..
+export MULTI_UAV_PROJECT_ROOT="$(pwd)"
 ros2 launch multi_uav_bringup gate7_bringup.launch.py
 ```
 
-For the repeatable smoke run after a successful build:
+For a repeatable capture after a successful build:
 
 ```bash
-bash scripts/run_ros_gate7_smoke.sh G01_20260809_001
+bash scripts/run_ros_gate7_smoke.sh G02_<new-id>
 ```
 
-The script refuses to overwrite an artifact ID, saves received typed messages
-and the launch log under `results/day4/<run-id>/`, and requires the C++ monitor
-to log a received mission status.
+The runner refuses to overwrite an artifact ID, records target/command/status
+messages plus the launch log, and requires the C++ monitor receipt. It exports
+`MULTI_UAV_PROJECT_ROOT` so the launch passes the checked-out shared core and
+configuration to the node process.
 
-## Gate boundary
+## Verified integration run
 
-Gate 7 passes only after the workspace builds and the smoke artifact proves the
-three-node message path plus C++ monitor. Gate 8 remains pending: this graph
-does not claim optimization, fleet constraints, reassignment, or a tested
-mission-state machine.
+[G02_20260809_003](../results/day4/G02_20260809_003/summary.json) passed with
+a clean tracked tree from revision `9dc8c60123293154c2409f56cefe8a74c2f1de63`.
+The [log](../results/day4/G02_20260809_003/launch.log) records
+`algorithm=hungarian`, two assigned targets, `MOVE_TO_TARGET` publication, and
+C++ `mission_status_count` records. The typed
+[command capture](../results/day4/G02_20260809_003/mission_commands.yaml) is
+the input for the Gate 9 visualization replay.
 
-## Verified run
-
-`G01_20260809_005` passed from source revision
-`c9b60a9b140dd62e04adb28c5c5ff66ef38f0e56` with a clean tracked worktree.
-It captured a typed [target message](../results/day4/G01_20260809_005/targets.yaml),
-typed [mission status](../results/day4/G01_20260809_005/mission_status.yaml),
-and [C++ monitor output](../results/day4/G01_20260809_005/launch.log). The
-[machine-readable summary](../results/day4/G01_20260809_005/summary.json)
-declares the exact checks. Earlier failed and corrected runs are retained in
-the adjacent `G01_20260809_001` through `G01_20260809_004` directories.
+The older `G01_20260809_005` evidence remains the historical Gate 7 transport
+checkpoint, before the shared solver integration.

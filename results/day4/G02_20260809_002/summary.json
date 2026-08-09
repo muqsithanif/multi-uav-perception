@@ -1,0 +1,9 @@
+{
+  "run_id": "G02_20260809_002",
+  "status": "passed",
+  "source_revision": "8389463bc51de7c774dc2537364b403e8ab252ed",
+  "source_tracked_dirty": true,
+  "source_id": "synthetic_gate7",
+  "launch": "gate7_bringup.launch.py",
+  "checks": ["typed_target_array", "shared_hungarian_assignment", "typed_mission_command", "typed_mission_status", "cpp_monitor"]
+}

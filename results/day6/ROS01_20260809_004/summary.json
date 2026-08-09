@@ -1,0 +1,23 @@
+{
+  "status": "rendered",
+  "source_id": "synthetic_gate7",
+  "target_snapshot_sequence": 17,
+  "mission_command_sequence": 25,
+  "mission_command": {
+    "track_id": 101,
+    "vehicle_id": "uav_1",
+    "command": "MOVE_TO_TARGET"
+  },
+  "frames": 120,
+  "fps": 15.0,
+  "duration_s": 8.0,
+  "inputs": {
+    "targets": "results/day4/G02_20260809_002/targets.yaml",
+    "commands": "results/day4/G02_20260809_002/mission_commands.yaml"
+  },
+  "outputs": {
+    "video": "mission_command_replay.mp4",
+    "final_frame": "mission_command_replay_final.png"
+  },
+  "coordinate_note": "synthetic image-space pixels; not physical UAV coordinates"
+}

@@ -6,8 +6,8 @@ The project is complete only when every **Required** item below has objective ev
 
 ### Foundation and reproducibility
 
-- [ ] Supported environment and pinned dependencies are documented.
-- [ ] One-command or clearly sequenced setup works on the stated Ubuntu 24.04/ROS 2 Jazzy environment.
+- [x] Supported environment and pinned dependencies are documented.
+- [x] One-command or clearly sequenced setup works on the stated Ubuntu 24.04/ROS 2 Jazzy environment.
 - [x] Pretrained one-image smoke inference succeeds and saves a prediction plus actual metadata.
 - [x] Configs, seeds, dataset manifest/source, license notes, and experiment IDs are recorded.
 - [x] Dataset, weights, secrets, large video, and ROS build outputs are excluded from Git.
@@ -46,7 +46,7 @@ The project is complete only when every **Required** item below has objective ev
 - [x] Assignment cost components, normalization, constraints, and switching policy are documented.
 - [x] Tests cover targets fewer/equal/more than UAVs, unavailable UAV, critical target, lost target, and reassignment.
 - [x] Greedy/global comparison records computation time, cost/distance proxy, wait/coverage, success, and reassignment metrics where applicable.
-- [ ] Mission states and every permitted transition are documented and unit-tested.
+- [x] Mission states and every permitted transition are documented and unit-tested.
 
 ### ROS 2 and C++
 
@@ -58,19 +58,19 @@ The project is complete only when every **Required** item below has objective ev
 
 ### Simulation and end-to-end demo
 
-- [ ] Fleet size is configurable; the main demo uses three virtual UAVs.
-- [ ] The six required scenarios in `PROJECT_BLUEPRINT.md` execute with deterministic/repeatable configs.
-- [ ] One end-to-end path reaches target priority, assignment, mission command, 2D visualization, and saved metrics.
-- [ ] Visualization distinguishes image-space/simulation units from physical units.
-- [ ] Final demo video is 2–4 minutes and can be reproduced from documented inputs/config.
+- [x] Fleet size is configurable; the main demo uses three virtual UAVs.
+- [x] The six required scenarios in `PROJECT_BLUEPRINT.md` execute with deterministic/repeatable configs.
+- [x] One end-to-end path reaches target priority, assignment, mission command, 2D visualization, and saved metrics.
+- [x] Visualization distinguishes image-space/simulation units from physical units.
+- [x] Final demo video is 2–4 minutes and can be reproduced from documented inputs/config.
 
 ### Handoff
 
-- [ ] README quick start, architecture diagram, configs, tests, benchmark report, and troubleshooting notes match the implementation.
-- [ ] Raw metrics and charts are present; every headline number traces to a raw record.
-- [ ] Limitations and future work are explicit.
-- [ ] No professional claim exceeds the measured software/simulation evidence.
-- [ ] A fresh-environment or second-user reproduction check is documented.
+- [x] README quick start, architecture diagram, configs, tests, benchmark report, and troubleshooting notes match the implementation.
+- [x] Raw metrics and charts are present; every headline number traces to a raw record.
+- [x] Limitations and future work are explicit.
+- [x] No professional claim exceeds the measured software/simulation evidence.
+- [x] A fresh-environment or second-user reproduction check is documented.
 
 ## Completion rule for constrained environments
 

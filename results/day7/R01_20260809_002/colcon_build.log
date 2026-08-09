@@ -1,0 +1,9 @@
+Starting >>> multi_uav_bringup
+[0.538s] ERROR:colcon.colcon_ros.task.ament_python.build:Failed to find the following files:
+- /tmp/multi-uav-perception-repro.QC5obb/ros2_ws/install/share/multi_uav_interfaces/package.sh
+Check that the following packages have been built:
+- multi_uav_interfaces
+Failed   <<< multi_uav_bringup [0.01s, exited with code 1]
+
+Summary: 0 packages finished [0.21s]
+  1 package failed: multi_uav_bringup

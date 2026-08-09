@@ -1,0 +1,207 @@
+[INFO] [launch]: All log files can be found below /home/muqsi/.ros/log/2026-08-09-18-50-53-177340-muqsit-16598
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [perception_source-1]: process started with pid [16606]
+[INFO] [assignment_relay-2]: process started with pid [16607]
+[INFO] [mission_relay-3]: process started with pid [16608]
+[INFO] [mission_monitor-4]: process started with pid [16609]
+[assignment_relay-2] [INFO] [1786276255.012342840] [assignment_relay]: configured algorithm=hungarian config_path=/mnt/d/02_Proyek_Dev/UAV/multi-uav-perception/configs/priority_assignment.yaml
+[mission_monitor-4] [INFO] [1786276255.014735084] [mission_monitor]: mission_status_count=1 source_sequence=1 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.798
+[assignment_relay-2] [INFO] [1786276255.029432812] [assignment_relay]: published source_sequence=1 track_id=101 vehicle_id=uav_1 priority=0.411
+[assignment_relay-2] [INFO] [1786276255.042412839] [assignment_relay]: published source_sequence=1 track_id=202 vehicle_id=uav_3 priority=0.436
+[assignment_relay-2] [INFO] [1786276255.056270281] [assignment_relay]: solved source_sequence=1 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0886
+[perception_source-1] [INFO] [1786276255.058190169] [perception_source]: published source_sequence=1 target_count=2
+[mission_relay-3] [INFO] [1786276255.143961902] [mission_relay]: published source_sequence=1 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276255.145013151] [mission_monitor]: mission_status_count=2 source_sequence=1 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.467
+[mission_relay-3] [INFO] [1786276255.167435792] [mission_relay]: published source_sequence=1 track_id=202 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276255.444961708] [mission_monitor]: mission_status_count=3 source_sequence=2 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.534
+[assignment_relay-2] [INFO] [1786276255.464549105] [assignment_relay]: published source_sequence=2 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_relay-3] [INFO] [1786276255.464546604] [mission_relay]: published source_sequence=2 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276255.465599363] [mission_monitor]: mission_status_count=4 source_sequence=2 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.291
+[perception_source-1] [INFO] [1786276255.466663144] [perception_source]: published source_sequence=2 target_count=2
+[assignment_relay-2] [INFO] [1786276255.482261070] [assignment_relay]: published source_sequence=2 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276255.483327617] [mission_relay]: published source_sequence=2 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276255.504309690] [assignment_relay]: solved source_sequence=2 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0539
+[mission_monitor-4] [INFO] [1786276255.974897508] [mission_monitor]: mission_status_count=5 source_sequence=3 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.727
+[perception_source-1] [INFO] [1786276255.984555100] [perception_source]: published source_sequence=3 target_count=2
+[mission_relay-3] [INFO] [1786276255.989808348] [mission_relay]: published source_sequence=3 track_id=101 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276255.991059410] [assignment_relay]: published source_sequence=3 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276255.991825672] [mission_monitor]: mission_status_count=6 source_sequence=3 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.281
+[mission_relay-3] [INFO] [1786276256.007505245] [mission_relay]: published source_sequence=3 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276256.008863192] [assignment_relay]: published source_sequence=3 track_id=202 vehicle_id=uav_3 priority=0.436
+[assignment_relay-2] [INFO] [1786276256.025344700] [assignment_relay]: solved source_sequence=3 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0941
+[mission_monitor-4] [INFO] [1786276256.445668261] [mission_monitor]: mission_status_count=7 source_sequence=4 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.742
+[perception_source-1] [INFO] [1786276256.476804905] [perception_source]: published source_sequence=4 target_count=2
+[mission_relay-3] [INFO] [1786276256.477286125] [mission_relay]: published source_sequence=4 track_id=101 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276256.478116728] [assignment_relay]: published source_sequence=4 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276256.479104326] [mission_monitor]: mission_status_count=8 source_sequence=4 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.455
+[assignment_relay-2] [INFO] [1786276256.496379672] [assignment_relay]: published source_sequence=4 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276256.497441159] [mission_relay]: published source_sequence=4 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276256.518034101] [assignment_relay]: solved source_sequence=4 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0902
+[mission_monitor-4] [INFO] [1786276256.944868965] [mission_monitor]: mission_status_count=9 source_sequence=5 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.372
+[mission_relay-3] [INFO] [1786276256.968460250] [mission_relay]: published source_sequence=5 track_id=101 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276256.969047786] [assignment_relay]: published source_sequence=5 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276256.969916824] [mission_monitor]: mission_status_count=10 source_sequence=5 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.352
+[perception_source-1] [INFO] [1786276256.973097024] [perception_source]: published source_sequence=5 target_count=2
+[mission_relay-3] [INFO] [1786276256.987697001] [mission_relay]: published source_sequence=5 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276256.990121137] [assignment_relay]: published source_sequence=5 track_id=202 vehicle_id=uav_3 priority=0.436
+[assignment_relay-2] [INFO] [1786276257.011578755] [assignment_relay]: solved source_sequence=5 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0491
+[perception_source-1] [INFO] [1786276257.470195776] [perception_source]: published source_sequence=6 target_count=2
+[mission_monitor-4] [INFO] [1786276257.753340311] [mission_monitor]: mission_status_count=11 source_sequence=6 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=1.238
+[assignment_relay-2] [INFO] [1786276257.778834610] [assignment_relay]: published source_sequence=6 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_relay-3] [INFO] [1786276257.780031044] [mission_relay]: published source_sequence=6 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276257.780628582] [mission_monitor]: mission_status_count=12 source_sequence=6 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.247
+[assignment_relay-2] [INFO] [1786276257.792806814] [assignment_relay]: published source_sequence=6 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276257.794028091] [mission_relay]: published source_sequence=6 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276257.810700787] [assignment_relay]: solved source_sequence=6 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0870
+[mission_monitor-4] [INFO] [1786276257.945976805] [mission_monitor]: mission_status_count=13 source_sequence=7 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.871
+[assignment_relay-2] [INFO] [1786276257.969904644] [assignment_relay]: published source_sequence=7 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_relay-3] [INFO] [1786276257.970366461] [mission_relay]: published source_sequence=7 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276257.971111909] [mission_monitor]: mission_status_count=14 source_sequence=7 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.392
+[perception_source-1] [INFO] [1786276257.973911700] [perception_source]: published source_sequence=7 target_count=2
+[mission_relay-3] [INFO] [1786276257.988616164] [mission_relay]: published source_sequence=7 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276257.990066553] [assignment_relay]: published source_sequence=7 track_id=202 vehicle_id=uav_3 priority=0.436
+[assignment_relay-2] [INFO] [1786276258.005739383] [assignment_relay]: solved source_sequence=7 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0804
+[mission_monitor-4] [INFO] [1786276258.445658878] [mission_monitor]: mission_status_count=15 source_sequence=8 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.770
+[assignment_relay-2] [INFO] [1786276258.474404994] [assignment_relay]: published source_sequence=8 track_id=101 vehicle_id=uav_1 priority=0.411
+[perception_source-1] [INFO] [1786276258.474422487] [perception_source]: published source_sequence=8 target_count=2
+[mission_relay-3] [INFO] [1786276258.476027478] [mission_relay]: published source_sequence=8 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276258.476970885] [mission_monitor]: mission_status_count=16 source_sequence=8 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.384
+[assignment_relay-2] [INFO] [1786276258.490985885] [assignment_relay]: published source_sequence=8 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276258.492461582] [mission_relay]: published source_sequence=8 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276258.508940028] [assignment_relay]: solved source_sequence=8 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0785
+[mission_monitor-4] [INFO] [1786276258.944496934] [mission_monitor]: mission_status_count=17 source_sequence=9 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.396
+[mission_relay-3] [INFO] [1786276258.961965865] [mission_relay]: published source_sequence=9 track_id=101 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276258.962025664] [assignment_relay]: published source_sequence=9 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276258.963198255] [mission_monitor]: mission_status_count=18 source_sequence=9 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.414
+[perception_source-1] [INFO] [1786276258.965104777] [perception_source]: published source_sequence=9 target_count=2
+[mission_relay-3] [INFO] [1786276258.978418944] [mission_relay]: published source_sequence=9 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276258.979340924] [assignment_relay]: published source_sequence=9 track_id=202 vehicle_id=uav_3 priority=0.436
+[assignment_relay-2] [INFO] [1786276258.997459761] [assignment_relay]: solved source_sequence=9 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0535
+[mission_monitor-4] [INFO] [1786276259.445326020] [mission_monitor]: mission_status_count=19 source_sequence=10 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.811
+[assignment_relay-2] [INFO] [1786276259.469979113] [assignment_relay]: published source_sequence=10 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_relay-3] [INFO] [1786276259.470738658] [mission_relay]: published source_sequence=10 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276259.471359265] [mission_monitor]: mission_status_count=20 source_sequence=10 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.287
+[perception_source-1] [INFO] [1786276259.473843820] [perception_source]: published source_sequence=10 target_count=2
+[assignment_relay-2] [INFO] [1786276259.484122506] [assignment_relay]: published source_sequence=10 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276259.485291017] [mission_relay]: published source_sequence=10 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276259.505921390] [assignment_relay]: solved source_sequence=10 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.1108
+[mission_monitor-4] [INFO] [1786276259.945344326] [mission_monitor]: mission_status_count=21 source_sequence=11 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.705
+[assignment_relay-2] [INFO] [1786276259.971248382] [assignment_relay]: published source_sequence=11 track_id=101 vehicle_id=uav_1 priority=0.411
+[perception_source-1] [INFO] [1786276259.974323782] [perception_source]: published source_sequence=11 target_count=2
+[mission_relay-3] [INFO] [1786276259.975160305] [mission_relay]: published source_sequence=11 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276259.975823283] [mission_monitor]: mission_status_count=22 source_sequence=11 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.314
+[assignment_relay-2] [INFO] [1786276259.988510280] [assignment_relay]: published source_sequence=11 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276259.991014736] [mission_relay]: published source_sequence=11 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276260.007220864] [assignment_relay]: solved source_sequence=11 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0760
+[mission_monitor-4] [INFO] [1786276260.445480203] [mission_monitor]: mission_status_count=23 source_sequence=12 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.601
+[mission_relay-3] [INFO] [1786276260.469111012] [mission_relay]: published source_sequence=12 track_id=101 state=DISPATCHED
+[perception_source-1] [INFO] [1786276260.469445733] [perception_source]: published source_sequence=12 target_count=2
+[assignment_relay-2] [INFO] [1786276260.470208356] [assignment_relay]: published source_sequence=12 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276260.470933900] [mission_monitor]: mission_status_count=24 source_sequence=12 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.248
+[mission_relay-3] [INFO] [1786276260.483859558] [mission_relay]: published source_sequence=12 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276260.484767025] [assignment_relay]: published source_sequence=12 track_id=202 vehicle_id=uav_3 priority=0.436
+[assignment_relay-2] [INFO] [1786276260.501174604] [assignment_relay]: solved source_sequence=12 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0820
+[mission_monitor-4] [INFO] [1786276260.946899508] [mission_monitor]: mission_status_count=25 source_sequence=13 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.620
+[perception_source-1] [INFO] [1786276260.987902107] [perception_source]: published source_sequence=13 target_count=2
+[mission_relay-3] [INFO] [1786276260.988068187] [mission_relay]: published source_sequence=13 track_id=101 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276260.989998714] [assignment_relay]: published source_sequence=13 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276260.991289207] [mission_monitor]: mission_status_count=26 source_sequence=13 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.515
+[assignment_relay-2] [INFO] [1786276261.023857662] [assignment_relay]: published source_sequence=13 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276261.025982321] [mission_relay]: published source_sequence=13 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276261.068295311] [assignment_relay]: solved source_sequence=13 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0936
+[mission_monitor-4] [INFO] [1786276261.445066033] [mission_monitor]: mission_status_count=27 source_sequence=14 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.544
+[mission_relay-3] [INFO] [1786276261.462175754] [mission_relay]: published source_sequence=14 track_id=101 state=DISPATCHED
+[perception_source-1] [INFO] [1786276261.462187731] [perception_source]: published source_sequence=14 target_count=2
+[assignment_relay-2] [INFO] [1786276261.463270024] [assignment_relay]: published source_sequence=14 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276261.463959459] [mission_monitor]: mission_status_count=28 source_sequence=14 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.251
+[assignment_relay-2] [INFO] [1786276261.476820661] [assignment_relay]: published source_sequence=14 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276261.477976186] [mission_relay]: published source_sequence=14 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276261.493346191] [assignment_relay]: solved source_sequence=14 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0467
+[mission_monitor-4] [INFO] [1786276261.944331705] [mission_monitor]: mission_status_count=29 source_sequence=15 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.374
+[assignment_relay-2] [INFO] [1786276261.968261772] [assignment_relay]: published source_sequence=15 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_relay-3] [INFO] [1786276261.968261871] [mission_relay]: published source_sequence=15 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276261.969298227] [mission_monitor]: mission_status_count=30 source_sequence=15 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.334
+[perception_source-1] [INFO] [1786276261.970458502] [perception_source]: published source_sequence=15 target_count=2
+[mission_relay-3] [INFO] [1786276261.996341835] [mission_relay]: published source_sequence=15 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276261.997160512] [assignment_relay]: published source_sequence=15 track_id=202 vehicle_id=uav_3 priority=0.436
+[assignment_relay-2] [INFO] [1786276262.013291274] [assignment_relay]: solved source_sequence=15 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0543
+[mission_monitor-4] [INFO] [1786276262.445233167] [mission_monitor]: mission_status_count=31 source_sequence=16 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.823
+[mission_relay-3] [INFO] [1786276262.467801757] [mission_relay]: published source_sequence=16 track_id=101 state=DISPATCHED
+[perception_source-1] [INFO] [1786276262.468850579] [perception_source]: published source_sequence=16 target_count=2
+[assignment_relay-2] [INFO] [1786276262.469800488] [assignment_relay]: published source_sequence=16 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276262.470543535] [mission_monitor]: mission_status_count=32 source_sequence=16 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.317
+[mission_relay-3] [INFO] [1786276262.490583553] [mission_relay]: published source_sequence=16 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276262.491710076] [assignment_relay]: published source_sequence=16 track_id=202 vehicle_id=uav_3 priority=0.436
+[assignment_relay-2] [INFO] [1786276262.512084650] [assignment_relay]: solved source_sequence=16 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0802
+[mission_monitor-4] [INFO] [1786276262.947043585] [mission_monitor]: mission_status_count=33 source_sequence=17 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=1.004
+[assignment_relay-2] [INFO] [1786276262.984458674] [assignment_relay]: published source_sequence=17 track_id=101 vehicle_id=uav_1 priority=0.411
+[perception_source-1] [INFO] [1786276262.987843907] [perception_source]: published source_sequence=17 target_count=2
+[mission_relay-3] [INFO] [1786276262.994043778] [mission_relay]: published source_sequence=17 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276262.994928522] [mission_monitor]: mission_status_count=34 source_sequence=17 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.463
+[assignment_relay-2] [INFO] [1786276263.009535519] [assignment_relay]: published source_sequence=17 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276263.014521283] [mission_relay]: published source_sequence=17 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276263.028295903] [assignment_relay]: solved source_sequence=17 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0928
+[mission_monitor-4] [INFO] [1786276263.444432163] [mission_monitor]: mission_status_count=35 source_sequence=18 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.654
+[assignment_relay-2] [INFO] [1786276263.465121106] [assignment_relay]: published source_sequence=18 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_relay-3] [INFO] [1786276263.465228086] [mission_relay]: published source_sequence=18 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276263.466541246] [mission_monitor]: mission_status_count=36 source_sequence=18 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.424
+[perception_source-1] [INFO] [1786276263.467613694] [perception_source]: published source_sequence=18 target_count=2
+[assignment_relay-2] [INFO] [1786276263.485799063] [assignment_relay]: published source_sequence=18 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276263.487373756] [mission_relay]: published source_sequence=18 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276263.507428615] [assignment_relay]: solved source_sequence=18 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0481
+[mission_monitor-4] [INFO] [1786276263.946330285] [mission_monitor]: mission_status_count=37 source_sequence=19 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.738
+[perception_source-1] [INFO] [1786276263.971714949] [perception_source]: published source_sequence=19 target_count=2
+[assignment_relay-2] [INFO] [1786276263.972528842] [assignment_relay]: published source_sequence=19 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_relay-3] [INFO] [1786276263.974548499] [mission_relay]: published source_sequence=19 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276263.975194444] [mission_monitor]: mission_status_count=38 source_sequence=19 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.266
+[mission_relay-3] [INFO] [1786276264.006141495] [mission_relay]: published source_sequence=19 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276264.007031037] [assignment_relay]: published source_sequence=19 track_id=202 vehicle_id=uav_3 priority=0.436
+[assignment_relay-2] [INFO] [1786276264.023699084] [assignment_relay]: solved source_sequence=19 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.1048
+[mission_monitor-4] [INFO] [1786276264.444318045] [mission_monitor]: mission_status_count=39 source_sequence=20 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.360
+[perception_source-1] [INFO] [1786276264.459725929] [perception_source]: published source_sequence=20 target_count=2
+[mission_relay-3] [INFO] [1786276264.461100375] [mission_relay]: published source_sequence=20 track_id=101 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276264.463601913] [assignment_relay]: published source_sequence=20 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276264.464366439] [mission_monitor]: mission_status_count=40 source_sequence=20 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.315
+[assignment_relay-2] [INFO] [1786276264.477060222] [assignment_relay]: published source_sequence=20 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276264.481304931] [mission_relay]: published source_sequence=20 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276264.497025568] [assignment_relay]: solved source_sequence=20 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0710
+[mission_monitor-4] [INFO] [1786276264.945485126] [mission_monitor]: mission_status_count=41 source_sequence=21 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.586
+[mission_relay-3] [INFO] [1786276264.971678902] [mission_relay]: published source_sequence=21 track_id=101 state=DISPATCHED
+[perception_source-1] [INFO] [1786276264.971756397] [perception_source]: published source_sequence=21 target_count=2
+[assignment_relay-2] [INFO] [1786276264.974332129] [assignment_relay]: published source_sequence=21 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276264.975218843] [mission_monitor]: mission_status_count=42 source_sequence=21 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.295
+[mission_relay-3] [INFO] [1786276264.986612371] [mission_relay]: published source_sequence=21 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276264.988149459] [assignment_relay]: published source_sequence=21 track_id=202 vehicle_id=uav_3 priority=0.436
+[assignment_relay-2] [INFO] [1786276265.004664676] [assignment_relay]: solved source_sequence=21 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0884
+[mission_monitor-4] [INFO] [1786276265.444476759] [mission_monitor]: mission_status_count=43 source_sequence=22 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.415
+[mission_relay-3] [INFO] [1786276265.462834478] [mission_relay]: published source_sequence=22 track_id=101 state=DISPATCHED
+[perception_source-1] [INFO] [1786276265.463824492] [perception_source]: published source_sequence=22 target_count=2
+[assignment_relay-2] [INFO] [1786276265.464529879] [assignment_relay]: published source_sequence=22 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276265.465341522] [mission_monitor]: mission_status_count=44 source_sequence=22 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.305
+[assignment_relay-2] [INFO] [1786276265.478587697] [assignment_relay]: published source_sequence=22 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276265.479167613] [mission_relay]: published source_sequence=22 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276265.493973651] [assignment_relay]: solved source_sequence=22 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0623
+[mission_monitor-4] [INFO] [1786276265.946367305] [mission_monitor]: mission_status_count=45 source_sequence=23 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.578
+[assignment_relay-2] [INFO] [1786276265.969719401] [assignment_relay]: published source_sequence=23 track_id=101 vehicle_id=uav_1 priority=0.411
+[perception_source-1] [INFO] [1786276265.970256988] [perception_source]: published source_sequence=23 target_count=2
+[mission_relay-3] [INFO] [1786276265.972531086] [mission_relay]: published source_sequence=23 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276265.973310506] [mission_monitor]: mission_status_count=46 source_sequence=23 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.363
+[assignment_relay-2] [INFO] [1786276265.985256908] [assignment_relay]: published source_sequence=23 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276265.986259218] [mission_relay]: published source_sequence=23 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276266.004655675] [assignment_relay]: solved source_sequence=23 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0999
+[mission_monitor-4] [INFO] [1786276266.445423206] [mission_monitor]: mission_status_count=47 source_sequence=24 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.589
+[perception_source-1] [INFO] [1786276266.468375894] [perception_source]: published source_sequence=24 target_count=2
+[assignment_relay-2] [INFO] [1786276266.469033409] [assignment_relay]: published source_sequence=24 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_relay-3] [INFO] [1786276266.470087004] [mission_relay]: published source_sequence=24 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786276266.470677452] [mission_monitor]: mission_status_count=48 source_sequence=24 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.264
+[mission_relay-3] [INFO] [1786276266.483665532] [mission_relay]: published source_sequence=24 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276266.484514728] [assignment_relay]: published source_sequence=24 track_id=202 vehicle_id=uav_3 priority=0.436
+[assignment_relay-2] [INFO] [1786276266.500195451] [assignment_relay]: solved source_sequence=24 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0962
+[mission_monitor-4] [INFO] [1786276266.945399312] [mission_monitor]: mission_status_count=49 source_sequence=25 vehicle_id=uav_1 track_id=101 state=DISPATCHED age_ms=0.946
+[perception_source-1] [INFO] [1786276266.971337798] [perception_source]: published source_sequence=25 target_count=2
+[mission_relay-3] [INFO] [1786276266.974897020] [mission_relay]: published source_sequence=25 track_id=101 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276266.978763387] [assignment_relay]: published source_sequence=25 track_id=101 vehicle_id=uav_1 priority=0.411
+[mission_monitor-4] [INFO] [1786276266.979710563] [mission_monitor]: mission_status_count=50 source_sequence=25 vehicle_id=uav_3 track_id=202 state=DISPATCHED age_ms=0.375
+[assignment_relay-2] [INFO] [1786276266.993482286] [assignment_relay]: published source_sequence=25 track_id=202 vehicle_id=uav_3 priority=0.436
+[mission_relay-3] [INFO] [1786276266.994260978] [mission_relay]: published source_sequence=25 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786276267.015776368] [assignment_relay]: solved source_sequence=25 algorithm=hungarian assigned=2 unassigned=0 elapsed_ms=0.0711

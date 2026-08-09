@@ -1,0 +1,8 @@
+{
+  "run_id": "R01_20260809_005",
+  "status": "passed",
+  "source_revision": "449e02f352565134dbe65914a847084ba6c449ec",
+  "source_tree": "git archive HEAD in temporary directory",
+  "environment_note": "same installed WSL dependencies; not a fresh OS image",
+  "checks": ["python_mission_simulation_tests", "fresh_workspace_colcon_build", "ros_assignment_adapter_test", "typed_mission_command", "typed_mission_status", "cpp_monitor"]
+}

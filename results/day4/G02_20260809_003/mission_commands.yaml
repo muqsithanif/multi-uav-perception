@@ -1,0 +1,11 @@
+header:
+  stamp:
+    sec: 1786277626
+    nanosec: 65570753
+  frame_id: synthetic_image_px
+source_id: synthetic_gate7
+source_sequence: 10
+track_id: 101
+vehicle_id: uav_1
+command: MOVE_TO_TARGET
+---

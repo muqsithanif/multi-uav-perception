@@ -1,0 +1,93 @@
+{
+  "status": "rendered",
+  "algorithm": "hungarian",
+  "fps": 10.0,
+  "simulation_seconds": 120,
+  "ros_replay_frames": 120,
+  "ros_replay_seconds": 12.0,
+  "duration_s": 132.0,
+  "ros_replay_input": "results/day6/ROS01_20260809_004/mission_command_replay.mp4",
+  "video": "final_demo.mp4",
+  "scenarios": [
+    {
+      "scenario": "fewer_targets",
+      "frames": 20,
+      "events": [],
+      "final_unassigned": [],
+      "mean_assignment_ms": 0.021074250025776564
+    },
+    {
+      "scenario": "equal_targets",
+      "frames": 20,
+      "events": [],
+      "final_unassigned": [],
+      "mean_assignment_ms": 0.02117424996868067
+    },
+    {
+      "scenario": "overloaded",
+      "frames": 20,
+      "events": [],
+      "final_unassigned": [
+        "t4"
+      ],
+      "mean_assignment_ms": 0.02227909990324406
+    },
+    {
+      "scenario": "critical_arrival",
+      "frames": 20,
+      "events": [
+        {
+          "step": 5,
+          "type": "add_target",
+          "target": {
+            "target_id": "critical",
+            "class_label": "person",
+            "confidence": 0.99,
+            "x": 70,
+            "y": 70,
+            "zone": "restricted",
+            "speed": 10
+          }
+        }
+      ],
+      "final_unassigned": [
+        "critical"
+      ],
+      "mean_assignment_ms": 0.020697499940069974
+    },
+    {
+      "scenario": "uav_unavailable",
+      "frames": 20,
+      "events": [
+        {
+          "step": 5,
+          "type": "unavailable",
+          "uav_id": "uav_2"
+        }
+      ],
+      "final_unassigned": [
+        "t2"
+      ],
+      "mean_assignment_ms": 0.029264150043673
+    },
+    {
+      "scenario": "lost_reacquired",
+      "frames": 20,
+      "events": [
+        {
+          "step": 5,
+          "type": "lost",
+          "target_id": "t1"
+        },
+        {
+          "step": 10,
+          "type": "reacquire",
+          "target_id": "t1"
+        }
+      ],
+      "final_unassigned": [],
+      "mean_assignment_ms": 0.038361200131475925
+    }
+  ],
+  "coordinate_note": "All simulation and replay coordinates are abstract units or synthetic image-space pixels; neither represents physical flight."
+}

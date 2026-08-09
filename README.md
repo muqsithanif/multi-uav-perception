@@ -8,7 +8,33 @@ A portfolio-grade ROS 2 software and 2D simulation prototype that detects and tr
 > and OpenVINO FP16 CPU export have objective artifacts. Tracking has objective
 > ByteTrack and BoT-SORT comparison artifacts. Gate 7's typed ROS 2 graph,
 > single launch command, and C++ monitor are verified. Configurable assignment,
-> simulation, and handoff gates remain incomplete.
+> Historical status note: the paragraph above described the project before the
+> final integration/handoff gate. Gates 1-10 are now verified for the declared
+> software and 2D-simulation scope. The final ROS/simulation evidence, 132-second
+> demo video, limitations, and clean-checkout reproduction are linked in the
+> [final report](docs/FINAL_REPORT.md). This is not a physical-UAV or
+> production-autonomy claim.
+
+## Current reproduction quick start
+
+In the documented WSL Ubuntu 24.04/ROS 2 Jazzy environment, from the repository
+root:
+
+```bash
+YOLO_CONFIG_DIR=/tmp .venv/bin/python -m pytest -q
+source /opt/ros/jazzy/setup.bash
+cd ros2_ws
+colcon build --merge-install --symlink-install
+source install/setup.bash
+cd ..
+bash scripts/run_ros_gate7_smoke.sh G02_<new-id>
+```
+
+Then follow the renderer commands in
+[SIMULATION_REPORT.md](docs/SIMULATION_REPORT.md) to produce the 2D replay and
+2:12 final demo. For the clean-source checkout verification and environment
+limits, see [REPRODUCTION.md](docs/REPRODUCTION.md). The current architecture
+and typed topic contract are in [ROS_GRAPH.md](docs/ROS_GRAPH.md).
 
 ## Verified Day 1 foundation
 

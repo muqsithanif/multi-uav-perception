@@ -72,15 +72,10 @@ analysis result.
   license header required by ament lint. The routing test is now a discoverable
   unittest package, and the monitor has an Apache-2.0 header; the rerun passed.
 
-## Known limitations
+## Historical gate boundary
 
-The source data and routing are deterministic Gate 7 transport fixtures. They
-do not implement priority scoring, greedy/Hungarian optimization, fleet
-constraints, reassignment, a mission state machine, 2D dynamics, or physical
-flight control.
-
-## Next smallest milestone
-
-Gate 8: implement configurable priority and a shared interface for Greedy and
-Hungarian assignment, then unit-test unequal fleet/target counts, critical and
-lost targets, and unavailable UAVs.
+The routing limitation and the next-Gate-8 text above describe the original
+Gate 7 checkpoint only. The current implementation replaces the routing stub
+with the shared configurable assignment solver; see
+[ROS_GRAPH.md](ROS_GRAPH.md) and [SIMULATION_REPORT.md](SIMULATION_REPORT.md)
+for the verified Gate 9 graph and current limitations.

@@ -1,0 +1,27 @@
+Starting >>> multi_uav_interfaces
+--- stderr: multi_uav_interfaces
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CATKIN_INSTALL_INTO_PREFIX_ROOT
+    CATKIN_SYMLINK_INSTALL
+
+
+---
+Finished <<< multi_uav_interfaces [13.4s]
+Starting >>> multi_uav_bringup
+Starting >>> multi_uav_monitor
+Finished <<< multi_uav_bringup [2.39s]
+--- stderr: multi_uav_monitor
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CATKIN_INSTALL_INTO_PREFIX_ROOT
+    CATKIN_SYMLINK_INSTALL
+
+
+---
+Finished <<< multi_uav_monitor [14.5s]
+
+Summary: 3 packages finished [28.0s]
+  2 packages had stderr output: multi_uav_interfaces multi_uav_monitor
