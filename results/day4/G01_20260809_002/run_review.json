@@ -1,0 +1,11 @@
+{
+  "run_id": "G01_20260809_002",
+  "status": "not_passed",
+  "source_revision": "4b09410",
+  "source_tracked_dirty": true,
+  "failure_stage": "launch",
+  "failure": "package 'multi_uav_monitor' not found after sourcing ros2_ws/install/setup.bash",
+  "cause": "The isolated install overlay produced after the earlier failed build did not expose all three workspace packages.",
+  "partial_evidence": "Typed TargetArray and MissionStatus were captured, but the C++ monitor launch requirement was not met.",
+  "recovery": "Clean only ignored ROS build/install/log outputs and rebuild with colcon --merge-install before using a new immutable artifact ID."
+}

@@ -1,0 +1,12 @@
+header:
+  stamp:
+    sec: 1786270190
+    nanosec: 119973524
+  frame_id: synthetic_image_px
+source_id: synthetic_gate7
+source_sequence: 6
+track_id: 101
+vehicle_id: uav_2
+state: DISPATCHED
+detail: gate7_transport_stub
+---

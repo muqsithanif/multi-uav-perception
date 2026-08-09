@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>multi_uav_monitor</name>
+  <version>0.1.0</version>
+  <description>C++ mission-status health monitor for the multi-UAV prototype.</description>
+  <maintainer email="maintainer@example.com">multi-uav-perception</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>multi_uav_interfaces</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+</package>

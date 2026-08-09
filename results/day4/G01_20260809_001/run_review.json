@@ -1,0 +1,10 @@
+{
+  "run_id": "G01_20260809_001",
+  "status": "not_passed",
+  "source_revision": "4b09410",
+  "source_tracked_dirty": true,
+  "failure_stage": "environment_setup",
+  "failure": "/opt/ros/jazzy/setup.bash: line 8: AMENT_TRACE_SETUP_FILES: unbound variable",
+  "cause": "The smoke runner enabled bash nounset before sourcing ROS setup scripts that read optional environment variables.",
+  "recovery": "Move nounset activation after both ROS setup scripts and use a new immutable artifact ID for the retry."
+}

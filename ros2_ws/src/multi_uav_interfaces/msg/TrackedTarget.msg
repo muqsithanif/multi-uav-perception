@@ -1,0 +1,8 @@
+uint32 track_id
+string class_label
+float32 confidence
+float32 center_x_px
+float32 center_y_px
+float32 velocity_x_px_s
+float32 velocity_y_px_s
+float32 priority_hint

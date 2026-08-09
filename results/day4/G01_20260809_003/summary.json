@@ -1,0 +1,7 @@
+{
+  "run_id": "G01_20260809_003",
+  "status": "passed",
+  "source_id": "synthetic_gate7",
+  "launch": "gate7_bringup.launch.py",
+  "checks": ["typed_target_array", "typed_mission_status", "cpp_monitor"]
+}

@@ -1,0 +1,57 @@
+[INFO] [launch]: All log files can be found below /home/muqsi/.ros/log/2026-08-09-17-15-03-677556-muqsit-1671
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [perception_source-1]: process started with pid [1679]
+[INFO] [assignment_relay-2]: process started with pid [1680]
+[INFO] [mission_relay-3]: process started with pid [1681]
+[INFO] [mission_monitor-4]: process started with pid [1682]
+[mission_relay-3] [INFO] [1786270506.026538401] [mission_relay]: published source_sequence=1 track_id=101 state=DISPATCHED
+[perception_source-1] [INFO] [1786270506.026905535] [perception_source]: published source_sequence=1 target_count=2
+[perception_source-1] [INFO] [1786270506.047813924] [perception_source]: published source_sequence=2 target_count=2
+[assignment_relay-2] [INFO] [1786270506.048718332] [assignment_relay]: published source_sequence=1 track_id=101 vehicle_id=uav_2
+[assignment_relay-2] [INFO] [1786270506.070567182] [assignment_relay]: published source_sequence=1 track_id=202 vehicle_id=uav_1
+[mission_relay-3] [INFO] [1786270506.072700372] [mission_relay]: published source_sequence=1 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786270506.094076993] [assignment_relay]: published source_sequence=2 track_id=101 vehicle_id=uav_2
+[mission_relay-3] [INFO] [1786270506.095651902] [mission_relay]: published source_sequence=2 track_id=101 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786270506.117548395] [assignment_relay]: published source_sequence=2 track_id=202 vehicle_id=uav_1
+[mission_relay-3] [INFO] [1786270506.122591612] [mission_relay]: published source_sequence=2 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786270506.522926446] [assignment_relay]: published source_sequence=3 track_id=101 vehicle_id=uav_2
+[mission_relay-3] [INFO] [1786270506.522930240] [mission_relay]: published source_sequence=3 track_id=101 state=DISPATCHED
+[perception_source-1] [INFO] [1786270506.524245639] [perception_source]: published source_sequence=3 target_count=2
+[assignment_relay-2] [INFO] [1786270506.539952390] [assignment_relay]: published source_sequence=3 track_id=202 vehicle_id=uav_1
+[mission_relay-3] [INFO] [1786270506.540781390] [mission_relay]: published source_sequence=3 track_id=202 state=DISPATCHED
+[mission_relay-3] [INFO] [1786270507.025182952] [mission_relay]: published source_sequence=4 track_id=101 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786270507.025299293] [assignment_relay]: published source_sequence=4 track_id=101 vehicle_id=uav_2
+[perception_source-1] [INFO] [1786270507.027799825] [perception_source]: published source_sequence=4 target_count=2
+[assignment_relay-2] [INFO] [1786270507.047347968] [assignment_relay]: published source_sequence=4 track_id=202 vehicle_id=uav_1
+[mission_relay-3] [INFO] [1786270507.048133700] [mission_relay]: published source_sequence=4 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786270507.525885116] [assignment_relay]: published source_sequence=5 track_id=101 vehicle_id=uav_2
+[perception_source-1] [INFO] [1786270507.525961021] [perception_source]: published source_sequence=5 target_count=2
+[mission_relay-3] [INFO] [1786270507.528662704] [mission_relay]: published source_sequence=5 track_id=101 state=DISPATCHED
+[mission_relay-3] [INFO] [1786270507.542979461] [mission_relay]: published source_sequence=5 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786270507.544132240] [assignment_relay]: published source_sequence=5 track_id=202 vehicle_id=uav_1
+[perception_source-1] [INFO] [1786270508.021535894] [perception_source]: published source_sequence=6 target_count=2
+[assignment_relay-2] [INFO] [1786270508.021536260] [assignment_relay]: published source_sequence=6 track_id=101 vehicle_id=uav_2
+[mission_relay-3] [INFO] [1786270508.022876565] [mission_relay]: published source_sequence=6 track_id=101 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786270508.036901212] [assignment_relay]: published source_sequence=6 track_id=202 vehicle_id=uav_1
+[mission_relay-3] [INFO] [1786270508.037672917] [mission_relay]: published source_sequence=6 track_id=202 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786270508.505769944] [mission_monitor]: mission_status_count=1 source_sequence=7 vehicle_id=uav_2 track_id=101 state=DISPATCHED age_ms=2.524
+[assignment_relay-2] [INFO] [1786270508.524205454] [assignment_relay]: published source_sequence=7 track_id=101 vehicle_id=uav_2
+[perception_source-1] [INFO] [1786270508.525140237] [perception_source]: published source_sequence=7 target_count=2
+[mission_relay-3] [INFO] [1786270508.526191633] [mission_relay]: published source_sequence=7 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786270508.526846984] [mission_monitor]: mission_status_count=2 source_sequence=7 vehicle_id=uav_1 track_id=202 state=DISPATCHED age_ms=0.281
+[assignment_relay-2] [INFO] [1786270508.547429252] [assignment_relay]: published source_sequence=7 track_id=202 vehicle_id=uav_1
+[mission_relay-3] [INFO] [1786270508.548630074] [mission_relay]: published source_sequence=7 track_id=202 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786270509.006650129] [mission_monitor]: mission_status_count=3 source_sequence=8 vehicle_id=uav_2 track_id=101 state=DISPATCHED age_ms=0.354
+[assignment_relay-2] [INFO] [1786270509.032808604] [assignment_relay]: published source_sequence=8 track_id=101 vehicle_id=uav_2
+[perception_source-1] [INFO] [1786270509.035472752] [perception_source]: published source_sequence=8 target_count=2
+[mission_relay-3] [INFO] [1786270509.045699016] [mission_relay]: published source_sequence=8 track_id=101 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786270509.046837250] [mission_monitor]: mission_status_count=4 source_sequence=8 vehicle_id=uav_1 track_id=202 state=DISPATCHED age_ms=0.485
+[assignment_relay-2] [INFO] [1786270509.065215983] [assignment_relay]: published source_sequence=8 track_id=202 vehicle_id=uav_1
+[mission_relay-3] [INFO] [1786270509.073157364] [mission_relay]: published source_sequence=8 track_id=202 state=DISPATCHED
+[mission_monitor-4] [INFO] [1786270509.505676919] [mission_monitor]: mission_status_count=5 source_sequence=9 vehicle_id=uav_2 track_id=101 state=DISPATCHED age_ms=0.370
+[perception_source-1] [INFO] [1786270509.537560746] [perception_source]: published source_sequence=9 target_count=2
+[mission_relay-3] [INFO] [1786270509.538567889] [mission_relay]: published source_sequence=9 track_id=101 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786270509.544796053] [assignment_relay]: published source_sequence=9 track_id=101 vehicle_id=uav_2
+[mission_monitor-4] [INFO] [1786270509.546265101] [mission_monitor]: mission_status_count=6 source_sequence=9 vehicle_id=uav_1 track_id=202 state=DISPATCHED age_ms=0.626
+[mission_relay-3] [INFO] [1786270509.574088667] [mission_relay]: published source_sequence=9 track_id=202 state=DISPATCHED
+[assignment_relay-2] [INFO] [1786270509.577079097] [assignment_relay]: published source_sequence=9 track_id=202 vehicle_id=uav_1

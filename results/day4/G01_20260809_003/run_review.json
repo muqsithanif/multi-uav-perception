@@ -1,0 +1,7 @@
+{
+  "run_id": "G01_20260809_003",
+  "status": "passed_precommit",
+  "source_revision": "4b09410",
+  "source_tracked_dirty": true,
+  "note": "The graph and C++ monitor passed before the runner gained automatic source-revision metadata. The clean committed-source run is the Gate 7 reference artifact."
+}
