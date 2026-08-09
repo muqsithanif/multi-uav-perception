@@ -19,12 +19,13 @@ def test_priority_combines_configured_class_zone_motion_and_confidence(config: d
 
 
 @pytest.mark.parametrize("algorithm", ["greedy", "hungarian"])
-def test_assignment_handles_more_targets_than_uavs(config: dict, algorithm: str) -> None:
-    uavs = [Uav("u1", 0, 0), Uav("u2", 10, 0)]
-    targets = [Target("t1", "person", 0.9, 1, 0), Target("t2", "car", 0.9, 9, 0), Target("t3", "car", 0.9, 20, 0)]
+@pytest.mark.parametrize(("uav_count", "target_count", "expected_assignments"), [(3, 2, 2), (2, 2, 2), (2, 3, 2)])
+def test_assignment_handles_unequal_and_equal_fleet_counts(config: dict, algorithm: str, uav_count: int, target_count: int, expected_assignments: int) -> None:
+    uavs = [Uav(f"u{index}", index * 10, 0) for index in range(uav_count)]
+    targets = [Target(f"t{index}", "person" if index == 0 else "car", 0.9, index * 10, 0) for index in range(target_count)]
     result, elapsed_ms = assign_targets(uavs, targets, config, algorithm)
-    assert len(result.assignments) == 2
-    assert len(result.unassigned_target_ids) == 1
+    assert len(result.assignments) == expected_assignments
+    assert len(result.unassigned_target_ids) == target_count - expected_assignments
     assert elapsed_ms >= 0.0
 
 
@@ -42,3 +43,11 @@ def test_lost_targets_and_unavailable_uavs_are_not_assigned(config: dict, algori
     result, _ = assign_targets(uavs, targets, config, algorithm)
     assert [(item.target_id, item.uav_id) for item in result.assignments] == [("live", "online")]
     assert result.skipped_target_ids == ("lost",)
+
+
+@pytest.mark.parametrize("algorithm", ["greedy", "hungarian"])
+def test_critical_target_can_reassign_busy_uav_above_configured_margin(config: dict, algorithm: str) -> None:
+    uavs = [Uav("busy", 0, 0, current_target_id="low", current_target_priority=0.28)]
+    targets = [Target("critical", "person", 0.99, 20, 0, zone="restricted", speed=10)]
+    result, _ = assign_targets(uavs, targets, config, algorithm)
+    assert [(item.target_id, item.uav_id) for item in result.assignments] == [("critical", "busy")]

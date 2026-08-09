@@ -25,6 +25,7 @@ class Uav:
     available: bool = True
     load: int = 0
     current_target_id: str | None = None
+    current_target_priority: float | None = None
 
 
 @dataclass(frozen=True)

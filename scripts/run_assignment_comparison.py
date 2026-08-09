@@ -22,6 +22,7 @@ def scenarios() -> dict[str, tuple[list[Uav], list[Target]]]:
         "balanced": (fleet, [Target("t1", "person", 0.9, 2, 0), Target("t2", "car", 0.8, 19, 0), Target("t3", "truck", 0.9, 10, 18)]),
         "overloaded_critical": (fleet, [Target("t1", "car", 0.8, 2, 0), Target("t2", "van", 0.8, 19, 0), Target("t3", "truck", 0.9, 10, 18), Target("critical", "person", 0.99, 30, 30, zone="restricted", speed=10, waiting_s=20)]),
         "unavailable_lost": ([Uav("uav_1", 0, 0, available=False), Uav("uav_2", 20, 0), Uav("uav_3", 10, 20)], [Target("lost", "person", 0.9, 0, 0, lost=True), Target("live", "car", 0.9, 19, 0)]),
+        "critical_reassignment": ([Uav("busy", 0, 0, current_target_id="low", current_target_priority=0.28)], [Target("critical", "person", 0.99, 20, 0, zone="restricted", speed=10)]),
     }
 
 

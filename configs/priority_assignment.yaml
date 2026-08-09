@@ -16,4 +16,7 @@ assignment:
   minimum_priority: 0.20
   distance_normalization: 100.0
   waiting_normalization_s: 30.0
+  switching_policy:
+    allow_reassignment: true
+    minimum_priority_gain: 0.15
   cost_weights: {distance: 0.60, load: 0.10, priority: 0.25, confidence: 0.05, waiting: 0.10, switching: 0.15}

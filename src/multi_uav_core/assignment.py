@@ -37,6 +37,11 @@ def _cost(uav: Uav, target: Target, score: float, config: dict[str, Any]) -> flo
     if not uav.available or uav.uav_id in target.forbidden_uav_ids:
         return _BLOCKED_COST
     rules = config["assignment"]
+    policy = rules["switching_policy"]
+    if uav.current_target_id not in (None, target.target_id):
+        current = uav.current_target_priority if uav.current_target_priority is not None else 1.0
+        if not policy["allow_reassignment"] or score < current + policy["minimum_priority_gain"]:
+            return _BLOCKED_COST
     weights = rules["cost_weights"]
     distance = hypot(uav.x - target.x, uav.y - target.y) / rules["distance_normalization"]
     switching = float(uav.current_target_id not in (None, target.target_id))

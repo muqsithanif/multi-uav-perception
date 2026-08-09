@@ -44,7 +44,7 @@ The project is complete only when every **Required** item below has objective ev
 - [x] Unit tests cover class, zone, motion-rule, and confidence contributions.
 - [x] Greedy and global linear assignment implement the same interface.
 - [x] Assignment cost components, normalization, constraints, and switching policy are documented.
-- [ ] Tests cover targets fewer/equal/more than UAVs, unavailable UAV, critical target, lost target, and reassignment.
+- [x] Tests cover targets fewer/equal/more than UAVs, unavailable UAV, critical target, lost target, and reassignment.
 - [x] Greedy/global comparison records computation time, cost/distance proxy, wait/coverage, success, and reassignment metrics where applicable.
 - [ ] Mission states and every permitted transition are documented and unit-tested.
 
