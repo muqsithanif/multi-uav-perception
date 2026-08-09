@@ -1,0 +1,44 @@
+simulation:
+  width: 100
+  height: 100
+  timestep_s: 1.0
+  steps: 20
+  uav_speed_units_s: 8.0
+  seed: 17
+scenarios:
+  fewer_targets:
+    targets:
+      - {target_id: t1, class_label: person, confidence: 0.9, x: 20, y: 20}
+      - {target_id: t2, class_label: car, confidence: 0.8, x: 80, y: 20}
+  equal_targets:
+    targets:
+      - {target_id: t1, class_label: person, confidence: 0.9, x: 20, y: 20}
+      - {target_id: t2, class_label: car, confidence: 0.8, x: 80, y: 20}
+      - {target_id: t3, class_label: truck, confidence: 0.9, x: 50, y: 80}
+  overloaded:
+    targets:
+      - {target_id: t1, class_label: car, confidence: 0.8, x: 20, y: 20}
+      - {target_id: t2, class_label: van, confidence: 0.8, x: 80, y: 20}
+      - {target_id: t3, class_label: truck, confidence: 0.9, x: 50, y: 80}
+      - {target_id: t4, class_label: person, confidence: 0.9, x: 70, y: 70}
+  critical_arrival:
+    targets:
+      - {target_id: t1, class_label: car, confidence: 0.8, x: 20, y: 20}
+      - {target_id: t2, class_label: van, confidence: 0.8, x: 80, y: 20}
+      - {target_id: t3, class_label: truck, confidence: 0.9, x: 50, y: 80}
+    events:
+      - {step: 5, type: add_target, target: {target_id: critical, class_label: person, confidence: 0.99, x: 70, y: 70, zone: restricted, speed: 10}}
+  uav_unavailable:
+    targets:
+      - {target_id: t1, class_label: person, confidence: 0.9, x: 20, y: 20}
+      - {target_id: t2, class_label: car, confidence: 0.8, x: 80, y: 20}
+      - {target_id: t3, class_label: truck, confidence: 0.9, x: 50, y: 80}
+    events:
+      - {step: 5, type: unavailable, uav_id: uav_2}
+  lost_reacquired:
+    targets:
+      - {target_id: t1, class_label: person, confidence: 0.9, x: 20, y: 20}
+      - {target_id: t2, class_label: car, confidence: 0.8, x: 80, y: 20}
+    events:
+      - {step: 5, type: lost, target_id: t1}
+      - {step: 10, type: reacquire, target_id: t1}

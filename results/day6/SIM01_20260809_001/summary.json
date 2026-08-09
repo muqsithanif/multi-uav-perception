@@ -1,0 +1,49 @@
+{
+  "algorithm": "hungarian",
+  "simulation": {
+    "width": 100,
+    "height": 100,
+    "timestep_s": 1.0,
+    "steps": 20,
+    "uav_speed_units_s": 8.0,
+    "seed": 17
+  },
+  "scenarios": {
+    "fewer_targets": {
+      "event_count": 0,
+      "final_unassigned": [],
+      "mean_assignment_ms": 0.01670964998083946
+    },
+    "equal_targets": {
+      "event_count": 0,
+      "final_unassigned": [],
+      "mean_assignment_ms": 0.015218550061035785
+    },
+    "overloaded": {
+      "event_count": 0,
+      "final_unassigned": [
+        "t4"
+      ],
+      "mean_assignment_ms": 0.018168700034948415
+    },
+    "critical_arrival": {
+      "event_count": 1,
+      "final_unassigned": [
+        "critical"
+      ],
+      "mean_assignment_ms": 0.018175850209445343
+    },
+    "uav_unavailable": {
+      "event_count": 1,
+      "final_unassigned": [
+        "t2"
+      ],
+      "mean_assignment_ms": 0.015282350022971514
+    },
+    "lost_reacquired": {
+      "event_count": 2,
+      "final_unassigned": [],
+      "mean_assignment_ms": 0.014995549963714438
+    }
+  }
+}
