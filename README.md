@@ -2,11 +2,12 @@
 
 A portfolio-grade ROS 2 software and 2D simulation prototype that detects and tracks people/vehicles in aerial imagery, prioritizes targets, assigns them to three virtual UAVs, and produces high-level mission states.
 
-> Status: Gate 1, Gate 2A, and Gate 5 deployment were verified by
+> Status: Gate 1, Gate 2A, Gate 5 deployment, and Gate 6 tracking were verified by
 > 2026-08-09. The official VisDrone data path, E00 baseline, GPU smoke/resume
 > proof, 30-epoch E01 fine-tuning, locked E00/E01 comparison, ONNX FP32 export,
-> and OpenVINO FP16 CPU export have objective artifacts. Tracking, ROS 2,
-> assignment, simulation, and handoff gates remain incomplete.
+> and OpenVINO FP16 CPU export have objective artifacts. Tracking has objective
+> ByteTrack and BoT-SORT comparison artifacts. ROS 2, assignment, simulation,
+> and handoff gates remain incomplete.
 
 ## Verified Day 1 foundation
 
@@ -107,6 +108,22 @@ production-performance claim.
 - [Machine-readable deployment summary](experiments/B01_20260809_005/summary.json)
 - [Agreement measurements](results/day3/B01_20260809_005/agreement.csv)
 - [Benchmark measurements](results/day3/B01_20260809_005/benchmark.csv)
+
+## Verified tracker comparison
+
+ByteTrack and BoT-SORT processed the same 270-frame (11.25-second) aerial
+traffic video with the E01 detector, identical CPU/640/threshold settings, and
+the same measurement boundary. ByteTrack is the configurable default because
+it reached 12.952 FPS with 77.208 ms mean wall latency, compared with
+BoT-SORT's 9.001 FPS and 111.093 ms. BoT-SORT retained slightly more
+observations per local track, but no identity ground truth exists, so no IDF1,
+MOTA, HOTA, or ID-switch claim is made.
+
+- [Tracking report and limitations](docs/TRACKING_REPORT.md)
+- [Tracking protocol](configs/e01_tracking_comparison.yaml)
+- [Machine-readable summary](experiments/T01_20260809_002/summary.json)
+- [ByteTrack trajectories](results/day3/T01_20260809_002/bytetrack/tracks.csv)
+- [BoT-SORT trajectories](results/day3/T01_20260809_002/botsort/tracks.csv)
 
 ## Project goals
 

@@ -32,11 +32,11 @@ The project is complete only when every **Required** item below has objective ev
 
 ### Tracking
 
-- [ ] ByteTrack runs on the selected aerial video and produces stable IDs/trajectory output.
-- [ ] BoT-SORT runs on the same detector/input under a documented comparison protocol.
-- [ ] Latency/FPS and qualitative failure cases are compared.
-- [ ] Identity metrics are reported only if valid ground truth exists; otherwise the limitation is explicit.
-- [ ] The chosen default tracker and trade-off rationale are documented.
+- [x] ByteTrack runs on the selected aerial video and produces stable IDs/trajectory output.
+- [x] BoT-SORT runs on the same detector/input under a documented comparison protocol.
+- [x] Latency/FPS and qualitative failure cases are compared.
+- [x] Identity metrics are reported only if valid ground truth exists; otherwise the limitation is explicit.
+- [x] The chosen default tracker and trade-off rationale are documented.
 
 ### Priority, assignment, and mission
 

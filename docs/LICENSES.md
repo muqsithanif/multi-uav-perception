@@ -16,6 +16,20 @@ smoke run. It is an engineering inventory, not legal advice.
 The saved prediction is a re-encoded derivative and is distributed under the
 same CC BY-SA 4.0 license. Its attribution record is stored beside the output.
 
+## Aerial tracking video and derived previews
+
+- Work: Drone Footage of a Traffic in the Road (Pexels asset 3978617)
+- Source: <https://www.pexels.com/video/drone-footage-of-a-traffic-in-the-road-3978617/>
+- License: <https://www.pexels.com/license/>
+- Local source SHA-256:
+  `5e257a6a2c2ebd1c9320e595847d4c6e652978e440117c3bb2eab453858be5d4`
+
+Pexels states that its photos and videos are free to download and use, and that
+attribution is not required. The downloaded source video and derived annotated
+MP4 previews are ignored by Git; the repository tracks only source metadata,
+trajectory CSVs, hashes, and selected still previews for the documented
+tracking experiment.
+
 ## Installed Python components
 
 The following values come from the installed package metadata used by
@@ -29,6 +43,7 @@ experiment `S00_20260807_001`:
 | opencv-python | 5.0.0.93 | Apache-2.0 |
 | NumPy | 2.4.4 | Composite SPDX expression recorded in package metadata |
 | PyYAML | 6.0.3 | MIT |
+| lap | 0.5.13 | BSD-3-Clause |
 | pytest | 9.1.1 | MIT |
 
 The pretrained `yolo26n.pt` file was downloaded by Ultralytics 8.4.115 from

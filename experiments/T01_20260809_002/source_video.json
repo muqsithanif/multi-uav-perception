@@ -1,0 +1,15 @@
+{
+  "asset_id": "3978617",
+  "attribution_required": false,
+  "duration_seconds": 11.25,
+  "fps": 24.0,
+  "frame_count": 270,
+  "height": 1080,
+  "license_url": "https://www.pexels.com/license/",
+  "local_path": "data/raw/tracking/pexels_3978617_traffic.mp4",
+  "page_url": "https://www.pexels.com/video/drone-footage-of-a-traffic-in-the-road-3978617/",
+  "provider": "Pexels",
+  "sha256": "5e257a6a2c2ebd1c9320e595847d4c6e652978e440117c3bb2eab453858be5d4",
+  "size_bytes": 7767712,
+  "width": 1920
+}
