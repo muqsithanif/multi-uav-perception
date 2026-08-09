@@ -97,16 +97,16 @@ available WSL CPU achieved 99.598% reference matching and 100% candidate
 matching; both formats met their declared IoU and confidence-difference
 tolerances.
 
-This local CPU observation measured mean end-to-end wall latency of 88.470 ms
-for PyTorch, 51.894 ms for ONNX Runtime, and 74.149 ms for OpenVINO. The
+This local CPU observation measured mean end-to-end wall latency of 79.057 ms
+for PyTorch, 69.123 ms for ONNX Runtime, and 118.826 ms for OpenVINO. The
 measurement has one timed repetition after two warm-ups and is not a
 production-performance claim.
 
 - [Day 3 deployment report](docs/DAY_3_REPORT.md)
 - [Deployment config](configs/e01_deployment_export.yaml)
-- [Machine-readable deployment summary](experiments/B01_20260809_003/summary.json)
-- [Agreement measurements](results/day3/B01_20260809_003/agreement.csv)
-- [Benchmark measurements](results/day3/B01_20260809_003/benchmark.csv)
+- [Machine-readable deployment summary](experiments/B01_20260809_005/summary.json)
+- [Agreement measurements](results/day3/B01_20260809_005/agreement.csv)
+- [Benchmark measurements](results/day3/B01_20260809_005/benchmark.csv)
 
 ## Project goals
 

@@ -1,0 +1,50 @@
+deployment_id: B01_20260809_005
+seed: 42
+
+source_model: models/checkpoints/E01_20260807_001/best.pt
+export_root: models/deployment/B01_20260809_005
+subset_manifest: experiments/E01E_20260807_001/subset_manifest.json
+images_dir: data/processed/visdrone5/images/val
+
+export:
+  image_size: 640
+  batch: 1
+  dynamic: false
+  nms: false
+  onnx:
+    opset: 17
+    simplify: false
+    quantize: null
+  openvino:
+    quantize: 16
+
+inference:
+  device: cpu
+  image_size: 640
+  confidence: 0.25
+  iou_nms: 0.7
+  max_detections: 300
+  rect: false
+
+benchmark:
+  sample_count: 16
+  selection: evenly_spaced_locked_subset
+  warmup_runs: 2
+  timed_repetitions: 1
+  timing_boundary: one_model_predict_call_per_image_including_preprocess_inference_postprocess_and_wrapper
+
+agreement:
+  match_iou: 0.99
+  onnx:
+    min_reference_match_rate: 0.995
+    min_candidate_match_rate: 0.995
+    min_mean_box_iou: 0.999
+    max_confidence_abs_diff: 0.005
+  openvino:
+    min_reference_match_rate: 0.98
+    min_candidate_match_rate: 0.98
+    min_mean_box_iou: 0.99
+    max_confidence_abs_diff: 0.02
+
+experiment_dir: experiments/B01_20260809_005
+result_dir: results/day3/B01_20260809_005
