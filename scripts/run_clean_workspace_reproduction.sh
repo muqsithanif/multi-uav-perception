@@ -56,8 +56,18 @@ stop_launch() {
 }
 trap 'stop_launch; cleanup' EXIT
 
-timeout 5s ros2 topic echo --once /mission/commands > "${output_dir}/mission_commands.yaml" 2>&1
-timeout 5s ros2 topic echo --once /mission/status > "${output_dir}/mission_status.yaml" 2>&1
+for attempt in 1 2 3 4 5; do
+  if timeout 3s ros2 topic echo --once /mission/commands > "${output_dir}/mission_commands.yaml" 2>&1; then
+    break
+  fi
+  sleep 1
+done
+for attempt in 1 2 3 4 5; do
+  if timeout 3s ros2 topic echo --once /mission/status > "${output_dir}/mission_status.yaml" 2>&1; then
+    break
+  fi
+  sleep 1
+done
 grep -q "command: MOVE_TO_TARGET" "${output_dir}/mission_commands.yaml"
 grep -q "state: DISPATCHED" "${output_dir}/mission_status.yaml"
 grep -q "algorithm=hungarian" "${output_dir}/launch.log"
