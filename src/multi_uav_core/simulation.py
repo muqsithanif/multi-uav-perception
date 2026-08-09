@@ -36,18 +36,20 @@ def run_scenario(name: str, spec: dict[str, Any], config: dict[str, Any], simula
         assignment_map = {item.uav_id: item.target_id for item in result.assignments}
         for uav in uavs:
             if not uav.available:
-                uav.state = MissionState.UNAVAILABLE
+                uav.state = transition(uav.state, "unavailable")
                 uav.target_id = None
                 continue
             next_target = assignment_map.get(uav.uav_id)
             if next_target:
                 if uav.target_id != next_target:
-                    uav.state = MissionState.ASSIGNED
+                    uav.state = transition(uav.state, "assigned")
                 uav.target_id = next_target
                 target = targets[next_target]
                 _move(uav, target, simulation["uav_speed_units_s"] * simulation["timestep_s"])
-                if hypot(uav.x - target.x, uav.y - target.y) < 1.0:
-                    uav.state = transition(uav.state, "arrived") if uav.state == MissionState.ASSIGNED else uav.state
+                if hypot(uav.x - target.x, uav.y - target.y) < 1.0 and uav.state == MissionState.ASSIGNED:
+                    uav.state = transition(uav.state, "arrived")
+                elif uav.state == MissionState.TRACKING:
+                    uav.state = transition(uav.state, "follow")
             elif uav.target_id is None:
                 uav.state = MissionState.SEARCHING
         assignments.append({"step": step, "assignments": [asdict(item) for item in result.assignments], "compute_ms": elapsed_ms})
@@ -81,12 +83,21 @@ def _apply_event(event: dict[str, Any], targets: dict[str, Target], uavs: list[S
     if event["type"] == "add_target":
         targets[event["target"]["target_id"]] = _target(event["target"])
     elif event["type"] == "unavailable":
-        next(uav for uav in uavs if uav.uav_id == event["uav_id"]).available = False
+        uav = next(uav for uav in uavs if uav.uav_id == event["uav_id"])
+        uav.available = False
+        uav.target_id = None
+        uav.state = transition(uav.state, "unavailable")
     elif event["type"] == "lost":
         target = targets[event["target_id"]]
         targets[target.target_id] = Target(**(asdict(target) | {"lost": True}))
+        for uav in uavs:
+            if uav.target_id == target.target_id and uav.state == MissionState.FOLLOWING:
+                uav.state = transition(uav.state, "lost")
     elif event["type"] == "reacquire":
         target = targets[event["target_id"]]
         targets[target.target_id] = Target(**(asdict(target) | {"lost": False, "reacquired": True}))
+        for uav in uavs:
+            if uav.target_id == target.target_id and uav.state == MissionState.REACQUIRE:
+                uav.state = transition(uav.state, "found")
     else:
         raise ValueError(f"unknown event type {event['type']}")

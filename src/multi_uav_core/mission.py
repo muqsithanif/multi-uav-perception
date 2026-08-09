@@ -18,6 +18,10 @@ def transition(current: MissionState, event: str) -> MissionState:
     transitions = {
         (MissionState.IDLE, "start"): MissionState.SEARCHING,
         (MissionState.SEARCHING, "assigned"): MissionState.ASSIGNED,
+        (MissionState.ASSIGNED, "assigned"): MissionState.ASSIGNED,
+        (MissionState.TRACKING, "assigned"): MissionState.ASSIGNED,
+        (MissionState.FOLLOWING, "assigned"): MissionState.ASSIGNED,
+        (MissionState.REACQUIRE, "assigned"): MissionState.ASSIGNED,
         (MissionState.ASSIGNED, "arrived"): MissionState.TRACKING,
         (MissionState.TRACKING, "follow"): MissionState.FOLLOWING,
         (MissionState.FOLLOWING, "lost"): MissionState.REACQUIRE,

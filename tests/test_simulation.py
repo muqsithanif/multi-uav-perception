@@ -29,3 +29,10 @@ def test_unavailable_uav_and_reacquisition_are_recorded(inputs: tuple[dict, dict
     assert any(item["state"] == "UNAVAILABLE" for item in unavailable["frames"][-1]["uavs"])
     reacquired = run_scenario("lost_reacquired", scenarios["scenarios"]["lost_reacquired"], config, scenarios["simulation"], "greedy")
     assert any(event["type"] == "reacquire" for event in reacquired["events"])
+    states = [
+        next(item["state"] for item in frame["uavs"] if item["target_id"] == "t1")
+        for frame in reacquired["frames"]
+        if any(item["target_id"] == "t1" for item in frame["uavs"])
+    ]
+    assert "REACQUIRE" in states
+    assert states[-1] in {"TRACKING", "FOLLOWING"}

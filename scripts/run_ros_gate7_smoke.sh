@@ -34,11 +34,13 @@ fi
 mkdir -p "${output_dir}"
 source /opt/ros/jazzy/setup.bash
 source "${workspace}/install/setup.bash"
+export MULTI_UAV_PROJECT_ROOT="${repo_root}"
 set -u
 
 launch_log="${output_dir}/launch.log"
 status_output="${output_dir}/mission_status.yaml"
 targets_output="${output_dir}/targets.yaml"
+commands_output="${output_dir}/mission_commands.yaml"
 
 ros2 launch multi_uav_bringup gate7_bringup.launch.py > "${launch_log}" 2>&1 &
 launch_pid=$!
@@ -57,9 +59,11 @@ for attempt in 1 2 3 4 5; do
 done
 
 timeout 5s ros2 topic echo --once /perception/targets > "${targets_output}" 2>&1
+timeout 5s ros2 topic echo --once /mission/commands > "${commands_output}" 2>&1
 grep -q "state: DISPATCHED" "${status_output}"
 grep -q "source_id: synthetic_gate7" "${targets_output}"
+grep -q "command: MOVE_TO_TARGET" "${commands_output}"
 grep -q "mission_status_count=" "${launch_log}"
 
-printf '{\n  "run_id": "%s",\n  "status": "passed",\n  "source_revision": "%s",\n  "source_tracked_dirty": %s,\n  "source_id": "synthetic_gate7",\n  "launch": "gate7_bringup.launch.py",\n  "checks": ["typed_target_array", "typed_mission_status", "cpp_monitor"]\n}\n' "${run_id}" "${source_revision}" "${source_tracked_dirty}" > "${output_dir}/summary.json"
+printf '{\n  "run_id": "%s",\n  "status": "passed",\n  "source_revision": "%s",\n  "source_tracked_dirty": %s,\n  "source_id": "synthetic_gate7",\n  "launch": "gate7_bringup.launch.py",\n  "checks": ["typed_target_array", "shared_hungarian_assignment", "typed_mission_command", "typed_mission_status", "cpp_monitor"]\n}\n' "${run_id}" "${source_revision}" "${source_tracked_dirty}" > "${output_dir}/summary.json"
 printf 'Gate 7 smoke passed. Artifacts: %s\n' "${output_dir}"
