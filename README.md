@@ -6,8 +6,9 @@ A portfolio-grade ROS 2 software and 2D simulation prototype that detects and tr
 > 2026-08-09. The official VisDrone data path, E00 baseline, GPU smoke/resume
 > proof, 30-epoch E01 fine-tuning, locked E00/E01 comparison, ONNX FP32 export,
 > and OpenVINO FP16 CPU export have objective artifacts. Tracking has objective
-> ByteTrack and BoT-SORT comparison artifacts. ROS 2, assignment, simulation,
-> and handoff gates remain incomplete.
+> ByteTrack and BoT-SORT comparison artifacts. The ROS 2 Jazzy environment and
+> standard talker/listener smoke test are verified, but the project ROS graph,
+> assignment, simulation, and handoff gates remain incomplete.
 
 ## Verified Day 1 foundation
 
@@ -194,6 +195,10 @@ Create implementation files only when their milestone begins; avoid a repository
 - Python virtual environment
 - ROS 2 Jazzy
 - Training on available local hardware or Google Colab; do not assume free GPU availability
+
+The local ROS 2 Jazzy installation and talker/listener smoke evidence are in
+[ROS environment verification](docs/ROS_JAZZY_ENVIRONMENT.md). Source
+`/opt/ros/jazzy/setup.bash` explicitly in each WSL shell before ROS commands.
 
 Exact package/model versions must be pinned after the first working smoke test. Use the currently supported Ultralytics nano checkpoint available in that pinned version rather than hard-coding an unverified model generation.
 
