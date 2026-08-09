@@ -1,0 +1,1 @@
+YOLO_CONFIG_DIR=/tmp .venv/bin/python scripts/compare_trackers.py --config configs/e01_tracking_comparison.yaml

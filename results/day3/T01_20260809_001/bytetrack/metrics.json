@@ -1,0 +1,1081 @@
+{
+  "artifacts": {
+    "annotated_preview": {
+      "path": "results/day3/T01_20260809_001/bytetrack/annotated.mp4",
+      "sha256": "e5f4eec1c83f55f5648e18ce549c35cb38f6dde1754994d9cc238a9d955add03"
+    },
+    "frames_csv": {
+      "path": "results/day3/T01_20260809_001/bytetrack/frames.csv",
+      "sha256": "30c27ae93b827ab4dd0e66db55c7529340becba217ab6ce9d545bf4d2461a32e"
+    },
+    "key_frames": [
+      {
+        "path": "results/day3/T01_20260809_001/bytetrack/key_frames/frame_0000.jpg",
+        "sha256": "018c615501bc767eb5867b80ea0f9dca556d5d3041762f2d32c619dc748c472c"
+      },
+      {
+        "path": "results/day3/T01_20260809_001/bytetrack/key_frames/frame_0134.jpg",
+        "sha256": "1849f6970eca69d26199e3b3ff3c73c2fa1215de920b1b27496a77be3dcd5c96"
+      },
+      {
+        "path": "results/day3/T01_20260809_001/bytetrack/key_frames/frame_0269.jpg",
+        "sha256": "020302a44c150b7e654d761c6b880e4792e6bbfba84c94acd6a87ed15fd4ae62"
+      }
+    ],
+    "tracks_csv": {
+      "path": "results/day3/T01_20260809_001/bytetrack/tracks.csv",
+      "sha256": "e571fcf49bc1698bd97ab9dca16659fcb609d814a10dd6cf2c1ebe4269293eaa"
+    }
+  },
+  "detections": {
+    "per_frame": {
+      "count": 270,
+      "max": 14.0,
+      "mean": 7.807407407407408,
+      "median": 8.0,
+      "min": 1.0,
+      "p95": 11.0
+    },
+    "tracked_per_frame": {
+      "count": 270,
+      "max": 14.0,
+      "mean": 7.807407407407408,
+      "median": 8.0,
+      "min": 1.0,
+      "p95": 11.0
+    }
+  },
+  "model_load_seconds": 0.6681763079999996,
+  "processed_frames": 270,
+  "schema_version": 1,
+  "source_frame_range": {
+    "first": 0,
+    "last": 269,
+    "stride": 1
+  },
+  "timing": {
+    "fps_from_mean_wall": 8.09453269828536,
+    "inference_ms": {
+      "count": 270,
+      "max": 1041.2401959999897,
+      "mean": 64.70903114814854,
+      "median": 57.573208000000875,
+      "min": 45.707700000008344,
+      "p95": 73.52113999999686
+    },
+    "postprocess_ms": {
+      "count": 270,
+      "max": 18.11973099999875,
+      "mean": 0.32413379259255465,
+      "median": 0.24012999999456497,
+      "min": 0.15217800000755233,
+      "p95": 0.43550775000085157
+    },
+    "preprocess_ms": {
+      "count": 270,
+      "max": 33.14270199999214,
+      "mean": 2.8919701074071495,
+      "median": 2.4575910000024237,
+      "min": 1.3255850000035707,
+      "p95": 4.572021599994256
+    },
+    "timing_boundary": "one model.track call per decoded input frame including preprocess, detector, association, postprocess, and wrapper",
+    "wall_ms": {
+      "count": 270,
+      "max": 15250.664911999991,
+      "mean": 123.54017671851855,
+      "median": 63.3135189999976,
+      "min": 50.94438799999068,
+      "p95": 79.77440454999393
+    },
+    "warmup_policy": "none; the complete selected video is measured"
+  },
+  "tracker": "bytetrack",
+  "tracker_config": {
+    "parameters": {
+      "fuse_score": true,
+      "match_thresh": 0.8,
+      "new_track_thresh": 0.25,
+      "track_buffer": 30,
+      "track_high_thresh": 0.25,
+      "track_low_thresh": 0.1,
+      "tracker_type": "bytetrack"
+    },
+    "path": "configs/tracker_bytetrack.yaml",
+    "sha256": "d933fffa80a64a115daf61bdb244c4838b072265f9c5b92a33e96c176e2d99a7"
+  },
+  "tracks": {
+    "class_observations": {
+      "bus": 156,
+      "car": 677,
+      "pedestrian": 886,
+      "truck": 272,
+      "van": 117
+    },
+    "per_track": [
+      {
+        "class_name": "pedestrian",
+        "first_frame": 0,
+        "gap_frames": 0,
+        "last_frame": 4,
+        "observations": 5,
+        "segments": 1,
+        "span_frames": 5,
+        "track_id": 1
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 0,
+        "gap_frames": 0,
+        "last_frame": 4,
+        "observations": 5,
+        "segments": 1,
+        "span_frames": 5,
+        "track_id": 2
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 0,
+        "gap_frames": 7,
+        "last_frame": 51,
+        "observations": 45,
+        "segments": 2,
+        "span_frames": 52,
+        "track_id": 3
+      },
+      {
+        "class_name": "car",
+        "first_frame": 0,
+        "gap_frames": 34,
+        "last_frame": 247,
+        "observations": 214,
+        "segments": 13,
+        "span_frames": 248,
+        "track_id": 4
+      },
+      {
+        "class_name": "bus",
+        "first_frame": 0,
+        "gap_frames": 8,
+        "last_frame": 72,
+        "observations": 65,
+        "segments": 6,
+        "span_frames": 73,
+        "track_id": 5
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 0,
+        "gap_frames": 1,
+        "last_frame": 22,
+        "observations": 22,
+        "segments": 2,
+        "span_frames": 23,
+        "track_id": 6
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 0,
+        "gap_frames": 22,
+        "last_frame": 162,
+        "observations": 141,
+        "segments": 9,
+        "span_frames": 163,
+        "track_id": 7
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 0,
+        "gap_frames": 9,
+        "last_frame": 37,
+        "observations": 29,
+        "segments": 4,
+        "span_frames": 38,
+        "track_id": 8
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 0,
+        "gap_frames": 0,
+        "last_frame": 0,
+        "observations": 1,
+        "segments": 1,
+        "span_frames": 1,
+        "track_id": 9
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 0,
+        "gap_frames": 0,
+        "last_frame": 0,
+        "observations": 1,
+        "segments": 1,
+        "span_frames": 1,
+        "track_id": 10
+      },
+      {
+        "class_name": "van",
+        "first_frame": 0,
+        "gap_frames": 0,
+        "last_frame": 1,
+        "observations": 2,
+        "segments": 1,
+        "span_frames": 2,
+        "track_id": 11
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 0,
+        "gap_frames": 8,
+        "last_frame": 31,
+        "observations": 24,
+        "segments": 6,
+        "span_frames": 32,
+        "track_id": 12
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 2,
+        "gap_frames": 32,
+        "last_frame": 197,
+        "observations": 164,
+        "segments": 8,
+        "span_frames": 196,
+        "track_id": 13
+      },
+      {
+        "class_name": "car",
+        "first_frame": 4,
+        "gap_frames": 0,
+        "last_frame": 7,
+        "observations": 4,
+        "segments": 1,
+        "span_frames": 4,
+        "track_id": 20
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 6,
+        "gap_frames": 0,
+        "last_frame": 7,
+        "observations": 2,
+        "segments": 1,
+        "span_frames": 2,
+        "track_id": 26
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 8,
+        "gap_frames": 1,
+        "last_frame": 31,
+        "observations": 23,
+        "segments": 2,
+        "span_frames": 24,
+        "track_id": 31
+      },
+      {
+        "class_name": "car",
+        "first_frame": 9,
+        "gap_frames": 0,
+        "last_frame": 11,
+        "observations": 3,
+        "segments": 1,
+        "span_frames": 3,
+        "track_id": 34
+      },
+      {
+        "class_name": "car",
+        "first_frame": 14,
+        "gap_frames": 38,
+        "last_frame": 205,
+        "observations": 154,
+        "segments": 26,
+        "span_frames": 192,
+        "track_id": 42
+      },
+      {
+        "class_name": "car",
+        "first_frame": 17,
+        "gap_frames": 0,
+        "last_frame": 18,
+        "observations": 2,
+        "segments": 1,
+        "span_frames": 2,
+        "track_id": 49
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 20,
+        "gap_frames": 0,
+        "last_frame": 30,
+        "observations": 11,
+        "segments": 1,
+        "span_frames": 11,
+        "track_id": 61
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 21,
+        "gap_frames": 1,
+        "last_frame": 28,
+        "observations": 7,
+        "segments": 2,
+        "span_frames": 8,
+        "track_id": 65
+      },
+      {
+        "class_name": "bus",
+        "first_frame": 25,
+        "gap_frames": 0,
+        "last_frame": 25,
+        "observations": 1,
+        "segments": 1,
+        "span_frames": 1,
+        "track_id": 75
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 27,
+        "gap_frames": 10,
+        "last_frame": 53,
+        "observations": 17,
+        "segments": 4,
+        "span_frames": 27,
+        "track_id": 81
+      },
+      {
+        "class_name": "car",
+        "first_frame": 33,
+        "gap_frames": 43,
+        "last_frame": 195,
+        "observations": 120,
+        "segments": 13,
+        "span_frames": 163,
+        "track_id": 98
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 34,
+        "gap_frames": 1,
+        "last_frame": 43,
+        "observations": 9,
+        "segments": 2,
+        "span_frames": 10,
+        "track_id": 104
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 39,
+        "gap_frames": 63,
+        "last_frame": 145,
+        "observations": 44,
+        "segments": 12,
+        "span_frames": 107,
+        "track_id": 119
+      },
+      {
+        "class_name": "car",
+        "first_frame": 40,
+        "gap_frames": 12,
+        "last_frame": 67,
+        "observations": 16,
+        "segments": 3,
+        "span_frames": 28,
+        "track_id": 122
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 40,
+        "gap_frames": 7,
+        "last_frame": 56,
+        "observations": 10,
+        "segments": 3,
+        "span_frames": 17,
+        "track_id": 125
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 50,
+        "gap_frames": 0,
+        "last_frame": 50,
+        "observations": 1,
+        "segments": 1,
+        "span_frames": 1,
+        "track_id": 144
+      },
+      {
+        "class_name": "car",
+        "first_frame": 51,
+        "gap_frames": 8,
+        "last_frame": 70,
+        "observations": 12,
+        "segments": 3,
+        "span_frames": 20,
+        "track_id": 145
+      },
+      {
+        "class_name": "bus",
+        "first_frame": 59,
+        "gap_frames": 0,
+        "last_frame": 60,
+        "observations": 2,
+        "segments": 1,
+        "span_frames": 2,
+        "track_id": 152
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 69,
+        "gap_frames": 0,
+        "last_frame": 71,
+        "observations": 3,
+        "segments": 1,
+        "span_frames": 3,
+        "track_id": 160
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 70,
+        "gap_frames": 13,
+        "last_frame": 107,
+        "observations": 25,
+        "segments": 5,
+        "span_frames": 38,
+        "track_id": 164
+      },
+      {
+        "class_name": "car",
+        "first_frame": 75,
+        "gap_frames": 1,
+        "last_frame": 79,
+        "observations": 4,
+        "segments": 2,
+        "span_frames": 5,
+        "track_id": 180
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 80,
+        "gap_frames": 3,
+        "last_frame": 95,
+        "observations": 13,
+        "segments": 2,
+        "span_frames": 16,
+        "track_id": 201
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 83,
+        "gap_frames": 0,
+        "last_frame": 91,
+        "observations": 9,
+        "segments": 1,
+        "span_frames": 9,
+        "track_id": 215
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 86,
+        "gap_frames": 4,
+        "last_frame": 149,
+        "observations": 60,
+        "segments": 4,
+        "span_frames": 64,
+        "track_id": 217
+      },
+      {
+        "class_name": "car",
+        "first_frame": 86,
+        "gap_frames": 20,
+        "last_frame": 141,
+        "observations": 36,
+        "segments": 4,
+        "span_frames": 56,
+        "track_id": 218
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 95,
+        "gap_frames": 40,
+        "last_frame": 140,
+        "observations": 6,
+        "segments": 3,
+        "span_frames": 46,
+        "track_id": 233
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 96,
+        "gap_frames": 0,
+        "last_frame": 112,
+        "observations": 17,
+        "segments": 1,
+        "span_frames": 17,
+        "track_id": 236
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 97,
+        "gap_frames": 0,
+        "last_frame": 124,
+        "observations": 28,
+        "segments": 1,
+        "span_frames": 28,
+        "track_id": 237
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 109,
+        "gap_frames": 0,
+        "last_frame": 117,
+        "observations": 9,
+        "segments": 1,
+        "span_frames": 9,
+        "track_id": 250
+      },
+      {
+        "class_name": "van",
+        "first_frame": 112,
+        "gap_frames": 0,
+        "last_frame": 115,
+        "observations": 4,
+        "segments": 1,
+        "span_frames": 4,
+        "track_id": 253
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 117,
+        "gap_frames": 0,
+        "last_frame": 123,
+        "observations": 7,
+        "segments": 1,
+        "span_frames": 7,
+        "track_id": 256
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 124,
+        "gap_frames": 23,
+        "last_frame": 190,
+        "observations": 44,
+        "segments": 11,
+        "span_frames": 67,
+        "track_id": 267
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 125,
+        "gap_frames": 0,
+        "last_frame": 127,
+        "observations": 3,
+        "segments": 1,
+        "span_frames": 3,
+        "track_id": 269
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 130,
+        "gap_frames": 7,
+        "last_frame": 141,
+        "observations": 5,
+        "segments": 3,
+        "span_frames": 12,
+        "track_id": 277
+      },
+      {
+        "class_name": "car",
+        "first_frame": 137,
+        "gap_frames": 1,
+        "last_frame": 141,
+        "observations": 4,
+        "segments": 2,
+        "span_frames": 5,
+        "track_id": 289
+      },
+      {
+        "class_name": "van",
+        "first_frame": 138,
+        "gap_frames": 4,
+        "last_frame": 155,
+        "observations": 14,
+        "segments": 3,
+        "span_frames": 18,
+        "track_id": 290
+      },
+      {
+        "class_name": "van",
+        "first_frame": 141,
+        "gap_frames": 1,
+        "last_frame": 147,
+        "observations": 6,
+        "segments": 2,
+        "span_frames": 7,
+        "track_id": 297
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 147,
+        "gap_frames": 5,
+        "last_frame": 196,
+        "observations": 45,
+        "segments": 4,
+        "span_frames": 50,
+        "track_id": 307
+      },
+      {
+        "class_name": "bus",
+        "first_frame": 148,
+        "gap_frames": 49,
+        "last_frame": 250,
+        "observations": 54,
+        "segments": 15,
+        "span_frames": 103,
+        "track_id": 312
+      },
+      {
+        "class_name": "car",
+        "first_frame": 150,
+        "gap_frames": 13,
+        "last_frame": 164,
+        "observations": 2,
+        "segments": 2,
+        "span_frames": 15,
+        "track_id": 317
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 151,
+        "gap_frames": 18,
+        "last_frame": 192,
+        "observations": 24,
+        "segments": 10,
+        "span_frames": 42,
+        "track_id": 321
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 156,
+        "gap_frames": 2,
+        "last_frame": 168,
+        "observations": 11,
+        "segments": 3,
+        "span_frames": 13,
+        "track_id": 348
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 157,
+        "gap_frames": 0,
+        "last_frame": 160,
+        "observations": 4,
+        "segments": 1,
+        "span_frames": 4,
+        "track_id": 355
+      },
+      {
+        "class_name": "car",
+        "first_frame": 157,
+        "gap_frames": 5,
+        "last_frame": 167,
+        "observations": 6,
+        "segments": 2,
+        "span_frames": 11,
+        "track_id": 359
+      },
+      {
+        "class_name": "bus",
+        "first_frame": 158,
+        "gap_frames": 0,
+        "last_frame": 159,
+        "observations": 2,
+        "segments": 1,
+        "span_frames": 2,
+        "track_id": 362
+      },
+      {
+        "class_name": "car",
+        "first_frame": 160,
+        "gap_frames": 0,
+        "last_frame": 167,
+        "observations": 8,
+        "segments": 1,
+        "span_frames": 8,
+        "track_id": 371
+      },
+      {
+        "class_name": "car",
+        "first_frame": 161,
+        "gap_frames": 0,
+        "last_frame": 165,
+        "observations": 5,
+        "segments": 1,
+        "span_frames": 5,
+        "track_id": 374
+      },
+      {
+        "class_name": "van",
+        "first_frame": 163,
+        "gap_frames": 11,
+        "last_frame": 192,
+        "observations": 19,
+        "segments": 5,
+        "span_frames": 30,
+        "track_id": 380
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 177,
+        "gap_frames": 1,
+        "last_frame": 183,
+        "observations": 6,
+        "segments": 2,
+        "span_frames": 7,
+        "track_id": 399
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 178,
+        "gap_frames": 27,
+        "last_frame": 216,
+        "observations": 12,
+        "segments": 3,
+        "span_frames": 39,
+        "track_id": 401
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 181,
+        "gap_frames": 0,
+        "last_frame": 183,
+        "observations": 3,
+        "segments": 1,
+        "span_frames": 3,
+        "track_id": 408
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 188,
+        "gap_frames": 1,
+        "last_frame": 195,
+        "observations": 7,
+        "segments": 2,
+        "span_frames": 8,
+        "track_id": 421
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 191,
+        "gap_frames": 0,
+        "last_frame": 191,
+        "observations": 1,
+        "segments": 1,
+        "span_frames": 1,
+        "track_id": 426
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 200,
+        "gap_frames": 1,
+        "last_frame": 269,
+        "observations": 69,
+        "segments": 2,
+        "span_frames": 70,
+        "track_id": 462
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 200,
+        "gap_frames": 1,
+        "last_frame": 269,
+        "observations": 69,
+        "segments": 2,
+        "span_frames": 70,
+        "track_id": 463
+      },
+      {
+        "class_name": "van",
+        "first_frame": 200,
+        "gap_frames": 5,
+        "last_frame": 214,
+        "observations": 10,
+        "segments": 5,
+        "span_frames": 15,
+        "track_id": 464
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 204,
+        "gap_frames": 1,
+        "last_frame": 209,
+        "observations": 5,
+        "segments": 2,
+        "span_frames": 6,
+        "track_id": 482
+      },
+      {
+        "class_name": "car",
+        "first_frame": 208,
+        "gap_frames": 2,
+        "last_frame": 222,
+        "observations": 13,
+        "segments": 3,
+        "span_frames": 15,
+        "track_id": 504
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 212,
+        "gap_frames": 25,
+        "last_frame": 258,
+        "observations": 22,
+        "segments": 9,
+        "span_frames": 47,
+        "track_id": 520
+      },
+      {
+        "class_name": "car",
+        "first_frame": 212,
+        "gap_frames": 7,
+        "last_frame": 236,
+        "observations": 18,
+        "segments": 5,
+        "span_frames": 25,
+        "track_id": 521
+      },
+      {
+        "class_name": "van",
+        "first_frame": 212,
+        "gap_frames": 0,
+        "last_frame": 212,
+        "observations": 1,
+        "segments": 1,
+        "span_frames": 1,
+        "track_id": 524
+      },
+      {
+        "class_name": "car",
+        "first_frame": 212,
+        "gap_frames": 0,
+        "last_frame": 212,
+        "observations": 1,
+        "segments": 1,
+        "span_frames": 1,
+        "track_id": 525
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 214,
+        "gap_frames": 7,
+        "last_frame": 269,
+        "observations": 49,
+        "segments": 7,
+        "span_frames": 56,
+        "track_id": 533
+      },
+      {
+        "class_name": "car",
+        "first_frame": 217,
+        "gap_frames": 15,
+        "last_frame": 241,
+        "observations": 10,
+        "segments": 2,
+        "span_frames": 25,
+        "track_id": 559
+      },
+      {
+        "class_name": "car",
+        "first_frame": 223,
+        "gap_frames": 12,
+        "last_frame": 254,
+        "observations": 20,
+        "segments": 3,
+        "span_frames": 32,
+        "track_id": 586
+      },
+      {
+        "class_name": "car",
+        "first_frame": 224,
+        "gap_frames": 9,
+        "last_frame": 269,
+        "observations": 37,
+        "segments": 8,
+        "span_frames": 46,
+        "track_id": 590
+      },
+      {
+        "class_name": "bus",
+        "first_frame": 228,
+        "gap_frames": 0,
+        "last_frame": 229,
+        "observations": 2,
+        "segments": 1,
+        "span_frames": 2,
+        "track_id": 606
+      },
+      {
+        "class_name": "car",
+        "first_frame": 233,
+        "gap_frames": 1,
+        "last_frame": 245,
+        "observations": 12,
+        "segments": 2,
+        "span_frames": 13,
+        "track_id": 624
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 236,
+        "gap_frames": 2,
+        "last_frame": 252,
+        "observations": 15,
+        "segments": 2,
+        "span_frames": 17,
+        "track_id": 631
+      },
+      {
+        "class_name": "car",
+        "first_frame": 237,
+        "gap_frames": 15,
+        "last_frame": 268,
+        "observations": 17,
+        "segments": 5,
+        "span_frames": 32,
+        "track_id": 635
+      },
+      {
+        "class_name": "car",
+        "first_frame": 237,
+        "gap_frames": 0,
+        "last_frame": 243,
+        "observations": 7,
+        "segments": 1,
+        "span_frames": 7,
+        "track_id": 636
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 238,
+        "gap_frames": 0,
+        "last_frame": 243,
+        "observations": 6,
+        "segments": 1,
+        "span_frames": 6,
+        "track_id": 638
+      },
+      {
+        "class_name": "car",
+        "first_frame": 240,
+        "gap_frames": 0,
+        "last_frame": 243,
+        "observations": 4,
+        "segments": 1,
+        "span_frames": 4,
+        "track_id": 644
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 249,
+        "gap_frames": 0,
+        "last_frame": 250,
+        "observations": 2,
+        "segments": 1,
+        "span_frames": 2,
+        "track_id": 668
+      },
+      {
+        "class_name": "van",
+        "first_frame": 254,
+        "gap_frames": 2,
+        "last_frame": 267,
+        "observations": 12,
+        "segments": 3,
+        "span_frames": 14,
+        "track_id": 676
+      },
+      {
+        "class_name": "car",
+        "first_frame": 254,
+        "gap_frames": 0,
+        "last_frame": 254,
+        "observations": 1,
+        "segments": 1,
+        "span_frames": 1,
+        "track_id": 683
+      },
+      {
+        "class_name": "truck",
+        "first_frame": 255,
+        "gap_frames": 1,
+        "last_frame": 269,
+        "observations": 14,
+        "segments": 2,
+        "span_frames": 15,
+        "track_id": 684
+      },
+      {
+        "class_name": "pedestrian",
+        "first_frame": 255,
+        "gap_frames": 3,
+        "last_frame": 269,
+        "observations": 12,
+        "segments": 3,
+        "span_frames": 15,
+        "track_id": 690
+      },
+      {
+        "class_name": "car",
+        "first_frame": 263,
+        "gap_frames": 0,
+        "last_frame": 269,
+        "observations": 7,
+        "segments": 1,
+        "span_frames": 7,
+        "track_id": 704
+      },
+      {
+        "class_name": "bus",
+        "first_frame": 263,
+        "gap_frames": 0,
+        "last_frame": 269,
+        "observations": 7,
+        "segments": 1,
+        "span_frames": 7,
+        "track_id": 705
+      },
+      {
+        "class_name": "car",
+        "first_frame": 264,
+        "gap_frames": 0,
+        "last_frame": 265,
+        "observations": 2,
+        "segments": 1,
+        "span_frames": 2,
+        "track_id": 707
+      },
+      {
+        "class_name": "car",
+        "first_frame": 264,
+        "gap_frames": 0,
+        "last_frame": 265,
+        "observations": 2,
+        "segments": 1,
+        "span_frames": 2,
+        "track_id": 708
+      }
+    ],
+    "total_gap_frames": 663,
+    "track_length_observations": {
+      "count": 95,
+      "max": 214.0,
+      "mean": 22.189473684210526,
+      "median": 9.0,
+      "min": 1.0,
+      "p95": 84.29999999999986
+    },
+    "track_observations": 2108,
+    "tracks_with_gaps": 56,
+    "unique_track_ids": 95
+  },
+  "wall_seconds": 36.56023794800001
+}

@@ -1,0 +1,8 @@
+{
+  "comparison_id": "T01_20260809_001",
+  "execution_status": "passed",
+  "timing_comparison_status": "invalid",
+  "reason": "Ultralytics auto-installed the missing lap>=0.5.12 dependency during the first ByteTrack model.track call. The resulting ByteTrack wall-time measurements include setup work that BoT-SORT did not incur.",
+  "recovery": "Pin lap==0.5.13 in requirements-tracking.txt, import it before measurement, and rerun both trackers under a new immutable comparison ID.",
+  "recorded_at_utc": "2026-08-09T09:30:00+00:00"
+}

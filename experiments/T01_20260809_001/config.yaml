@@ -1,0 +1,37 @@
+comparison_id: T01_20260809_001
+seed: 42
+
+source:
+  provider: Pexels
+  asset_id: "3978617"
+  local_path: data/raw/tracking/pexels_3978617_traffic.mp4
+  page_url: https://www.pexels.com/video/drone-footage-of-a-traffic-in-the-road-3978617/
+  license_url: https://www.pexels.com/license/
+  attribution_required: false
+
+model: models/checkpoints/E01_20260807_001/best.pt
+
+inference:
+  device: cpu
+  image_size: 640
+  confidence: 0.25
+  iou_nms: 0.7
+  max_detections: 300
+  rect: false
+
+sampling:
+  start_frame: 0
+  frame_stride: 1
+  max_frames: null
+
+trackers:
+  - name: bytetrack
+    config: configs/tracker_bytetrack.yaml
+  - name: botsort
+    config: configs/tracker_botsort.yaml
+
+visualization:
+  preview_scale: 0.5
+
+experiment_dir: experiments/T01_20260809_001
+result_dir: results/day3/T01_20260809_001
