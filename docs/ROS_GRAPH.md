@@ -61,3 +61,14 @@ Gate 7 passes only after the workspace builds and the smoke artifact proves the
 three-node message path plus C++ monitor. Gate 8 remains pending: this graph
 does not claim optimization, fleet constraints, reassignment, or a tested
 mission-state machine.
+
+## Verified run
+
+`G01_20260809_005` passed from source revision
+`c9b60a9b140dd62e04adb28c5c5ff66ef38f0e56` with a clean tracked worktree.
+It captured a typed [target message](../results/day4/G01_20260809_005/targets.yaml),
+typed [mission status](../results/day4/G01_20260809_005/mission_status.yaml),
+and [C++ monitor output](../results/day4/G01_20260809_005/launch.log). The
+[machine-readable summary](../results/day4/G01_20260809_005/summary.json)
+declares the exact checks. Earlier failed and corrected runs are retained in
+the adjacent `G01_20260809_001` through `G01_20260809_004` directories.

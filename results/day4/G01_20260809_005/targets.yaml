@@ -1,0 +1,25 @@
+header:
+  stamp:
+    sec: 1786270927
+    nanosec: 554073200
+  frame_id: synthetic_image_px
+source_id: synthetic_gate7
+sequence: 24
+targets:
+- track_id: 101
+  class_label: car
+  confidence: 0.9100000262260437
+  center_x_px: 320.0
+  center_y_px: 180.0
+  velocity_x_px_s: 12.0
+  velocity_y_px_s: 0.0
+  priority_hint: 0.800000011920929
+- track_id: 202
+  class_label: person
+  confidence: 0.8600000143051147
+  center_x_px: 520.0
+  center_y_px: 360.0
+  velocity_x_px_s: -4.0
+  velocity_y_px_s: 6.0
+  priority_hint: 0.6499999761581421
+---

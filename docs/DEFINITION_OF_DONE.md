@@ -50,11 +50,11 @@ The project is complete only when every **Required** item below has objective ev
 
 ### ROS 2 and C++
 
-- [ ] ROS 2 interfaces have typed fields, timestamps, documented units, and chosen QoS.
-- [ ] At least perception/source, assignment, and mission nodes exchange valid data.
-- [ ] A C++ monitoring node receives useful status data and is built/tested with the workspace.
-- [ ] One launch command starts the required graph.
-- [ ] A smoke/integration test demonstrates messages progressing through the graph.
+- [x] ROS 2 interfaces have typed fields, timestamps, documented units, and chosen QoS.
+- [x] At least perception/source, assignment, and mission nodes exchange valid data.
+- [x] A C++ monitoring node receives useful status data and is built/tested with the workspace.
+- [x] One launch command starts the required graph.
+- [x] A smoke/integration test demonstrates messages progressing through the graph.
 
 ### Simulation and end-to-end demo
 
