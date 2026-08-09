@@ -38,8 +38,7 @@ set +u
 source /opt/ros/jazzy/setup.bash
 set -u
 cd "${repro_root}/ros2_ws"
-colcon build --merge-install --symlink-install --packages-select multi_uav_bringup \
-  > "${output_dir}/colcon_build.log" 2>&1
+colcon build --merge-install --symlink-install > "${output_dir}/colcon_build.log" 2>&1
 source install/setup.bash
 PYTHONPATH="${repro_root}/src:${repro_root}/ros2_ws/src/multi_uav_bringup" python3 -m pytest -q \
   "${repro_root}/ros2_ws/src/multi_uav_bringup/test/test_assignment_logic.py" \
