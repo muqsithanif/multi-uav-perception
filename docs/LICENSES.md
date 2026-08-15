@@ -1,7 +1,23 @@
 # Current Asset and Tool Licenses
 
-This record covers only assets and tools actually used by the verified Day 1
-smoke run. It is an engineering inventory, not legal advice.
+This record covers assets and tools used by the verified runs in this
+repository. It is an engineering inventory, not legal advice.
+
+## VisDrone2019-DET dataset
+
+- Work: VisDrone2019-DET, official train and validation splits
+- Source: <https://github.com/VisDrone/VisDrone-Dataset>
+- Terms: released for academic and research purposes; redistribution is
+  restricted. Review the official terms before any public or commercial use.
+
+**This repository does not redistribute VisDrone images, labels, or any imagery
+derived from them.** Training mosaics, validation overlays, and error-analysis
+overlays are generated locally and excluded from Git by `.gitignore`. What the
+repository does track is metadata, source checksums, converted-label statistics,
+metrics, and written analysis — none of which reproduce the dataset content.
+
+To reproduce the visual artefacts, obtain the dataset from its official source
+and re-run the documented pipeline; the generation scripts are included.
 
 ## Aerial smoke image and derived prediction
 

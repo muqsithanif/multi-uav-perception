@@ -48,6 +48,13 @@ results/**/*.avi
 results/**/*.mov
 results/**/*.mkv
 
+# VisDrone-derived imagery — dataset terms restrict redistribution.
+# Metrics, summaries, and written analysis are tracked; source-derived images are not.
+results/day2/visual_audit/*.jpg
+results/day2/E01_*/training/train_batch*.jpg
+results/day2/E01_*/training/val_batch*.jpg
+results/day2/E01A_*/overlays/*.jpg
+
 # ROS 2 and colcon output
 ros2_ws/build/
 ros2_ws/install/
