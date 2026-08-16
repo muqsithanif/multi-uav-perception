@@ -1,8 +1,8 @@
 # Multi-UAV Aerial Perception
 
-Aerial object detection and tracking, taken from raw dataset through fine-tuning to optimised CPU inference — with every reported number traceable to a versioned experiment artefact.
+Aerial object detection and tracking, carried from raw dataset through fine-tuning to optimised CPU inference. Every reported number traces back to a versioned experiment artefact.
 
-**Scope:** this is a software and 2D-simulation prototype. It is not a flight controller, does not command physical aircraft, and makes no production-autonomy claim.
+**Scope:** a software and 2D-simulation prototype. It is not a flight controller, it does not command physical aircraft, and it makes no production-autonomy claim.
 
 ---
 
@@ -25,11 +25,11 @@ VisDrone2019-DET
 
 ## Results
 
-All figures below come from recorded runs, not from documentation examples.
+Every figure below comes from a recorded run rather than a documentation example.
 
 ### Detector: baseline vs fine-tuned
 
-Both evaluated on the **same locked 128-image subset** under identical CPU/FP32 protocol, so the comparison is like-for-like.
+Both models were evaluated on the same locked 128-image subset under an identical CPU/FP32 protocol, making the comparison like-for-like.
 
 | Macro metric | E00 pretrained | E01 fine-tuned | Δ |
 |---|---:|---:|---:|
@@ -50,7 +50,7 @@ Validated against PyTorch on 16 deterministic images with identical preprocessin
 | ONNX Runtime FP32 | 498/498 both directions, IoU 0.999999 | 69.12 ms |
 | OpenVINO FP16 | 99.598% reference, 100% candidate, IoU 0.999026 | 118.83 ms |
 
-Two agreement failures occurred before this passed — unnamed OpenVINO output tensors, then a preprocessing mismatch. Both were fixed **without loosening the acceptance thresholds**, and the failure history is retained in `experiments/`.
+Two agreement failures preceded this result: unnamed OpenVINO output tensors, then a preprocessing mismatch. Both were fixed without loosening the acceptance thresholds, and the failure history remains in `experiments/`.
 
 ### Tracker comparison
 
@@ -61,22 +61,22 @@ Same 270-frame aerial clip, same detector, same thresholds and timing boundary.
 | ByteTrack *(default)* | 77.21 ms | 12.95 | 95 |
 | BoT-SORT | 111.09 ms | 9.00 | 88 |
 
-No MOTA, IDF1, HOTA, or ID-switch figures are claimed — the source footage has no identity ground truth.
+No MOTA, IDF1, HOTA, or ID-switch figures are claimed. The source footage carries no identity ground truth.
 
 ---
 
 ## What the numbers do not say
 
-- Detector metrics are **locked-subset** results, not full-validation or deployment benchmarks.
+- Detector metrics are locked-subset results rather than full-validation or deployment benchmarks.
 - Latency is a single timed repetition on one local WSL CPU after two warm-ups.
-- ROS integration uses synthetic targets over local transport — no radio, no network-latency claim, no physical vehicle control.
-- Error analysis at confidence 0.25 / IoU 0.50 found the dominant failure modes to be small objects, heavy occlusion, and van→car confusion. These are documented rather than tuned away.
+- ROS integration uses synthetic targets over local transport, with no radio, no network-latency claim, and no physical vehicle control.
+- Error analysis at confidence 0.25 and IoU 0.50 identified small objects, heavy occlusion, and van-to-car confusion as the dominant failure modes. They are documented rather than tuned away.
 
 ---
 
 ## Reproducing
 
-Documented environment: Windows 11 + WSL2, Ubuntu 24.04, Python 3.12, ROS 2 Jazzy.
+Documented environment: Windows 11 with WSL2, Ubuntu 24.04, Python 3.12, ROS 2 Jazzy.
 
 ```bash
 YOLO_CONFIG_DIR=/tmp .venv/bin/python -m pytest -q
@@ -86,7 +86,7 @@ source install/setup.bash && cd ..
 bash scripts/run_ros_gate7_smoke.sh G02_<new-id>
 ```
 
-A clean-checkout verification run is recorded in [REPRODUCTION.md](docs/REPRODUCTION.md): source exported with `git archive`, workspace rebuilt, typed messages and C++ monitor receipt captured. 82 project tests and 12 ROS package tests pass.
+[REPRODUCTION.md](docs/REPRODUCTION.md) records a clean-checkout verification run: source exported with `git archive`, workspace rebuilt, typed messages and C++ monitor receipt captured. 82 project tests and 12 ROS package tests pass.
 
 ---
 
@@ -108,9 +108,9 @@ A clean-checkout verification run is recorded in [REPRODUCTION.md](docs/REPRODUC
 
 ## Data and licensing
 
-**VisDrone2019-DET is not redistributed by this repository.** Only metadata, checksums, metrics, and reports derived from it are tracked. Obtain the dataset from its official source and review its terms before any public or commercial use.
+This repository does not redistribute VisDrone2019-DET. It tracks only metadata, checksums, metrics, and reports derived from the dataset. Obtain the data from its official source and review its terms before any public or commercial use.
 
-Third-party assets and tool licenses — including the CC BY-SA aerial smoke image, the Pexels tracking clip, and the AGPL-3.0 Ultralytics dependency — are inventoried in [LICENSES.md](docs/LICENSES.md).
+[LICENSES.md](docs/LICENSES.md) inventories the third-party assets and tool licences, covering the CC BY-SA aerial smoke image, the Pexels tracking clip, and the AGPL-3.0 Ultralytics dependency.
 
 ---
 
