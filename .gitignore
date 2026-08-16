@@ -69,3 +69,6 @@ log/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Berkas presentasi dan hasil build alat bantu; bukan bagian dari proyek
+deliverables/
