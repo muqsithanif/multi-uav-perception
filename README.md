@@ -126,6 +126,8 @@ This repository does not redistribute the VisDrone dataset. It tracks only metad
 
 [LICENSES.md](docs/LICENSES.md) inventories the third-party assets and tool licences involved, including the aerial demonstration image, the tracking test clip, and the AGPL-licensed training library.
 
+The code in this repository is MIT-licensed. Training and inference use Ultralytics YOLO, which is AGPL-3.0, so a distributed work that combines the two also has to meet the AGPL-3.0 terms.
+
 ---
 
 Built by [Muqsit Muhammad Hanif](https://github.com/muqsithanif) · muqsithanif29@gmail.com
