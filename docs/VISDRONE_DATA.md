@@ -1,33 +1,33 @@
-# Data VisDrone2019-DET
+# VisDrone2019-DET data
 
-## Ruang lingkup Day 2
+## Day 2 scope
 
-Proyek memakai hanya task **object detection in images** dari
-VisDrone2019-DET. Split resmi `train` dan `val` dipertahankan; test-dev dan
-test-challenge tidak dipakai pada Gate 2A.
+The project uses only the **object detection in images** task of
+VisDrone2019-DET. The official `train` and `val` splits are kept as they are;
+test-dev and test-challenge are not used for Gate 2A.
 
-Sumber resmi:
+Official sources:
 
-- Repository dataset: <https://github.com/VisDrone/VisDrone-Dataset>
-- Halaman unduh AISKYEYE: <https://aiskyeye.com/download/>
-- Toolkit anotasi/evaluasi DET:
+- Dataset repository: <https://github.com/VisDrone/VisDrone-Dataset>
+- AISKYEYE download page: <https://aiskyeye.com/download/>
+- DET annotation and evaluation toolkit:
   <https://github.com/VisDrone/VisDrone2018-DET-toolkit>
 
-Tautan Google Drive dan file ID di `configs/visdrone_sources.yaml` berasal dari
-repository resmi. Dataset mentah, arsip ZIP, hasil konversi, dan checkpoint
-tidak boleh masuk Git. Hanya source/config, manifest checksum, laporan, dan
-contoh visual audit berukuran kecil yang disimpan.
+The Google Drive links and file IDs in `configs/visdrone_sources.yaml` come
+from the official repository. The raw dataset, ZIP archives, converted output,
+and checkpoints must not be committed to Git. Only source code, configuration,
+checksum manifests, reports, and small audit samples are kept.
 
-## Status penggunaan dan redistribusi
+## Usage and redistribution status
 
-Pada pemeriksaan 2026-08-07, repository resmi tidak menyertakan file lisensi
-dataset yang eksplisit. Toolkit resminya menyatakan kode untuk tujuan riset.
-Karena itu repository ini tidak mengklaim VisDrone sebagai data berlisensi
-terbuka untuk penggunaan komersial dan tidak mendistribusikan ulang dataset.
-Penggunaan publik atau komersial harus memeriksa ketentuan terbaru dan, bila
-perlu, meminta izin pemilik dataset.
+When checked on 2026-08-07, the official repository did not include an
+explicit dataset license file. The official toolkit states that its code is
+for research purposes. This repository therefore does not claim that VisDrone
+is openly licensed for commercial use, and it does not redistribute the
+dataset. Public or commercial use should check the latest terms and, where
+needed, ask the dataset owners for permission.
 
-## Struktur sumber yang diharapkan
+## Expected source layout
 
 ```text
 data/raw/visdrone2019_det/
@@ -41,7 +41,7 @@ data/raw/visdrone2019_det/
     annotations/*.txt
 ```
 
-Mekanisme akses:
+Access:
 
 ```bash
 .venv/bin/python -m pip install -r requirements-day2.txt
@@ -49,16 +49,16 @@ Mekanisme akses:
 .venv/bin/python scripts/download_visdrone.py --splits train val
 ```
 
-Downloader menghitung SHA-256, ukuran arsip, jumlah image/annotation, dan waktu
-akses aktual ke `data/metadata/visdrone2019_det_download_manifest.json`.
-Ekstraksi menolak path ZIP yang keluar dari direktori tujuan.
+The downloader records the SHA-256, archive size, image and annotation counts,
+and the actual access time in `data/metadata/visdrone2019_det_download_manifest.json`.
+Extraction rejects ZIP paths that escape the target directory.
 
-## Konversi dan validasi
+## Conversion and validation
 
-Kebijakan konversi berada di `configs/visdrone_conversion.yaml`, sedangkan
-konfigurasi dataset portabel untuk Ultralytics berada di
-`configs/visdrone_5class.yaml`. Jalankan pemeriksaan konfigurasi tanpa data,
-tes fixture D00, lalu konversi aktual dengan urutan berikut:
+The conversion policy is in `configs/visdrone_conversion.yaml`, and the
+portable Ultralytics dataset configuration is in `configs/visdrone_5class.yaml`.
+Run the configuration check without data, then the D00 fixture tests, then the
+actual conversion, in this order:
 
 ```bash
 .venv/bin/python scripts/prepare_visdrone.py --check-config
@@ -68,7 +68,7 @@ tes fixture D00, lalu konversi aktual dengan urutan berikut:
 .venv/bin/python scripts/analyze_visdrone_distribution.py
 ```
 
-Hasil lokal yang diabaikan Git menggunakan layout berikut:
+The local output, ignored by Git, uses this layout:
 
 ```text
 data/processed/visdrone5/
@@ -78,58 +78,59 @@ data/processed/visdrone5/
   labels/val/*.txt
 ```
 
-Mode default menggunakan hardlink untuk image agar tidak menggandakan byte
-dataset di volume yang sama, dengan fallback otomatis ke copy bila filesystem
-tidak mendukung hardlink. Label YOLO selalu ditulis terpisah. Converter
-mempertahankan split resmi dan validator memeriksa format delapan field, nilai
-field kategorikal, bbox positif, hasil clipping/normalisasi, file rusak,
-pairing image-label, range kelas YOLO, batas bbox, serta overlap nama file
-antar-split.
+By default, images are hardlinked so dataset bytes are not duplicated on the
+same volume, with an automatic fallback to copying when the filesystem does not
+support hardlinks. YOLO labels are always written separately. The converter
+keeps the official split, and the validator checks the eight-field format,
+categorical field values, positive bbox sizes, clipping and normalization,
+corrupt files, image-label pairing, YOLO class range, bbox bounds, and filename
+overlap between splits.
 
-Bbox sumber dengan width atau height nonpositif tidak diberi ukuran buatan.
-Baris tersebut dikeluarkan dari label YOLO dan wajib dicatat per split, kelas,
-serta contoh file/baris dalam laporan validasi. Status laporan menjadi
-`passed_with_sanitization`, sedangkan validator output tetap mensyaratkan nol
-bbox invalid. Kebijakan ini menjaga cacat anotasi sumber tetap terlihat tanpa
-menghasilkan label training yang tidak sah.
+Source bboxes with a non-positive width or height are never given an invented
+size. Those rows are excluded from the YOLO labels and must be recorded per
+split and class, with example file and line, in the validation report. The
+report status becomes `passed_with_sanitization`, while the output validator
+still requires zero invalid bboxes. This policy keeps source annotation defects
+visible without producing invalid training labels.
 
-Satu trailing comma hanya diterima bila menghasilkan tepat field kesembilan
-yang kosong; delapan field data tetap diparse sesuai spesifikasi. Setiap
-normalisasi ini dihitung dan diberi contoh file/baris dalam laporan. Field
-kesembilan yang tidak kosong tetap dianggap ambigu dan ditolak.
+A single trailing comma is accepted only when it produces exactly one empty
+ninth field; the eight data fields are still parsed according to the
+specification. Every such normalization is counted and given an example file
+and line in the report. A non-empty ninth field is treated as ambiguous and
+rejected.
 
-Visual audit memilih sampel secara deterministik dengan memprioritaskan cakupan
-seluruh kelas proyek, lalu pemerataan berdasarkan nama file. Overlay dan
-manifest checksum ditulis ke `results/day2/visual_audit/`. Status awal manifest
-adalah `rendered_pending_manual_visual_review`; status gate hanya boleh diubah
-setelah artefak benar-benar diperiksa secara visual.
+The visual audit selects samples deterministically, first covering every
+project class and then spreading evenly by filename. Overlays and the checksum
+manifest are written to `results/day2/visual_audit/`. The manifest starts with
+the status `rendered_pending_manual_visual_review`; the gate status may only be
+changed after the artifacts have actually been reviewed visually.
 
-Analisis distribusi membaca laporan validasi yang sama dan menulis JSON, CSV,
-plot, serta checksum artefak ke `results/day2/dataset_analysis/`. Angka pada
-laporan Day 2 berasal dari output ini, bukan estimasi.
+The distribution analysis reads the same validation report and writes JSON,
+CSV, plots, and artifact checksums to `results/day2/dataset_analysis/`. The
+numbers in the Day 2 report come from this output, not from estimates.
 
-## Format anotasi resmi
+## Official annotation format
 
-Setiap baris memiliki delapan field:
+Each row has eight fields:
 
 ```text
 bbox_left,bbox_top,bbox_width,bbox_height,score,object_category,truncation,occlusion
 ```
 
-- `score=0` berarti region diabaikan; `score=1` berarti instance dievaluasi.
-- Kategori asli: ignored region (0), pedestrian (1), people (2), bicycle (3),
-  car (4), van (5), truck (6), tricycle (7), awning-tricycle (8), bus (9),
-  motor (10), dan others (11).
-- Truncation: 0 tidak terpotong, 1 terpotong sebagian.
-- Occlusion: 0 tidak tertutup, 1 tertutup sebagian, 2 tertutup berat.
-- Toolkit resmi menyatakan ignored region dan `others` tidak dihitung dalam
-  evaluasi.
+- `score=0` marks an ignored region; `score=1` marks an evaluated instance.
+- Original categories: ignored region (0), pedestrian (1), people (2),
+  bicycle (3), car (4), van (5), truck (6), tricycle (7), awning-tricycle (8),
+  bus (9), motor (10), and others (11).
+- Truncation: 0 not truncated, 1 partially truncated.
+- Occlusion: 0 none, 1 partial, 2 heavy.
+- The official toolkit states that ignored regions and `others` are not counted
+  in evaluation.
 
-## Mapping kelas proyek
+## Project class mapping
 
-Gate 2A memakai lima kelas yang dikunci blueprint:
+Gate 2A uses the five classes locked in the project blueprint:
 
-| YOLO ID | Nama proyek | VisDrone ID asli |
+| YOLO ID | Project name | Original VisDrone ID |
 |---:|---|---:|
 | 0 | pedestrian | 1 |
 | 1 | car | 4 |
@@ -137,6 +138,6 @@ Gate 2A memakai lima kelas yang dikunci blueprint:
 | 3 | truck | 6 |
 | 4 | bus | 9 |
 
-Kategori 0 dan 11 selalu diabaikan. Kategori 2, 3, 7, 8, dan 10 tidak masuk
-scope model lima kelas dan dicatat sebagai `excluded_unselected_class`, bukan
-sebagai anotasi negatif yang hilang diam-diam.
+Categories 0 and 11 are always ignored. Categories 2, 3, 7, 8, and 10 are
+outside the scope of the five-class model and are recorded as
+`excluded_unselected_class`, rather than silently dropped as missing negatives.

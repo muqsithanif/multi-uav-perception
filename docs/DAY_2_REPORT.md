@@ -1,87 +1,88 @@
-# Laporan Day 2 — VisDrone dan Validasi Training Pipeline
+# Day 2 report — VisDrone and training-pipeline validation
 
-Tanggal pembaruan: 7 Agustus 2026 (Asia/Jakarta)
+Last updated: 7 August 2026 (Asia/Jakarta)
 
 ## 1. Objective
 
-Membangun jalur data VisDrone2019-DET yang resmi, dapat direproduksi, dan aman
-untuk training YOLO lima kelas. Milestone ini mencakup unduhan, checksum,
-konversi, validasi programatik, sanitasi cacat sumber yang terukur, analisis
-distribusi kelas, dan audit visual.
+Build an official, reproducible, and safe VisDrone2019-DET data path for
+five-class YOLO training. This milestone covers download, checksums,
+conversion, programmatic validation, measured sanitization of source defects,
+class-distribution analysis, and a visual audit.
 
 ## Status
 
-**Checkpoint data Day 2: LULUS DENGAN SANITASI
+**Day 2 data checkpoint: passed with sanitization
 (`passed_with_sanitization`).**
 
-**E00 pretrained baseline: LULUS pada subset validation terkunci.**
+**E00 pretrained baseline: passed on the locked validation subset.**
 
-**Colab smoke/resume: LULUS.** Training tiga epoch pada dataset penuh,
-checkpoint persisten di Drive, dan resume dari checkpoint yang masih memiliki
-state optimizer telah dibuktikan pada Tesla T4.
+**Colab smoke/resume: passed.** Three-epoch training on the full dataset,
+checkpoints persisted to Drive, and resuming from a checkpoint that still holds
+the optimizer state were demonstrated on a Tesla T4.
 
-**E01 fine-tuning dan perbandingan terkunci: LULUS.** Main run menyelesaikan
-30 epoch dan checkpoint terbaik dievaluasi dengan subset serta protokol E00
-yang identik.
+**E01 fine-tuning and locked comparison: passed.** The main run completed
+30 epochs, and the best checkpoint was evaluated with the same subset and
+protocol as E00.
 
-**Gate 2A keseluruhan: LULUS (`passed`).** Gate deployment dan tahap proyek
-sesudahnya belum dinyatakan selesai.
+**Gate 2A overall: passed (`passed`).** The deployment gate and later project
+stages were not yet complete at this point.
 
-## 2. Files dan konfigurasi
+## 2. Files and configuration
 
-- `configs/visdrone_sources.yaml` mengunci sumber resmi dan split train/val.
-- `configs/visdrone_conversion.yaml` mengunci mapping lima kelas serta lokasi
-  input/output dan laporan.
-- `scripts/download_visdrone.py` mengunduh, memeriksa SHA-256, dan mengekstrak
-  ZIP secara aman.
-- `scripts/visdrone_dataset.py` mengonversi dan memvalidasi anotasi.
-- `scripts/prepare_visdrone.py` menghasilkan manifest dan laporan validasi.
-- `scripts/render_visdrone_audit.py` memilih dan merender sampel validation
-  secara deterministik.
-- `scripts/analyze_visdrone_distribution.py` menghasilkan ringkasan JSON/CSV
-  dan plot distribusi kelas.
-- `scripts/evaluate_pretrained_baseline.py` mengunci subset, mapping kelas,
-  inferensi, matching IoU, metrik, timing, dan kurva untuk E00 maupun E01.
-- `configs/e00_pretrained_baseline.yaml` menyimpan protokol E00 aktual.
-- `configs/e01_finetuned_locked_eval.yaml` memakai checkpoint E01 dengan
-  mapping lima kelas native dan mewajibkan manifest subset E00.
-- `scripts/compare_detection_experiments.py` menolak perbandingan bila subset
-  atau protokol berbeda, lalu menulis delta JSON/CSV.
-- `configs/e00_vs_e01_comparison.yaml` mengunci pasangan ringkasan dan output
-  perbandingan yang diterima.
-- `scripts/run_visdrone_smoke_training.py` menyiapkan subset smoke, memisahkan
-  training menjadi dua phase, mempertahankan optimizer checkpoint, dan
-  memverifikasi resume aktual.
-- `configs/visdrone_smoke_train.yaml` membatasi scope ke 256 train, 64 val, dan
-  tiga epoch; `full_fine_tuning` dikunci `false`.
-- `notebooks/day2_visdrone_smoke_colab.ipynb` mengotomasi setup Colab, validasi
-  dataset, smoke training, persistensi Google Drive, dan push artefak ringkas.
-- Suite test mencakup parser, konversi, sanitasi, validator, pemilihan
-  sampel, rendering, perhitungan distribusi, checksum artefak, mapping baseline,
-  konversi bbox, matching prediksi, subset reference lock, dan penolakan
-  perbandingan yang tidak sebanding.
+- `configs/visdrone_sources.yaml` locks the official sources and the train/val split.
+- `configs/visdrone_conversion.yaml` locks the five-class mapping and the
+  input, output, and report locations.
+- `scripts/download_visdrone.py` downloads, verifies SHA-256, and safely
+  extracts the ZIP files.
+- `scripts/visdrone_dataset.py` converts and validates annotations.
+- `scripts/prepare_visdrone.py` produces the manifest and the validation report.
+- `scripts/render_visdrone_audit.py` selects and renders validation samples
+  deterministically.
+- `scripts/analyze_visdrone_distribution.py` produces JSON/CSV summaries and
+  class-distribution plots.
+- `scripts/evaluate_pretrained_baseline.py` locks the subset, class mapping,
+  inference, IoU matching, metrics, timing, and curves for both E00 and E01.
+- `configs/e00_pretrained_baseline.yaml` stores the actual E00 protocol.
+- `configs/e01_finetuned_locked_eval.yaml` uses the E01 checkpoint with the
+  native five-class mapping and requires the E00 subset manifest.
+- `scripts/compare_detection_experiments.py` refuses comparisons when the subset
+  or protocol differs, then writes JSON/CSV deltas.
+- `configs/e00_vs_e01_comparison.yaml` locks the accepted pair of summaries and
+  the comparison output.
+- `scripts/run_visdrone_smoke_training.py` prepares the smoke subset, splits
+  training into two phases, keeps the optimizer checkpoint, and verifies that the
+  resume actually happened.
+- `configs/visdrone_smoke_train.yaml` limits the scope to 256 train images,
+  64 val images, and three epochs; `full_fine_tuning` is locked to `false`.
+- `notebooks/day2_visdrone_smoke_colab.ipynb` automates Colab setup, dataset
+  validation, smoke training, Google Drive persistence, and pushing the compact
+  artifacts.
+- The test suite covers the parser, conversion, sanitization, validator, sample
+  selection, rendering, distribution counts, artifact checksums, baseline
+  mapping, bbox conversion, prediction matching, the subset reference lock, and
+  rejection of non-comparable comparisons.
 
-Kebijakan sanitasi bbox dan trailing comma dikomit pada `0725378`
+The bbox and trailing-comma sanitization policy was committed in `0725378`
 (`fix: sanitize measured VisDrone annotation defects`).
 
-## 3. Verification dan hasil aktual
+## 3. Verification and results
 
-### Akses dan integritas sumber
+### Source access and integrity
 
-Manifest unduhan mencatat pasangan image/anotasi lengkap:
+The download manifest records complete image/annotation pairs:
 
-| Split | Image | Anotasi | Ukuran ZIP | SHA-256 |
+| Split | Images | Annotations | ZIP size | SHA-256 |
 |---|---:|---:|---:|---|
-| train | 6.471 | 6.471 | 1.549.875.511 byte | `86a77eba93137bfc16e4993860de9245b0675c0dba0d3ab98fb458699e256f84` |
-| val | 548 | 548 | 81.638.851 byte | `abeea063037e5d20398837deb11084e652402a34ddf4f207bdf541a6f2a35ef9` |
+| train | 6,471 | 6,471 | 1,549,875,511 bytes | `86a77eba93137bfc16e4993860de9245b0675c0dba0d3ab98fb458699e256f84` |
+| val | 548 | 548 | 81,638,851 bytes | `abeea063037e5d20398837deb11084e652402a34ddf4f207bdf541a6f2a35ef9` |
 
-Unduhan awal melalui Google Drive sempat terblokir kuota publik; data kemudian
-tersedia dari mekanisme resmi/authorized yang sama dan diverifikasi terhadap
-metadata sumber sebelum konversi.
+The first download through Google Drive was blocked by the public quota; the
+data later became available through the same official, authorized mechanism
+and was verified against the source metadata before conversion.
 
-### Konversi dan validasi
+### Conversion and validation
 
-Perintah yang lulus:
+Commands that passed:
 
 ```text
 .venv/bin/python scripts/prepare_visdrone.py --check-config
@@ -94,163 +95,165 @@ Perintah yang lulus:
 .venv/bin/python scripts/compare_detection_experiments.py --config configs/e00_vs_e01_comparison.yaml
 ```
 
-Hasil akhir suite setelah error analysis E01: **37 passed, 0 failed** dalam
-49,47 detik. Pada
-checkpoint distribusi, satu percobaan test sempat gagal karena konstanta
-SHA-256 fixture baru salah; konstanta dikoreksi ke digest fixture aktual dan
-suite kemudian lulus.
+Final suite result after the E01 error analysis: **37 passed, 0 failed** in
+49.47 seconds. At the distribution checkpoint, one test run failed because the
+SHA-256 constant for a new fixture was wrong; the constant was corrected to the
+fixture's actual digest and the suite then passed.
 
-| Split | Input image/label | Anotasi sumber | Output object | Output image/label |
+| Split | Input images/labels | Source annotations | Output objects | Output images/labels |
 |---|---:|---:|---:|---:|
-| train | 6.471 / 6.471 | 353.550 | 267.960 | 6.471 / 6.471 |
-| val | 548 / 548 | 40.169 | 25.884 | 548 / 548 |
+| train | 6,471 / 6,471 | 353,550 | 267,960 | 6,471 / 6,471 |
+| val | 548 / 548 | 40,169 | 25,884 | 548 / 548 |
 
-Distribusi object lima kelas setelah konversi:
+Five-class object distribution after conversion:
 
 | Split | pedestrian | car | van | truck | bus |
 |---|---:|---:|---:|---:|---:|
-| train | 79.337 | 144.866 | 24.956 | 12.875 | 5.926 |
-| val | 8.844 | 14.064 | 1.975 | 750 | 251 |
+| train | 79,337 | 144,866 | 24,956 | 12,875 | 5,926 |
+| val | 8,844 | 14,064 | 1,975 | 750 | 251 |
 
-Kelas dominan pada kedua split adalah `car` (54,062547% train dan 54,334724%
-val), sedangkan kelas minoritas adalah `bus` (2,211524% train dan 0,969711%
-val). Rasio jumlah kelas terbesar terhadap terkecil adalah 24,445832 pada
-train dan 56,031873 pada val. Pergeseran proporsi terbesar terjadi pada
-`pedestrian`: +4,560049 poin persentase pada val terhadap train.
+The dominant class in both splits is `car` (54.062547% of train and 54.334724%
+of val), and the minority class is `bus` (2.211524% of train and 0.969711% of
+val). The ratio between the largest and smallest class is 24.445832 in train
+and 56.031873 in val. The largest shift in proportion is for `pedestrian`:
++4.560049 percentage points in val relative to train.
 
-Validator output menemukan **0 bbox invalid**, **0 overlap nama file antar
-split**, dan jumlah object hasil parsing ulang sama dengan jumlah hasil
-konversi pada kedua split.
+The output validator found **0 invalid bboxes** and **0 filename overlaps
+between splits**, and the object count from re-parsing equals the conversion
+count in both splits.
 
-Laporan final merekam `source_revision=0725378` dan
-`tracked_source_dirty=true`. Dirty tracked files pada saat snapshot hanya
-README/dokumentasi milestone yang sedang diperbarui; converter dan validator
-sesuai dengan revision tersebut.
+The final report records `source_revision=0725378` and
+`tracked_source_dirty=true`. The only dirty tracked files at snapshot time were
+the README and milestone documentation being updated; the converter and
+validator match that revision.
 
-### Sanitasi sumber
+### Source sanitization
 
-- Tiga bbox train memiliki height `0`; tidak ada kasus serupa di val.
-- Dua bbox invalid adalah ignored region dengan `score=0`.
-- Satu bbox invalid adalah class sumber 4 (`car`) dengan `score=1`; baris ini
-  dikeluarkan dari label training dan dicatat sebagai
+- Three train bboxes have height `0`; there are no such cases in val.
+- Two of the invalid bboxes are ignored regions with `score=0`.
+- One invalid bbox is source class 4 (`car`) with `score=1`; this row is
+  excluded from the training labels and recorded as
   `invalid_selected_source_box_count=1`.
-- Sebanyak 34 baris train memiliki satu trailing comma kosong dan dinormalisasi
-  menjadi delapan field. Val tidak memiliki kasus tersebut.
-- Sanitasi tidak membuat ukuran bbox buatan dan tidak menghasilkan bbox output
-  invalid.
+- 34 train rows have a single empty trailing comma and are normalized to eight
+  fields. Val has no such cases.
+- Sanitization never invents bbox sizes and produces no invalid output bboxes.
 
 ### Visual audit
 
-Enam overlay validation diperiksa pada resolusi asli. Sampel mencakup seluruh
-lima kelas. Kotak tidak menunjukkan offset/skala sistematis, tetap di dalam
-frame, dan mapping kelas konsisten dengan object beranotasi yang terlihat.
-Status visual audit: **passed**.
+Six validation overlays were inspected at native resolution. The samples cover
+all five classes. The boxes show no systematic offset or scale error, stay
+inside the frame, and the class mapping matches the visible annotated objects.
+Visual audit status: **passed**.
 
 ### E00 pretrained baseline
 
-Run yang diterima adalah `E00_20260807_003` pada revision `9e5727e`. Protokol
-memakai 128 dari 548 image validation (23,36%) yang dipilih merata berdasarkan
-urutan nama file. Selection SHA-256 adalah
+The accepted run is `E00_20260807_003` at revision `9e5727e`. The protocol uses
+128 of the 548 validation images (23.36%), selected evenly by filename order.
+The selection SHA-256 is
 `7e1bd549153bea5fa2d6f1e17a4e7f29f57f11157c6c277441a6d00520c265bd`.
-Subset memuat 6.090 object: 1.946 pedestrian, 3.417 car, 487 van, 187 truck,
-dan 53 bus.
+The subset contains 6,090 objects: 1,946 pedestrian, 3,417 car, 487 van,
+187 truck, and 53 bus.
 
-Checkpoint `yolo26n.pt` berukuran 5.544.453 byte dengan SHA-256
+The `yolo26n.pt` checkpoint is 5,544,453 bytes with SHA-256
 `9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef`.
-Evaluasi berjalan di CPU/FP32 dengan image size 640, confidence 0,001, NMS IoU
-0,7, maksimum 300 deteksi, batch 4, dan IoU evaluasi 0,50-0,95.
+Evaluation ran on CPU/FP32 with image size 640, confidence 0.001, NMS IoU 0.7,
+at most 300 detections, batch 4, and evaluation IoU 0.50–0.95.
 
 | Scope | Instances | Precision | Recall | mAP50 | mAP50-95 |
 |---|---:|---:|---:|---:|---:|
-| macro 5 kelas | 6.090 | 0,289228 | 0,173370 | 0,154190 | 0,096881 |
-| pedestrian | 1.946 | 0,392821 | 0,124358 | 0,119576 | 0,049120 |
-| car | 3.417 | 0,634277 | 0,379865 | 0,408989 | 0,246381 |
-| van | 487 | 0,000000 | 0,000000 | 0,000000 | 0,000000 |
-| truck | 187 | 0,171500 | 0,155080 | 0,095931 | 0,072219 |
-| bus | 53 | 0,247544 | 0,207547 | 0,146452 | 0,116683 |
+| macro, 5 classes | 6,090 | 0.289228 | 0.173370 | 0.154190 | 0.096881 |
+| pedestrian | 1,946 | 0.392821 | 0.124358 | 0.119576 | 0.049120 |
+| car | 3,417 | 0.634277 | 0.379865 | 0.408989 | 0.246381 |
+| van | 487 | 0.000000 | 0.000000 | 0.000000 | 0.000000 |
+| truck | 187 | 0.171500 | 0.155080 | 0.095931 | 0.072219 |
+| bus | 53 | 0.247544 | 0.207547 | 0.146452 | 0.116683 |
 
-Mapping output pretrained adalah COCO `person -> pedestrian`, `car -> car`,
-`truck -> truck`, dan `bus -> bus`. Ground truth `van` tetap dihitung, tetapi
-checkpoint COCO tidak memiliki kelas van terpisah; karena itu prediction count
-dan seluruh metrik van adalah nol.
+The pretrained output mapping is COCO `person -> pedestrian`, `car -> car`,
+`truck -> truck`, and `bus -> bus`. Ground-truth `van` objects are still
+counted, but the COCO checkpoint has no separate van class, so the van
+prediction count and all van metrics are zero.
 
-Waktu wall untuk bagian evaluasi adalah 13,223372 detik atau 103,307593
-ms/image. Total tahap inference yang dilaporkan Ultralytics adalah 8,285059
-detik. Angka ini adalah satu run CPU untuk validasi pipeline, bukan benchmark
-performa; loading model dan pembuatan manifest terjadi sebelum timer evaluasi.
+Wall time for the evaluation step was 13.223372 seconds, or 103.307593
+ms/image. The total inference stage reported by Ultralytics was 8.285059
+seconds. This is a single CPU run for pipeline validation, not a performance
+benchmark; model loading and manifest creation happen before the evaluation
+timer starts.
 
-Dua percobaan sebelumnya gagal sebelum metrik dihitung karena sumber berupa
-list path dikonversi loader menjadi nama sintetis `image0.jpg`. Keduanya
-disimpan sebagai `E00_20260807_001_failed_order` dan
-`E00_20260807_002_failed_synthetic_names` dengan `metrics: null`. Run ketiga
-memakai file-list `.txt` yang mempertahankan identitas filename.
+Two earlier attempts failed before metrics were computed, because the loader
+turned a list of path strings into generated names such as `image0.jpg`. Both
+are kept as `E00_20260807_001_failed_order` and
+`E00_20260807_002_failed_synthetic_names` with `metrics: null`. The third run
+used a `.txt` file list, which preserves the filenames.
 
-### GPU smoke dan bukti resume
+### GPU smoke run and resume proof
 
-`E01S_20260807_001` menjalankan tiga epoch pada seluruh 6.471 image train dan
-548 image validation di Tesla T4, batch 16, image size 640. Run selesai dalam
-599,46 detik. Epoch ketiga mencatat precision 0,38560, recall 0,31271, mAP50
-0,26127, dan mAP50-95 0,15114. Checkpoint `best.pt` dan `last.pt` tersimpan di
-Google Drive.
+`E01S_20260807_001` ran three epochs on all 6,471 train images and 548
+validation images on a Tesla T4, batch 16, image size 640. The run finished in
+599.46 seconds. Epoch 3 recorded precision 0.38560, recall 0.31271, mAP50
+0.26127, and mAP50-95 0.15114. The `best.pt` and `last.pt` checkpoints were
+saved to Google Drive.
 
-`E01R_20260807_001` kemudian benar-benar melanjutkan dari `epoch1.pt` yang
-masih memuat optimizer state. Resume menghasilkan satu row epoch lanjutan dan
-checkpoint baru dalam 199,25 detik. Ini adalah bukti mekanisme recovery, bukan
-run akurasi pembanding.
+`E01R_20260807_001` then genuinely resumed from `epoch1.pt`, which still holds
+the optimizer state. The resume produced one additional epoch row and a new
+checkpoint in 199.25 seconds. This proves the recovery mechanism; it is not an
+accuracy run for comparison.
 
 ### E01 main fine-tuning
 
-`E01_20260807_001` memakai semua data train selama 30 epoch dengan AdamW,
-seed 42, batch 16, image size 640, AMP, dan Tesla T4. Sesi awal terputus setelah
-epoch 11; recovery melanjutkan dari checkpoint epoch index 10 mulai epoch 12.
-Run menyelesaikan 30 epoch tanpa early stopping. Estimasi durasi gabungan kedua
-sesi adalah 5.193,53 detik; angka ini bukan benchmark training kontinu.
+`E01_20260807_001` used all training data for 30 epochs with AdamW, seed 42,
+batch 16, image size 640, AMP, and a Tesla T4. The first session was cut off
+after epoch 11; recovery resumed from the checkpoint at epoch index 10,
+starting at epoch 12. The run completed all 30 epochs without early stopping.
+The estimated combined duration of both sessions is 5,193.53 seconds; this is
+not a continuous-training benchmark.
 
-| Scope full validation | Precision | Recall | mAP50 | mAP50-95 |
+| Full-validation scope | Precision | Recall | mAP50 | mAP50-95 |
 |---|---:|---:|---:|---:|
-| best/final epoch 30 | 0,53166 | 0,38044 | 0,38521 | 0,23458 |
+| best/final epoch 30 | 0.53166 | 0.38044 | 0.38521 | 0.23458 |
 
-Checkpoint terbaik berukuran 5.363.845 byte dengan SHA-256
+The best checkpoint is 5,363,845 bytes with SHA-256
 `d5fcbeab43dc5706ea743d834094495be241836da2b25910c1cd1757f84faea5`.
-Arsip handoff diverifikasi terhadap 37 entri manifest tanpa kegagalan; weight
-disimpan lokal pada path yang diabaikan Git.
+The transfer archive (`handoff_receipt.json`) was verified against 37 manifest
+entries with no failures; the weights are stored locally on a path that Git
+ignores.
 
-### Perbandingan E00 versus E01 yang identik
+### Identical E00 versus E01 comparison
 
-`E01E_20260807_001` menjalankan checkpoint terbaik pada 128 image yang sama
-dengan E00. Selection SHA-256 kedua run adalah
+`E01E_20260807_001` ran the best checkpoint on the same 128 images as E00. The
+selection SHA-256 of both runs is
 `7e1bd549153bea5fa2d6f1e17a4e7f29f57f11157c6c277441a6d00520c265bd`.
-Keduanya memakai CPU/FP32, image size 640, confidence 0,001, NMS IoU 0,7,
-max-det 300, batch 4, rect mode, dan evaluator yang sama.
+Both used CPU/FP32, image size 640, confidence 0.001, NMS IoU 0.7, max-det 300,
+batch 4, rect mode, and the same evaluator.
 
-| Metrik macro | E00 | E01 | Delta absolut |
+| Macro metric | E00 | E01 | Absolute delta |
 |---|---:|---:|---:|
-| Precision | 0,289228 | 0,565079 | +0,275850 |
-| Recall | 0,173370 | 0,388065 | +0,214695 |
-| mAP50 | 0,154190 | 0,401769 | +0,247580 |
-| mAP50-95 | 0,096881 | 0,253452 | +0,156572 |
+| Precision | 0.289228 | 0.565079 | +0.275850 |
+| Recall | 0.173370 | 0.388065 | +0.214695 |
+| mAP50 | 0.154190 | 0.401769 | +0.247580 |
+| mAP50-95 | 0.096881 | 0.253452 | +0.156572 |
 
-E01 juga menaikkan mAP50-95 setiap kelas: pedestrian 0,049120 -> 0,129983,
-car 0,246381 -> 0,462920, van 0 -> 0,214271, truck 0,072219 -> 0,186587,
-dan bus 0,116683 -> 0,273501. Nilai relatif untuk van sengaja tidak dihitung
-karena baseline nol dan checkpoint COCO tidak mendukung kelas van terpisah.
+E01 also raises mAP50-95 for every class: pedestrian 0.049120 -> 0.129983,
+car 0.246381 -> 0.462920, van 0 -> 0.214271, truck 0.072219 -> 0.186587,
+and bus 0.116683 -> 0.273501. A relative gain for van is deliberately not
+computed, because the baseline is zero and the COCO checkpoint has no separate
+van class.
 
-Wall time evaluasi E01 adalah 16,774275 detik (131,049020 ms/image), sedangkan
-E00 adalah 13,223372 detik (103,307593 ms/image). Keduanya hanya satu run CPU
-untuk validasi pipeline dan belum memenuhi protokol benchmark latency/FPS.
+E01 evaluation wall time was 16.774275 seconds (131.049020 ms/image), against
+13.223372 seconds (103.307593 ms/image) for E00. Both are single CPU runs for
+pipeline validation and do not meet the latency/FPS benchmark protocol.
 
 ### E01 error analysis
 
-`E01A_20260807_001` menganalisis subset yang sama pada operating point
-confidence 0,25 dan matching IoU 0,50. Dari 6.090 GT terdapat 2.975 TP, 3.115
-FN, dan 1.243 FP. Recall small object adalah 0,325061, jauh di bawah medium
-0,731993 dan large 0,836735. Recall heavily occluded adalah 0,174004,
-dibandingkan 0,392680 partial dan 0,622742 tanpa occlusion.
+`E01A_20260807_001` analyzed the same subset at an operating point of
+confidence 0.25 and matching IoU 0.50. Of 6,090 ground-truth objects there are
+2,975 TP, 3,115 FN, and 1,243 FP. Small-object recall is 0.325061, far below
+medium (0.731993) and large (0.836735). Recall for heavily occluded objects is
+0.174004, compared with 0.392680 for partial occlusion and 0.622742 for none.
 
-Sebanyak 237 class-confusion ditemukan; 155 di antaranya adalah `van -> car`.
-Enam overlay deterministik sudah diperiksa. Detail metode, tabel kelas, contoh,
-dan keterbatasan tersedia di `docs/E01_ERROR_ANALYSIS.md`. Angka ini adalah
-diagnosis satu operating point, bukan AP atau benchmark deployment.
+There are 237 class confusions, 155 of them `van -> car`. Six deterministic
+overlays were inspected. Method details, per-class tables, examples, and
+limitations are in `docs/E01_ERROR_ANALYSIS.md`. These numbers diagnose one
+operating point; they are not AP or a deployment benchmark.
 
 ## 4. Artifacts
 
@@ -269,35 +272,37 @@ diagnosis satu operating point, bukan AP atau benchmark deployment.
 - `results/day2/dataset_analysis/class_distribution.png`
 - `results/day2/visual_audit/summary.json`
 - `results/day2/E00_20260807_003/metrics.csv`
-- empat kurva E00 di `results/day2/E00_20260807_003/curves/`
-- `results/day2/E01_20260807_001/training/` untuk plot/log visual training
-- `results/day2/E01E_20260807_001/metrics.csv` dan empat kurva evaluasi
+- four E00 curves in `results/day2/E00_20260807_003/curves/`
+- `results/day2/E01_20260807_001/training/` for training plots and logs
+- `results/day2/E01E_20260807_001/metrics.csv` and four evaluation curves
 - `results/day2/E00_vs_E01_20260807_001/summary.json`
 - `results/day2/E00_vs_E01_20260807_001/comparison.csv`
-- empat CSV mentah dan enam overlay di `results/day2/E01A_20260807_001/`
+- four raw CSV files in `results/day2/E01A_20260807_001/`
 - `results/day2/gate_2a_status.json`
 - `notebooks/day2_visdrone_smoke_colab.ipynb`
-- enam overlay di `results/day2/visual_audit/`
 
-Dataset mentah, ZIP, dan hasil konversi tetap diabaikan Git. Manifest, laporan,
-dan sampel visual audit berukuran terbatas dapat disimpan sebagai bukti.
+The raw dataset, ZIP files, and converted output are ignored by Git. The
+visual-audit overlays, error-analysis overlays, and training mosaics are
+generated locally but not published, because they are derived from VisDrone
+imagery; the manifests, reports, and metrics that describe them are tracked.
 
-## 5. Known limitations / blocker
+## 5. Known limitations
 
-- Repository resmi tidak menyertakan lisensi dataset eksplisit; proyek tidak
-  mengklaim hak redistribusi atau penggunaan komersial.
-- Visual audit enam image adalah pemeriksaan sampel, bukan audit manual seluruh
-  7.019 image. Scene padat menyebabkan teks overlay bertumpuk dan beberapa
-  anotasi jauh/teroklusi tetap ambigu.
-- Perbandingan fair memakai subset 128 image; hasilnya tidak menggantikan
-  metrik full validation E01 dan tidak boleh digeneralisasi tanpa evaluasi
-  seluruh split dengan protokol yang sama.
-- Kelas van tidak tersedia pada label COCO checkpoint pretrained dan tidak
-  dipetakan secara heuristik ke car/truck.
-- Timing E00/E01 adalah masing-masing satu validasi pipeline CPU tanpa warm-up
-  dan sampling latency; tidak ada klaim FPS atau real-time.
-- Checkpoint tidak dikomit ke Git. Reproduksi inferensi memerlukan pengambilan
-  weight berdasarkan path dan SHA-256 pada receipt/summary.
-- Runtime Colab private tetap memerlukan otorisasi Google Drive pemilik akun.
-- Error analysis mengukur satu confidence/IoU operating point; pemilihan
-  threshold deployment dan eksperimen mitigasi small-object belum dilakukan.
+- The official repository does not include an explicit dataset license; this
+  project claims no right to redistribute the data or to use it commercially.
+- The six-image visual audit is a sample check, not a manual review of all
+  7,019 images. Dense scenes make overlay text overlap, and some distant or
+  occluded annotations remain ambiguous.
+- The fair comparison uses a 128-image subset; it does not replace the E01
+  full-validation metrics and should not be generalized without evaluating the
+  whole split under the same protocol.
+- The van class does not exist in the COCO labels of the pretrained checkpoint
+  and is not mapped heuristically to car or truck.
+- E00/E01 timings are each a single CPU pipeline-validation run without warm-up
+  or latency sampling; no FPS or real-time claim is made.
+- Checkpoints are not committed to Git. Reproducing inference requires fetching
+  the weights by the path and SHA-256 recorded in the receipt and summary.
+- Running the Colab notebook still requires the account owner to authorize
+  Google Drive access.
+- The error analysis measures one confidence/IoU operating point; deployment
+  threshold selection and small-object mitigation experiments have not been done.

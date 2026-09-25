@@ -1,38 +1,38 @@
-# Laporan End-to-End: Dataset VisDrone sampai ROS 2
+# End-to-end report: from the VisDrone dataset to ROS 2
 
-Tanggal dokumen: 10 Agustus 2026 (Asia/Jakarta)  
-Status scope: **selesai untuk prototipe perangkat lunak ROS 2 dan simulasi 2D**
+Document date: 10 August 2026 (Asia/Jakarta)  
+Scope status: **complete for a ROS 2 software prototype and 2D simulation**
 
-## 1. Ringkasan
+## 1. Summary
 
-Proyek ini membangun alur terukur untuk persepsi objek aerial dan pengambilan keputusan misi multi-UAV: dataset VisDrone diunduh dan dikonversi ke lima kelas YOLO, model nano dievaluasi dan di-fine-tune, hasilnya diekspor serta divalidasi, video aerial diproses oleh tracker, target diberi prioritas dan ditugaskan ke UAV virtual, lalu keputusan dikirim melalui node ROS 2 Jazzy hingga divisualisasikan dalam simulasi 2D.
+This project builds a measured pipeline for aerial object perception and multi-UAV mission decisions. The VisDrone dataset is downloaded and converted to five YOLO classes, a nano model is evaluated and fine-tuned, the result is exported and validated, aerial video is processed by a tracker, targets are prioritized and assigned to virtual UAVs, and the decisions are sent through ROS 2 Jazzy nodes and visualized in a 2D simulation.
 
 ```mermaid
 flowchart LR
-  A[VisDrone2019-DET] --> B[Konversi YOLO 5 kelas]
-  B --> C[E00 baseline dan E01 fine-tuning]
-  C --> D[Export ONNX dan OpenVINO]
-  C --> E[ByteTrack dan BoT-SORT]
-  E --> F[Target schema dan priority]
-  F --> G[Greedy atau Hungarian]
+  A[VisDrone2019-DET] --> B[5-class YOLO conversion]
+  B --> C[E00 baseline and E01 fine-tuning]
+  C --> D[ONNX and OpenVINO export]
+  C --> E[ByteTrack and BoT-SORT]
+  E --> F[Target schema and priority]
+  F --> G[Greedy or Hungarian]
   G --> H[ROS 2 typed messages]
-  H --> I[Mission command dan C++ monitor]
-  I --> J[Simulasi 2D dan demo]
+  H --> I[Mission command and C++ monitor]
+  I --> J[2D simulation and demo]
 ```
 
-Alur tersebut adalah bukti integrasi perangkat lunak. Proyek ini **bukan** sistem UAV fisik, flight controller, bukti keselamatan penerbangan, maupun benchmark deployment produksi.
+This pipeline is evidence of software integration. The project is **not** a physical UAV system, a flight controller, evidence of flight safety, or a production deployment benchmark.
 
-## 2. Lingkungan dan aturan reproduksibilitas
+## 2. Environment and reproducibility rules
 
-Pengembangan dan verifikasi dilakukan pada Windows 11 dengan WSL 2 Ubuntu 24.04, Python 3.12, ROS 2 Jazzy, PyTorch/Ultralytics, OpenCV, SciPy, dan OpenVINO. Setiap milestone menggunakan ID run, konfigurasi YAML, ringkasan JSON/CSV, dan artefak visual. Dataset mentah, checkpoint, serta MP4 besar disengaja tidak dimasukkan ke Git; manifest, hash, laporan, dan frame bukti tetap disimpan.
+Development and verification were done on Windows 11 with WSL 2 Ubuntu 24.04, Python 3.12, ROS 2 Jazzy, PyTorch/Ultralytics, OpenCV, SciPy, and OpenVINO. Every milestone uses a run ID, a YAML configuration, JSON/CSV summaries, and visual artifacts. The raw dataset, checkpoints, and large MP4 files are deliberately kept out of Git; manifests, hashes, reports, and evidence frames are tracked.
 
-Dokumentasi instalasi ROS ada di [ROS_JAZZY_ENVIRONMENT.md](ROS_JAZZY_ENVIRONMENT.md), sedangkan perintah verifikasi bersih ada di [REPRODUCTION.md](REPRODUCTION.md).
+ROS installation notes are in [ROS_JAZZY_ENVIRONMENT.md](ROS_JAZZY_ENVIRONMENT.md), and the clean verification commands are in [REPRODUCTION.md](REPRODUCTION.md).
 
-## 3. Tahap 1 — Mengunduh dataset VisDrone2019-DET
+## 3. Stage 1 — Downloading VisDrone2019-DET
 
-Dataset yang dipakai adalah **VisDrone2019-DET**, task object detection pada gambar. Hanya split resmi train dan val yang digunakan. Sumber resmi, kebijakan akses, dan batas redistribusi dicatat di [VISDRONE_DATA.md](VISDRONE_DATA.md).
+The dataset is **VisDrone2019-DET**, the object-detection-in-images task. Only the official train and val splits are used. The official source, access policy, and redistribution limits are recorded in [VISDRONE_DATA.md](VISDRONE_DATA.md).
 
-Perintah terdokumentasi untuk mengunduh dan memverifikasi sumber:
+Documented commands to download and verify the source:
 
 ```bash
 .venv/bin/python -m pip install -r requirements-day2.txt
@@ -40,18 +40,18 @@ Perintah terdokumentasi untuk mengunduh dan memverifikasi sumber:
 .venv/bin/python scripts/download_visdrone.py --splits train val
 ```
 
-Downloader mencatat SHA-256, ukuran ZIP, jumlah image/anotasi, serta waktu akses ke data/metadata/visdrone2019_det_download_manifest.json. Ekstraksi menolak path ZIP yang keluar dari direktori tujuan.
+The downloader records the SHA-256, ZIP size, image and annotation counts, and access time in data/metadata/visdrone2019_det_download_manifest.json. Extraction rejects ZIP paths that escape the target directory.
 
-| Split | Image | Anotasi | Ukuran ZIP | SHA-256 |
+| Split | Images | Annotations | ZIP size | SHA-256 |
 | --- | ---: | ---: | ---: | --- |
-| train | 6.471 | 6.471 | 1.549.875.511 byte | 86a77e...e256f84 |
-| val | 548 | 548 | 81.638.851 byte | abeea0...2a35ef9 |
+| train | 6,471 | 6,471 | 1,549,875,511 bytes | 86a77e...e256f84 |
+| val | 548 | 548 | 81,638,851 bytes | abeea0...2a35ef9 |
 
-Unduhan awal dari Google Drive pernah terkena kuota publik. Data kemudian tersedia melalui mekanisme resmi/authorized yang sama dan diverifikasi pada manifest sebelum diproses. Dataset tidak didistribusikan ulang oleh repositori; ketentuan pemakaian harus diperiksa kembali untuk penggunaan publik atau komersial.
+The first download from Google Drive hit the public quota. The data later became available through the same official, authorized mechanism and was verified against the manifest before processing. The repository does not redistribute the dataset; the terms of use should be checked again before any public or commercial use.
 
-## 4. Tahap 2 — Konversi, sanitasi, dan audit data
+## 4. Stage 2 — Conversion, sanitization, and data audit
 
-VisDrone dikonversi menjadi format YOLO dengan lima kelas yang dikunci: pedestrian, car, van, truck, dan bus. Mapping lengkap dan aturan field anotasi terdapat di [VISDRONE_DATA.md](VISDRONE_DATA.md).
+VisDrone is converted to YOLO format with five locked classes: pedestrian, car, van, truck, and bus. The full mapping and annotation-field rules are in [VISDRONE_DATA.md](VISDRONE_DATA.md).
 
 ```bash
 .venv/bin/python scripts/prepare_visdrone.py --check-config
@@ -61,82 +61,82 @@ VisDrone dikonversi menjadi format YOLO dengan lima kelas yang dikunci: pedestri
 .venv/bin/python scripts/analyze_visdrone_distribution.py
 ```
 
-Hasilnya berstatus passed_with_sanitization: 6.471 pasangan train dan 548 pasangan val tetap lengkap; konversi menghasilkan 267.960 objek train serta 25.884 objek val. Tiga bbox sumber dengan tinggi nol dikeluarkan dan dicatat, 34 trailing comma kosong dinormalisasi, dan validator output melaporkan nol bbox invalid serta nol overlap nama berkas antar-split. Enam overlay audit deterministik mencakup seluruh lima kelas dan telah diperiksa.
+The result is passed_with_sanitization: all 6,471 train pairs and 548 val pairs remain complete, and conversion produces 267,960 train objects and 25,884 val objects. Three source bboxes with zero height are excluded and recorded, 34 empty trailing commas are normalized, and the output validator reports zero invalid bboxes and zero filename overlaps between splits. Six deterministic audit overlays covering all five classes were inspected.
 
-Bukti primer: [manifest lima kelas](../data/metadata/visdrone5_manifest.json), [ringkasan validasi](../experiments/D01_visdrone_validation/summary.json), dan [laporan Day 2](DAY_2_REPORT.md).
+Primary evidence: [five-class manifest](../data/metadata/visdrone5_manifest.json), [validation summary](../experiments/D01_visdrone_validation/summary.json), and the [Day 2 report](DAY_2_REPORT.md).
 
-## 5. Tahap 3 — Baseline, smoke training, dan fine-tuning
+## 5. Stage 3 — Baseline, smoke training, and fine-tuning
 
-### Baseline E00
+### E00 baseline
 
-Model COCO-pretrained yolo26n.pt dievaluasi pada subset validation terkunci berisi 128 image (6.090 objek) dengan CPU/FP32 dan ukuran 640. Hasil macro baseline E00 adalah precision 0,289228, recall 0,173370, mAP50 0,154190, dan mAP50-95 0,096881. Kelas van bernilai nol pada baseline karena label COCO tidak memiliki kelas van terpisah.
+The COCO-pretrained yolo26n.pt model is evaluated on a locked validation subset of 128 images (6,090 objects) on CPU/FP32 at size 640. The E00 macro baseline is precision 0.289228, recall 0.173370, mAP50 0.154190, and mAP50-95 0.096881. The van class scores zero in the baseline because the COCO labels have no separate van class.
 
-Dua percobaan baseline awal tidak menghasilkan metrik karena identitas nama file berubah menjadi nama sintetis. Keduanya tetap disimpan dengan metrics: null; run yang diterima adalah E00_20260807_003 setelah file-list .txt dipakai untuk mempertahankan nama sumber.
+Two early baseline attempts produced no metrics because the filenames were replaced with generated names. Both are kept with metrics: null; the accepted run is E00_20260807_003, which used a .txt file list to preserve the source names.
 
-### Smoke dan E01
+### Smoke run and E01
 
-Smoke training tiga epoch membuktikan training GPU Tesla T4 dan resume dari checkpoint yang masih memuat state optimizer. Fine-tuning utama E01_20260807_001 menjalankan seluruh data train selama 30 epoch memakai AdamW, seed 42, batch 16, image size 640, dan AMP. Sesi terputus setelah epoch 11 lalu melanjutkan dari checkpoint epoch 10 dan tetap menyelesaikan 30 epoch.
+A three-epoch smoke run demonstrated GPU training on a Tesla T4 and resuming from a checkpoint that still holds the optimizer state. The main fine-tuning run, E01_20260807_001, used all training data for 30 epochs with AdamW, seed 42, batch 16, image size 640, and AMP. The session was cut off after epoch 11, resumed from the epoch 10 checkpoint, and still completed all 30 epochs.
 
-Pada full validation, checkpoint akhir mencatat precision 0,53166, recall 0,38044, mAP50 0,38521, dan mAP50-95 0,23458. Perbandingan yang adil harus menggunakan subset terkunci E00 yang sama:
+On full validation, the final checkpoint records precision 0.53166, recall 0.38044, mAP50 0.38521, and mAP50-95 0.23458. A fair comparison has to use the same locked E00 subset:
 
-| Metrik macro | E00 pretrained | E01 fine-tuned | Delta absolut |
+| Macro metric | E00 pretrained | E01 fine-tuned | Absolute delta |
 | --- | ---: | ---: | ---: |
-| Precision | 0,289228 | 0,565079 | +0,275850 |
-| Recall | 0,173370 | 0,388065 | +0,214695 |
-| mAP50 | 0,154190 | 0,401769 | +0,247580 |
-| mAP50-95 | 0,096881 | 0,253452 | +0,156572 |
+| Precision | 0.289228 | 0.565079 | +0.275850 |
+| Recall | 0.173370 | 0.388065 | +0.214695 |
+| mAP50 | 0.154190 | 0.401769 | +0.247580 |
+| mAP50-95 | 0.096881 | 0.253452 | +0.156572 |
 
-Analisis E01 pada confidence 0,25 dan IoU 0,50 menemukan 2.975 TP, 3.115 FN, dan 1.243 FP dari 6.090 ground-truth. Kelemahan utama yang disimpan adalah small object, heavy occlusion, dan confusion van menjadi car (155 dari 237 confusion). Ini diagnosis pada satu operating point, bukan nilai AP atau benchmark deployment.
+The E01 analysis at confidence 0.25 and IoU 0.50 finds 2,975 TP, 3,115 FN, and 1,243 FP out of 6,090 ground-truth objects. The main recorded weaknesses are small objects, heavy occlusion, and van being confused with car (155 of 237 confusions). This is a diagnosis at one operating point, not an AP value or a deployment benchmark.
 
-Dokumentasi dan bukti: [Day 2 report](DAY_2_REPORT.md), [E01 error analysis](E01_ERROR_ANALYSIS.md), [summary E00](../experiments/E00_20260807_003/summary.json), [summary E01](../experiments/E01_20260807_001/summary.json), dan [perbandingan terkunci](../results/day2/E00_vs_E01_20260807_001/summary.json).
+Documentation and evidence: [Day 2 report](DAY_2_REPORT.md), [E01 error analysis](E01_ERROR_ANALYSIS.md), [E00 summary](../experiments/E00_20260807_003/summary.json), [E01 summary](../experiments/E01_20260807_001/summary.json), and the [locked comparison](../results/day2/E00_vs_E01_20260807_001/summary.json).
 
-## 6. Tahap 4 — Export dan agreement deployment
+## 6. Stage 4 — Export and deployment agreement
 
-Checkpoint E01 diekspor ke ONNX Runtime FP32 dan OpenVINO FP16. Kedua backend divalidasi pada 16 image deterministik dengan input square 640, confidence 0,25, NMS IoU 0,7, dua warm-up, lalu satu pengukuran per image/backend.
+The E01 checkpoint is exported to ONNX Runtime FP32 and OpenVINO FP16. Both backends are validated on 16 deterministic images with square 640 input, confidence 0.25, NMS IoU 0.7, two warm-up passes, and one measurement per image and backend.
 
-| Backend | Agreement terhadap PyTorch | Mean latency CPU lokal | FPS dari mean |
+| Backend | Agreement with PyTorch | Mean local CPU latency | FPS from mean |
 | --- | --- | ---: | ---: |
-| PyTorch FP32 | reference | 79,057 ms | 12,649 |
-| ONNX Runtime FP32 | 498/498 match dua arah; IoU 0,999999 | 69,123 ms | 14,467 |
-| OpenVINO FP16 | 99,598% reference; 100% candidate; IoU 0,999026 | 118,826 ms | 8,416 |
+| PyTorch FP32 | reference | 79.057 ms | 12.649 |
+| ONNX Runtime FP32 | 498/498 matches in both directions; IoU 0.999999 | 69.123 ms | 14.467 |
+| OpenVINO FP16 | 99.598% reference; 100% candidate; IoU 0.999026 | 118.826 ms | 8.416 |
 
-Gate deployment lulus pada B01_20260809_005. Riwayat kegagalan juga dipertahankan: pertama output tensor OpenVINO tanpa nama, kemudian perbedaan preprocessing rect=true; keduanya diperbaiki tanpa mengendurkan ambang agreement. Timing di atas adalah observasi satu run CPU WSL lokal, bukan benchmark produksi atau klaim real-time.
+The deployment gate passed with B01_20260809_005. The failure history is kept as well: first, OpenVINO output tensors without names, then a preprocessing difference from rect=true. Both were fixed without loosening the agreement thresholds. The timings above come from a single run on a local WSL CPU; they are not a production benchmark or a real-time claim.
 
-Rujukan: [Day 3 report](DAY_3_REPORT.md), [summary B01](../experiments/B01_20260809_005/summary.json), [agreement CSV](../results/day3/B01_20260809_005/agreement.csv), dan [benchmark CSV](../results/day3/B01_20260809_005/benchmark.csv).
+References: [Day 3 report](DAY_3_REPORT.md), [B01 summary](../experiments/B01_20260809_005/summary.json), [agreement CSV](../results/day3/B01_20260809_005/agreement.csv), and [benchmark CSV](../results/day3/B01_20260809_005/benchmark.csv).
 
-## 7. Tahap 5 — Video aerial dan tracking
+## 7. Stage 5 — Aerial video and tracking
 
-Untuk uji tracker dipakai stock video aerial Pexels asset 3978617: 1.920 x 1.080, 24 FPS, 270 frame, 11,25 detik. Ini POV drone/aerial, bukan POV manusia dan tidak mempunyai ground truth identitas.
+The tracker test uses Pexels stock aerial video, asset 3978617: 1920×1080, 24 FPS, 270 frames, 11.25 seconds. It is a drone/aerial point of view, not a ground-level one, and it has no identity ground truth.
 
-ByteTrack dan BoT-SORT menggunakan checkpoint E01, video, threshold, frame range, serta batas timing yang sama. ByteTrack dipilih sebagai default karena lebih cepat dan memiliki total gap frame lebih kecil pada protokol tersebut.
+ByteTrack and BoT-SORT use the same E01 checkpoint, video, thresholds, frame range, and timing boundary. ByteTrack was chosen as the default because it is faster and has fewer total gap frames under this protocol.
 
-| Tracker | Mean wall latency | FPS | Track unik | Total gap frame |
+| Tracker | Mean wall latency | FPS | Unique tracks | Total gap frames |
 | --- | ---: | ---: | ---: | ---: |
-| ByteTrack | 77,208 ms | 12,952 | 95 | 663 |
-| BoT-SORT | 111,093 ms | 9,001 | 88 | 839 |
+| ByteTrack | 77.208 ms | 12.952 | 95 | 663 |
+| BoT-SORT | 111.093 ms | 9.001 | 88 | 839 |
 
-Preview beranotasi, key frame, trajectory CSV, dan timing per frame tersedia di results/day3/T01_20260809_002/. Metrik MOTA, IDF1, HOTA, serta jumlah ID-switch tidak diklaim karena video sumber tidak memiliki ground truth tracking yang sesuai.
+Annotated previews, key frames, trajectory CSVs, and per-frame timing are in results/day3/T01_20260809_002/. MOTA, IDF1, HOTA, and ID-switch counts are not claimed, because the source video has no matching tracking ground truth.
 
-Dokumentasi: [TRACKING_REPORT.md](TRACKING_REPORT.md) dan [summary tracking](../experiments/T01_20260809_002/summary.json).
+Documentation: [TRACKING_REPORT.md](TRACKING_REPORT.md) and the [tracking summary](../experiments/T01_20260809_002/summary.json).
 
-## 8. Tahap 6 — Priority, assignment, dan state misi
+## 8. Stage 6 — Priority, assignment, and mission state
 
-Prioritas target merupakan kebijakan YAML dengan komponen kelas, zona, kecepatan, perubahan heading, reacquisition, dan confidence. Nilainya dibatasi pada rentang 0 sampai 1; ia bukan skor risiko universal.
+Target priority is a YAML policy with class, zone, speed, heading-change, reacquisition, and confidence components. The value is bounded to the range 0 to 1; it is not a universal risk score.
 
-Dua algoritma memakai input dan constraint yang sama: Greedy serta Hungarian (linear_sum_assignment). Keduanya menolak target lost, UAV unavailable, pasangan terlarang, serta target yang tidak mencapai confidence/priority minimum. Pada skenario overload yang diulang 100 kali, target kritis tetap teralokasi pada kedua metode.
+Two algorithms use the same input and constraints: greedy and Hungarian (linear_sum_assignment). Both reject lost targets, unavailable UAVs, forbidden pairs, and targets below the minimum confidence or priority. In the overload scenario repeated 100 times, critical targets stay assigned under both methods.
 
-| Algoritma | Total cost | Mean compute in-process |
+| Algorithm | Total cost | Mean in-process compute |
 | --- | ---: | ---: |
-| Greedy | 0,704795 | 0,011142 ms |
-| Hungarian | 0,511247 | 0,013507 ms |
+| Greedy | 0.704795 | 0.011142 ms |
+| Hungarian | 0.511247 | 0.013507 ms |
 
-Hungarian dipilih untuk konfigurasi ROS dan simulasi karena cost total lebih rendah pada skenario tersebut. Angka ini bukan latency jaringan/ROS atau performa flight control.
+Hungarian was chosen for the ROS configuration and the simulation because its total cost is lower in this scenario. These numbers are not network/ROS latency or flight-control performance.
 
-Rujukan: [ASSIGNMENT_REPORT.md](ASSIGNMENT_REPORT.md), [state machine](MISSION_STATE_MACHINE.md), dan [summary 100 repetisi](../results/day5/A01_20260809_002/summary.json).
+References: [ASSIGNMENT_REPORT.md](ASSIGNMENT_REPORT.md), [state machine](MISSION_STATE_MACHINE.md), and the [100-repetition summary](../results/day5/A01_20260809_002/summary.json).
 
-## 9. Tahap 7 — Integrasi ROS 2 Jazzy
+## 9. Stage 7 — ROS 2 Jazzy integration
 
-Graph ROS memakai message bertipe stabil dan transport lokal. Node sumber synthetic menerbitkan TargetArray; assignment_relay menjalankan priority + Hungarian; mission_relay menerbitkan MissionCommand dan MissionStatus; node C++ mission_monitor menerima status tersebut.
+The ROS graph uses stable typed messages and local transport. A synthetic source node publishes TargetArray; assignment_relay runs priority plus Hungarian assignment; mission_relay publishes MissionCommand and MissionStatus; and the C++ mission_monitor node receives the status.
 
 ```text
 /perception/targets (TargetArray)
@@ -146,7 +146,7 @@ Graph ROS memakai message bertipe stabil dan transport lokal. Node sumber synthe
   -> C++ mission_monitor
 ```
 
-Perintah build dan smoke yang terdokumentasi:
+Documented build and smoke commands:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
@@ -157,30 +157,30 @@ cd ..
 bash scripts/run_ros_gate7_smoke.sh G02_<new-id>
 ```
 
-Run final G02_20260809_003 lulus dari source tree bersih. Ia membuktikan TargetArray bertipe, shared Hungarian assignment, MissionCommand, MissionStatus, dan penerimaan oleh C++ monitor. Input source sengaja synthetic dalam satuan synthetic_image_px, sehingga hasil ini membuktikan integrasi typed software, bukan transport radio, latency jaringan, atau kontrol fisik UAV.
+The final run, G02_20260809_003, passed from a clean source tree. It demonstrates typed TargetArray messages, the shared Hungarian assignment, MissionCommand, MissionStatus, and reception by the C++ monitor. The source input is deliberately synthetic, in synthetic_image_px units, so the result shows typed software integration, not radio transport, network latency, or physical UAV control.
 
-Dokumentasi: [ROS_GRAPH.md](ROS_GRAPH.md), [Day 4 report](DAY_4_REPORT.md), dan [summary G02](../results/day4/G02_20260809_003/summary.json).
+Documentation: [ROS_GRAPH.md](ROS_GRAPH.md), [Day 4 report](DAY_4_REPORT.md), and the [G02 summary](../results/day4/G02_20260809_003/summary.json).
 
-## 10. Tahap 8 — Simulasi 2D, replay ROS, dan demo
+## 10. Stage 8 — 2D simulation, ROS replay, and demo
 
-Simulator menjalankan tiga UAV virtual pada enam skenario deterministik, masing-masing 20 langkah dengan seed 17:
+The simulator runs three virtual UAVs through six deterministic scenarios, each 20 steps with seed 17:
 
-1. target lebih sedikit daripada UAV;
-2. jumlah target sama dengan UAV;
-3. overload (empat target, tiga UAV);
-4. target kritis muncul pada langkah tertentu;
-5. satu UAV menjadi unavailable;
-6. target hilang lalu terdeteksi kembali.
+1. fewer targets than UAVs;
+2. as many targets as UAVs;
+3. overload (four targets, three UAVs);
+4. a critical target appearing at a given step;
+5. one UAV becoming unavailable;
+6. a target lost and then re-detected.
 
-Skenario overload, critical-arrival, dan UAV-unavailable dengan sengaja dapat berakhir dengan target yang tidak tertugaskan karena kapasitas/availability. Hal ini ditampilkan sebagai evidence, bukan disembunyikan. Semua posisi adalah abstract units atau synthetic image-space pixels, bukan koordinat fisik.
+The overload, critical-arrival, and UAV-unavailable scenarios can deliberately end with unassigned targets because of capacity or availability. This is shown as evidence rather than hidden. All positions are abstract units or synthetic image-space pixels, not physical coordinates.
 
-Final demo berdurasi 132 detik: enam skenario diikuti replay MissionCommand ROS yang ditangkap. File MP4 lokal berada pada results/day6/DEMO01_20260809_002/final_demo.mp4; bukti versioned yang lebih ringan adalah [summary demo](../results/day6/DEMO01_20260809_002/summary.json), [summary simulasi](../results/day6/SIM01_20260809_001/summary.json), dan [frame replay ROS](../results/day6/ROS01_20260809_005/mission_command_replay_final.png).
+The final demo runs 132 seconds: the six scenarios followed by a replay of captured ROS MissionCommand messages. The MP4 file is kept locally at results/day6/DEMO01_20260809_002/final_demo.mp4; the lighter versioned evidence is the [demo summary](../results/day6/DEMO01_20260809_002/summary.json), the [simulation summary](../results/day6/SIM01_20260809_001/summary.json), and the [ROS replay frame](../results/day6/ROS01_20260809_005/mission_command_replay_final.png).
 
-Dokumentasi lengkap: [SIMULATION_REPORT.md](SIMULATION_REPORT.md).
+Full documentation: [SIMULATION_REPORT.md](SIMULATION_REPORT.md).
 
-## 11. Cara memverifikasi ulang
+## 11. How to re-verify
 
-Untuk verifikasi fungsional current workspace:
+To verify the current workspace:
 
 ```bash
 YOLO_CONFIG_DIR=/tmp .venv/bin/python -m pytest -q
@@ -192,26 +192,26 @@ colcon test --merge-install --packages-select multi_uav_bringup
 colcon test-result --verbose
 ```
 
-Checkpoint tercatat: 82 test proyek lulus, satu test adapter ROS lulus, serta 12 test paket ROS tanpa error/failure (satu test skipped). Clean-checkout R01_20260809_005 juga lulus: source diekspor dengan git archive, workspace ROS dibangun ulang, dan command/status bertipe serta receipt C++ monitor tertangkap. Prosedur lengkap ada di [REPRODUCTION.md](REPRODUCTION.md).
+Recorded checkpoint: 82 project tests pass, one ROS adapter test passes, and 12 ROS package tests run without errors or failures (one skipped). The clean-checkout run R01_20260809_005 also passed: the source was exported with git archive, the ROS workspace was rebuilt, and the typed command/status messages and the C++ monitor receipt were captured. The full procedure is in [REPRODUCTION.md](REPRODUCTION.md).
 
-## 12. Indeks dokumentasi dan artefak
+## 12. Documentation and artifact index
 
-| Kebutuhan pembaca | Dokumen / artefak utama |
+| What the reader needs | Main document or artifact |
 | --- | --- |
-| Sumber, unduh, kelas, dan lisensi VisDrone | [VISDRONE_DATA.md](VISDRONE_DATA.md), [LICENSES.md](LICENSES.md), manifest metadata |
-| Konversi, baseline, training, dan error analysis | [DAY_2_REPORT.md](DAY_2_REPORT.md), [E01_ERROR_ANALYSIS.md](E01_ERROR_ANALYSIS.md) |
-| Export model dan agreement | [DAY_3_REPORT.md](DAY_3_REPORT.md), results/day3/B01_20260809_005/ |
-| Video aerial dan tracker | [TRACKING_REPORT.md](TRACKING_REPORT.md), results/day3/T01_20260809_002/ |
-| Kebijakan assignment dan state | [ASSIGNMENT_REPORT.md](ASSIGNMENT_REPORT.md), [MISSION_STATE_MACHINE.md](MISSION_STATE_MACHINE.md) |
-| Build, topic, message, dan C++ monitor ROS | [ROS_GRAPH.md](ROS_GRAPH.md), [ROS_JAZZY_ENVIRONMENT.md](ROS_JAZZY_ENVIRONMENT.md) |
-| Simulasi, replay, dan demo | [SIMULATION_REPORT.md](SIMULATION_REPORT.md), results/day6/ |
-| Verifikasi dan handoff | [REPRODUCTION.md](REPRODUCTION.md), [FINAL_REPORT.md](FINAL_REPORT.md), [DEFINITION_OF_DONE.md](DEFINITION_OF_DONE.md) |
+| VisDrone source, download, classes, and license | [VISDRONE_DATA.md](VISDRONE_DATA.md), [LICENSES.md](LICENSES.md), metadata manifests |
+| Conversion, baseline, training, and error analysis | [DAY_2_REPORT.md](DAY_2_REPORT.md), [E01_ERROR_ANALYSIS.md](E01_ERROR_ANALYSIS.md) |
+| Model export and agreement | [DAY_3_REPORT.md](DAY_3_REPORT.md), results/day3/B01_20260809_005/ |
+| Aerial video and trackers | [TRACKING_REPORT.md](TRACKING_REPORT.md), results/day3/T01_20260809_002/ |
+| Assignment and state policy | [ASSIGNMENT_REPORT.md](ASSIGNMENT_REPORT.md), [MISSION_STATE_MACHINE.md](MISSION_STATE_MACHINE.md) |
+| ROS build, topics, messages, and C++ monitor | [ROS_GRAPH.md](ROS_GRAPH.md), [ROS_JAZZY_ENVIRONMENT.md](ROS_JAZZY_ENVIRONMENT.md) |
+| Simulation, replay, and demo | [SIMULATION_REPORT.md](SIMULATION_REPORT.md), results/day6/ |
+| Verification | [REPRODUCTION.md](REPRODUCTION.md), [FINAL_REPORT.md](FINAL_REPORT.md) |
 
-## 13. Batasan akhir
+## 13. Final limitations
 
-- Evaluasi detector E00/E01 dan deployment terikat pada subset, protokol, dan hardware yang tercatat; angka tidak boleh dipindahkan menjadi klaim benchmark umum.
-- Video tracking merupakan stock footage aerial tanpa ground truth identitas.
-- ROS memakai target synthetic dan transport lokal; belum ada koneksi live dari detector ke pesawat, radio, atau UAV fisik.
-- Simulasi tidak mencakup kalibrasi dunia nyata, perencanaan lintasan, collision avoidance, dinamika 3D, PX4, Gazebo/AirSim, atau kontrol kendaraan.
+- The E00/E01 detector evaluation and the deployment results are tied to the recorded subset, protocol, and hardware; the numbers should not be turned into general benchmark claims.
+- The tracking video is aerial stock footage without identity ground truth.
+- ROS uses synthetic targets and local transport; there is no live connection from the detector to an aircraft, a radio, or a physical UAV.
+- The simulation does not cover real-world calibration, path planning, collision avoidance, 3D dynamics, PX4, Gazebo/AirSim, or vehicle control.
 
-Status dan bukti final diringkas di [FINAL_REPORT.md](FINAL_REPORT.md).
+The final status and evidence are summarized in [FINAL_REPORT.md](FINAL_REPORT.md).

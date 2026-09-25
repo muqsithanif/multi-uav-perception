@@ -1,58 +1,60 @@
-# Menjalankan smoke training Day 2 di Google Colab
+# Running the Day 2 smoke training on Google Colab
 
-Status pembaruan 7 Agustus 2026: **Gate 2A sudah lulus** melalui run Colab
-`E01S_20260807_001` dan bukti resume terpisah `E01R_20260807_001`. Run yang
-diterima memakai dataset penuh, bukan subset runner historis yang dijelaskan di
-bawah. Bukti aktual berada di `experiments/E01_20260807_001/smoke_summary.json`,
-`resume_summary.json`, dan `handoff_receipt.json`; dokumen ini sendiri tetap
-bukan bukti training.
+Status as of 7 August 2026: **Gate 2A passed** through Colab run
+`E01S_20260807_001` and the separate resume proof `E01R_20260807_001`. The
+accepted run used the full dataset, not the historical subset runner described
+below. The actual evidence is in `experiments/E01_20260807_001/smoke_summary.json`,
+`resume_summary.json`, and `handoff_receipt.json`; this document itself is not
+training evidence.
 
-## Workflow subset yang disiapkan di repository
+## Subset workflow prepared in the repository
 
-## Prasyarat
+## Prerequisites
 
-1. Simpan dua ZIP resmi yang sudah diverifikasi ke Google Drive:
+1. Store the two verified official ZIP files in Google Drive:
 
    ```text
    MyDrive/multi-uav-perception/data/raw/visdrone2019_det/VisDrone2019-DET-train.zip
    MyDrive/multi-uav-perception/data/raw/visdrone2019_det/VisDrone2019-DET-val.zip
    ```
 
-2. Di Colab, buka **Secrets** dan tambahkan `GITHUB_TOKEN` dengan akses read/write
-   ke repository private. Aktifkan akses secret untuk notebook. Jangan tempel
-   token ke cell atau output.
-3. Buka [notebook smoke training Day 2](https://colab.research.google.com/github/muqsithanif/multi-uav-perception/blob/main/notebooks/day2_visdrone_smoke_colab.ipynb).
-4. Pilih runtime GPU, lalu jalankan **Run all**. Google tetap meminta otorisasi
-   mount Drive; langkah keamanan akun ini harus disetujui pemilik akun.
+2. In Colab, open **Secrets** and add a `GITHUB_TOKEN` with read/write access to
+   the repository (it was private when this run was made, and the notebook
+   pushes result artifacts to a branch). Enable secret access for the notebook.
+   Never paste the token into a cell or an output.
+3. Open the [Day 2 smoke training notebook](https://colab.research.google.com/github/muqsithanif/multi-uav-perception/blob/main/notebooks/day2_visdrone_smoke_colab.ipynb).
+4. Select a GPU runtime and use **Run all**. Google still asks for permission to
+   mount Drive; that account-security step has to be approved by the account
+   owner.
 
-## Pemeriksaan yang dilakukan notebook
+## Checks performed by the notebook
 
-- menolak runtime tanpa CUDA;
-- mengkloning repository private tanpa mencetak token;
-- memeriksa SHA-256 ZIP train dan val;
-- mengekstrak dan memvalidasi pasangan image/anotasi;
-- menjalankan suite Day 2;
-- membuat subset deterministik 256 train dan 64 val;
-- menjalankan epoch 1-2, menyalin checkpoint mentah sebelum optimizer dihapus;
-- memeriksa epoch, optimizer, dan target epoch di checkpoint;
-- memuat checkpoint tersebut dengan `resume=True` dan mengamati epoch mulai;
-- menyelesaikan epoch 3 dan mensyaratkan tiga baris `results.csv`;
-- menyimpan checkpoint/log ke Google Drive;
-- menyimpan artefak ringkas ke `experiments/` dan `results/`;
-- mendorong artefak ke branch `colab/day2-S01_20260807_colab_smoke`.
+- rejects runtimes without CUDA;
+- clones the repository without printing the token;
+- verifies the SHA-256 of the train and val ZIP files;
+- extracts and validates image/annotation pairs;
+- runs the Day 2 test suite;
+- builds a deterministic subset of 256 train and 64 val images;
+- runs epochs 1–2 and copies the raw checkpoint before the optimizer state is stripped;
+- checks the epoch, optimizer, and target epoch stored in the checkpoint;
+- loads that checkpoint with `resume=True` and records the epoch it starts from;
+- finishes epoch 3 and requires three rows in `results.csv`;
+- saves checkpoints and logs to Google Drive;
+- saves compact artifacts to `experiments/` and `results/`;
+- pushes the artifacts to the branch `colab/day2-S01_20260807_colab_smoke`.
 
-Runner menolak full fine-tuning. Metrik tiga epoch diberi scope
-`subset_smoke_only` dan tidak boleh dibandingkan langsung dengan E00 karena
-validation subset-nya berbeda.
+The runner refuses full fine-tuning. The three-epoch metrics are scoped as
+`subset_smoke_only` and must not be compared directly with E00, because the
+validation subsets differ.
 
-## Kondisi lulus
+## Pass conditions
 
-Gate 2A hanya dapat dinyatakan lulus setelah artefak aktual menunjukkan:
+Gate 2A can only be marked as passed once the actual artifacts show:
 
 - `status: passed`;
 - `resume_proof.status: passed`;
-- checkpoint epoch 2 memiliki optimizer dan benar-benar dipakai untuk memulai
-  epoch 3;
-- `results.csv` memiliki tiga epoch;
-- `last.pt`, `best.pt`, dan checkpoint resume tersimpan di Google Drive dengan
-  ukuran serta SHA-256 aktual.
+- the epoch 2 checkpoint contains the optimizer state and was actually used to
+  start epoch 3;
+- `results.csv` contains three epochs;
+- `last.pt`, `best.pt`, and the resume checkpoint are stored in Google Drive with
+  their actual sizes and SHA-256 digests.
