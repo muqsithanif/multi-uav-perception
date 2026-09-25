@@ -126,7 +126,7 @@ This repository does not redistribute the VisDrone dataset. It tracks only metad
 
 [LICENSES.md](docs/LICENSES.md) inventories the third-party assets and tool licences involved, including the aerial demonstration image, the tracking test clip, and the AGPL-licensed training library.
 
-The code in this repository is MIT-licensed. Training and inference use Ultralytics YOLO, which is AGPL-3.0, so a distributed work that combines the two also has to meet the AGPL-3.0 terms.
+The repository is licensed under AGPL-3.0, the same licence as Ultralytics YOLO, which the training and inference scripts use. The ROS 2 packages in `ros2_ws/` do not depend on Ultralytics and keep the Apache-2.0 licence declared in their `package.xml` files.
 
 ---
 
